@@ -1,0 +1,37 @@
+html {
+ background-image: url('assets/background-boumiz.png');
+ background-size: cover;
+ background-position: center;
+}
+.form {
+ position:absolute;
+ width:92%;
+ min-height:10%;
+ max-height:92%;
+ top:50%;
+ left:50%;
+ transform:translate(-50%,-50%);
+ padding:4%;
+ border-radius:1em;
+ text-align:center;
+ background-color:rgba(200,200,200,.9)
+}
+.form>* {
+ width:100%;
+ font-size:1.5em;
+ resize:none;
+ padding:1px;
+ border-width:1px
+}
+.form>[type=submit] {
+ width:50vh;
+ max-width:50vw
+}
+.form h1 {
+ font-size:2em
+}
+@media screen and (orientation:landscape) {
+ .form {
+  width:60%
+ }
+}

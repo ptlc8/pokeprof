@@ -5,6 +5,7 @@
 		<meta charset="UTF-8" />
 		<title>Connexion | <?=$_SERVER['HTTP_HOST']?></title>
 		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="connect.css" />
 	    <meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 	<body>
