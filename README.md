@@ -13,7 +13,7 @@ Pour cela il faut faudra PHP et mysql.
 ```php
 <?php
 define('POKEPROF_DB_HOSTNAME', 'hostname');
-define('POKEPROF_DB_USER, 'user');
+define('POKEPROF_DB_USER', 'user');
 define('POKEPROF_DB_PASSWORD', 'password123');
 define('POKEPROF_DB_NAME', 'pokeprof');
 ?>
