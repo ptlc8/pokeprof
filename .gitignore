@@ -3,3 +3,4 @@ assets/boosters/*
 assets/cards/*
 !assets/cards/undefined.png
 cached/*
+!.gitkeep
