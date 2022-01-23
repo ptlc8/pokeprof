@@ -49,13 +49,13 @@
 	background-repeat: no-repeat;
 }
 .card-container.new::before {
-	background-image: url(assets/new.webp);
+	background-image: url('assets/new.webp');
 }
 .card-container.buff::before {
-	background-image: url(assets/buff.webp);
+	background-image: url('assets/buff.webp');
 }
 .card-container.nerf::before {
-	background-image: url(assets/nerf.webp);
+	background-image: url('assets/nerf.webp');
 }
 
 /* joli fond qui tourne */

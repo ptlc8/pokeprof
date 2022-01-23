@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="style.css" />
 		<link rel="stylesheet" href="manage.css" />
 		<script src="cards.js"></script>
-		<link rel="icon" type="image/png" href="assets/back.png" />
+		<link rel="icon" type="image/png" href="assets/icon.png" />
 	</head>
 	<body>
 		<?php
@@ -255,7 +255,7 @@
 			    if (editing.boosterId!=original.boosterId) pushBody += "&booster="+editing.boosterId;
 			    if (editing.prestigeable!=original.prestigeable) pushBody += "&prestigeable="+editing.prestigeable;
 			    if (editing.origin!=original.origin) pushBody += "&origin="+encodeURIComponent(editing.origin);
-			    sendRequest("post", "editcard", pushBody).then(function(r) {
+			    sendRequest("post", "editcard.php", pushBody).then(function(r) {
 			        if (r=="success") {
 			            alert("La carte a bien été enregistrée avec succès");
 			            allfullinfoscards[editing.id] = JSON.parse(JSON.stringify(editing));

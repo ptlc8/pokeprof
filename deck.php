@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="style.css?2" />
 		<link rel="stylesheet" href="deck.css?<?=time()?>" />
 		<script src="cards.js?8410"></script>
-		<link rel="icon" type="image/png" href="assets/back.png" />
+		<link rel="icon" type="image/png" href="assets/icon.png" />
 	</head>
 	<body>
 		<?php
@@ -152,7 +152,7 @@
 		    	});
 		    }
 		    function chooseDeck(n) {
-		        sendRequest("POST", "choosedeck", "deck="+n);
+		        sendRequest("POST", "choosedeck.php", "deck="+n);
 		        choosenDeck = n;
 		        showDeck(n);
 		    }

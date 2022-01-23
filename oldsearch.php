@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<title>Recherche d'adversaire | PokéProf</title>
 		<link rel="stylesheet" href="style.css" />
-		<link rel="icon" type="image/png" href="assets/back.png" />
+		<link rel="icon" type="image/png" href="assets/icon.png" />
 		<style>/* style manquant de l'ancien css */
 		#deck, #play-button, #free-card {
         	position: absolute;

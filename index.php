@@ -60,7 +60,7 @@
 		
 		?>
 		<span id="title" class="title">PokéProf !</span>
-		<a href="deck<?= isset($_REQUEST['tuto'])?'?tuto':'' ?>" id="deck">
+		<a href="deck.php<?= isset($_REQUEST['tuto'])?'?tuto':'' ?>" id="deck">
 			<div class="full-width"><span class="subtitle">Ton jeu de cartes</span></div>
 			<?php
 			// affichage du deck du joueur
@@ -91,8 +91,8 @@
 		</div>
 		<a href="#history" id="history-button" class="button">Historique</a>
 		<a href="#rules" id="rules-button" class="button">Les règles</a>
-		<a href="create" id="create-card-button" class="button">Créer une carte</a>
-		<a href="gallery" id="gallery-button" class="button">Explorer la galerie</a>
+		<a href="create.php" id="create-card-button" class="button">Créer une carte</a>
+		<a href="gallery.php" id="gallery-button" class="button">Explorer la galerie</a>
 		<a href="#shop" id="shop-button" class="button">Boutique</a>
 		<a href="#search" id="play-button">Jouer</a>
 		<div id="free-card">
@@ -634,7 +634,7 @@
 				await displayTuto("D'ailleurs regardez, une carte gratuite est disponible toutes les 12 heures, prenez-la", {show:[document.getElementById("free-card")]});
 				await displayTuto("Très bien maintenant que vous avez créé votre deck, c'est l'heure d'aller au combat", {button:"Go !"});
 				await displayTuto("Vous n'avez qu'à cliquer sur \"Jouer\"", {show:[document.getElementById("play-button")]});
-				window.location.href = "play?tuto";
+				window.location.href = "play.php?tuto";
 			}
 			<?= isset($_REQUEST['tuto']) ? "tuto();" : (isset($_REQUEST['tuto2']) ? "tuto2();" : "") ?>
 		</script>

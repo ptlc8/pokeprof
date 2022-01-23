@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="style.css" />
 		<link rel="stylesheet" href="create.css" />
 		<script src="cards.js?8"></script>
-		<link rel="icon" type="image/png" href="assets/back.png" />
+		<link rel="icon" type="image/png" href="assets/icon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>

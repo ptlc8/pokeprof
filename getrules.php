@@ -82,5 +82,5 @@
         Les cartes que vous avez en mains constituent… Votre <b>main</b>.<br/>
         <i>Et actuellement… Il n’y a aucune limite de nombre de cartes que vous pouvez avoir dans votre main.</i>
     </div>
-    <a class="button" href="play?tuto">Relancer le tutoriel</a>
+    <a class="button" href="play.php?tuto">Relancer le tutoriel</a>
 </div>

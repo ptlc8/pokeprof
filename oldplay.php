@@ -6,7 +6,7 @@
 		<title>Jouer | PokéProf</title>
 		<link rel="stylesheet" href="oldstyle.css" />
 		<script src="cards.js"></script>
-		<link rel="icon" type="image/png" href="assets/back.png" />
+		<link rel="icon" type="image/png" href="assets/icon.png" />
 	</head>
 	<body>
 		<?php

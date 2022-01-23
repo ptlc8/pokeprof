@@ -57,7 +57,7 @@ CREATE TABLE `CARDSUSERS` (
   `lastFreeCard` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'dernière carte gratuite',
   `money` int(11) NOT NULL DEFAULT 10 COMMENT 'argent du joueur',
   `rewardLevel` int(11) NOT NULL DEFAULT 70 COMMENT 'niveau de récompenses',
-  `infos` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `infos` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT (''),
   `tags` text COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ('[]') COMMENT 'Tags de profil en json',
   `lastConnection` datetime DEFAULT NULL COMMENT 'date de la dernière connexion du joueur'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

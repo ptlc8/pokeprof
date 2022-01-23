@@ -1,4 +1,4 @@
-<link rel="icon" type="image/png" href="assets/back.png" />
+<link rel="icon" type="image/png" href="assets/icon.png" />
 <body style="position:relative;background-color:rebeccapurple;text-align:left;">
     <script src="cards.js?<?php echo time() ?>"></script>
     <link rel="stylesheet" href="style.css?<?php echo time() ?>" />

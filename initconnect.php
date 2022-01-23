@@ -4,13 +4,13 @@ session_start();
 
 // connexion à un compte
 if (!isset($_SESSION['username'], $_SESSION['password']) || ($userRequest = sendRequest("SELECT id, name FROM USERS WHERE `name` = '", $_SESSION['username'], "' and `password` = '", $_SESSION['password'], "'"))->num_rows === 0) {
-	header('Location: /connect?go='.urlencode($_SERVER[REQUEST_URI]));
+	header('Location: connect?go='.urlencode($_SERVER[REQUEST_URI]));
 	exit();
 } else {
 	$user = $userRequest->fetch_assoc();
 	sendRequest("UPDATE CARDSUSERS SET lastConnection = NOW() WHERE id = '", $user['id'], "'");
 	echo('<span id="logged">Vous êtes connecté en tant que '.htmlspecialchars($user['name']).'</span>');
-	echo('<a href="/disconnect.php?back" id="log-out">Se déconnecter</a>');
+	echo('<a href="disconnect.php?back" id="log-out">Se déconnecter</a>');
 }
 
 //

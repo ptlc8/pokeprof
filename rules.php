@@ -7,12 +7,12 @@
 		<link rel="stylesheet" href="style.css" />
 		<link rel="stylesheet" href="rules.css" />
 		<script src="cards.js"></script>
-		<link rel="icon" type="image/png" href="assets/back.png" />
+		<link rel="icon" type="image/png" href="assets/icon.png" />
 	</head>
 	<body>
 		<div id="blur-bg">
     		<?php
-    		include('../init.php');
+    		include('init.php');
     		
 			$user = login(true, false);
     		

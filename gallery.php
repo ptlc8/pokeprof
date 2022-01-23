@@ -15,7 +15,7 @@
 				}
 			}
 		</script>
-		<link rel="icon" type="image/png" href="assets/back.png" />
+		<link rel="icon" type="image/png" href="assets/icon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body class="no-x-scroll">
@@ -25,7 +25,7 @@
 		include('init.php');
 		$user = login(true, false);
 		?>
-		<a href="index.php"><div style="position:absolute; top:2em; left:1em">
+		<a href="."><div style="position:absolute; top:2em; left:1em">
 			<span class="button">Retourner au menu principal</span>
 		</div></a> <!--Modif de Léo-->
 		<div id="cards">

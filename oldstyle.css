@@ -81,13 +81,13 @@ html, body {
 	background-repeat: no-repeat;
 }
 .card.new::before {
-	background-image: url(assets/new.webp);
+	background-image: url('assets/new.webp');
 }
 .card.buff::before {
-	background-image: url(assets/buff.webp);
+	background-image: url('assets/buff.webp');
 }
 .card.nerf::before {
-	background-image: url(assets/nerf.webp);
+	background-image: url('assets/nerf.webp');
 }
 @media screen and (orientation:landscape) {
 	.card {

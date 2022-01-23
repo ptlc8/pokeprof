@@ -17,7 +17,7 @@ if (isset($_REQUEST['error'])) {
 		<link rel="stylesheet" href="play.css" />
 		<script src="/utils.js?2"></script>
 		<script src="cards.js?<?=time()?>"></script>
-		<link rel="icon" type="image/png" href="assets/back.png" />
+		<link rel="icon" type="image/png" href="assets/icon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 	<body>
