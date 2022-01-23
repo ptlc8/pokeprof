@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="144"
+   height="144"
+   viewBox="0 0 144 144"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <path
+     style="fill:#f0d000;fill-opacity:1;stroke:#ffffff;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 78.666,112 C 78.666,84 54,72 54,72 L 42,92 54,72 H 72 C 84,72 84,62 84,62 84,52 72,52 72,52 H 48 C 36,52 25.333,72 25.333,72 12,92 25.333,112 25.333,112 36,132 60,132 60,132 h 48 c 24,0 24,-60 24,-60 V 52 C 132,25.333 118.666,25.333 118.666,25.333 105.333,25.333 105.333,35.333 105.333,35.333 V 52 35.333 C 105.333,15.333 92,15.333 92,15.333 78.666,15.333 78.666,32 78.666,32 V 52 32 C 78.666,12 65.333,12 65.333,12 52,12 52,32 52,32 V 52 32 C 52,18.666 38.666,18.666 38.666,18.666 25.333,18.666 25.333,45.333 25.333,45.333 V 72"
+     id="path1131" />
+</svg>

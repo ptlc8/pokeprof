@@ -1,0 +1,309 @@
+html, body {
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+body {
+    overflow: hidden;
+}
+
+#title {
+    top: .625em;
+    text-shadow: 1px 1px 0 whitesmoke, -1px 1px 0 whitesmoke, -1px -1px 0 whitesmoke, 1px -1px 0 whitesmoke;
+}
+#deck, #play-button {
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: .1em;
+	text-decoration: none;
+	color: black;
+}
+#create-card-button, #gallery-button, #shop-button, #rules-button, #history-button {
+	position: absolute;
+    left: 50%;
+	transform: translate(-50%, -50%);
+	color: black;
+	text-decoration: none;
+}
+#shop-button {
+    top: 60%;
+}
+#gallery-button {
+    top: 65.5%;
+}
+#create-card-button {
+    top: 71%;
+}
+#rules-button {
+    top: 76.5%;
+}
+#history-button {
+    left: 90%;
+	top: 75%;
+}
+
+
+
+#deck {
+	left: 18%;
+	width: 36%;
+	margin: 0 1.5%;
+	background-color: #ff0000;
+	background-color: rgba(255, 0, 0, 0.75);
+	box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
+	cursor: pointer;
+}
+#deck > .card {
+    width: 18%;
+	float: left;
+	font-size: 0.2592vw;
+	margin: 1%;
+}
+#play-button {
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 20%;
+	padding: .5em 0;
+	font-size: 2.5em;
+	background-color: yellow;
+	box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
+}
+#free-card {
+	position: absolute;
+	top: 50%;
+	left: 72%;
+	width: 17.5%;
+	transform: translate(-50%, -50%);
+	cursor: pointer;
+}
+#free-card img, #free-card canvas {
+	width: 100%;
+	transition: width .5s ease;
+	box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
+}
+.free-card {
+    width: 17.5%;
+    font-size: 0.7vw;
+}
+
+#rewards {
+	position: absolute;
+	left: 40%;
+	top: 80%;
+	width: 58%;
+}
+#rewards-progress {
+	display: flex;
+	height: 2.5em;
+	border: .3em white solid;
+	border-radius: 2em;
+	overflow: hidden;
+	width: 100%;
+}
+#rewards-progress > div {
+	flex: 1;
+	height: 100%;
+}
+#rewards-progress > div.claimed {
+	background-color: blue;
+}
+#rewards-progress > div:not(:first-child) {
+	border-left: .1em white solid;
+}
+#rewards-progress > div:nth-child(7n):not(:last-child) {
+	border-right: .2em white solid;
+}
+#rewards #get-rewards {
+    align-items: flex-end;
+	display: flex;
+}
+#rewards #get-rewards > div {
+	float: left;
+	width: 0%;
+	margin: 0 0 0 33.33%;
+	text-align: center;
+	background-color: rgba(200,200,200,0);
+	vertical-align: top;
+}
+#rewards #get-rewards > :not(.available) {
+	opacity: .6;
+}
+#rewards #get-rewards > .available img {
+    animation: clickme 1.5s infinite alternate ease;
+}
+#rewards #get-rewards > div > img {
+	width: 3em;
+	margin-left: -1.5em;
+	cursor: pointer;
+}
+#rewards #get-rewards > div > span {
+	display: none;
+	width: 5em;
+	position: absolute;
+	transform: translateX(-50%);
+	font-weight: bold;
+	font-size: 1.2em;
+}
+#rewards #get-rewards > div:hover > span {
+	display: block;
+}
+
+#podium {
+	text-align: left;
+	background-color: #d0d0d0;
+	background-color: rgba(200,200,200,.5);
+	border-radius: .25em;
+	padding: 1%;
+	position: absolute;
+	top: 50%;
+	font-size: .8em;
+	left: 90%;
+	width: 17%;
+	transform: translate(-50%, -50%);
+}
+#podium tr:first-child {
+	text-align: center;
+	font-size: 1.25em;
+}
+#podium tr td:nth-child(2) {
+	text-align: right;
+}
+
+.needtowait {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 105;
+	color: whitesmoke;
+	padding: .5em 1em;
+	background-color: #808080;
+	background-color: rgba(127,127,127,0.8);
+	border-radius: 2em;
+	white-space: nowrap;
+}
+
+#background {
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	filter: blur(2px);
+	position: absolute;
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: grey;
+	background-blend-mode: multiply;
+}
+
+/* ouverture de booster */
+.placed-booster {
+	position: absolute;
+	max-height: 90%;
+	max-width: 90%;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 240;
+	transition: top .5s ease, left .5s ease, width .5s ease, height .5s ease;
+}
+.booster-card {
+    z-index:200;
+    width: 30vw;
+    font-size: 1.2vw;
+    top: 50%;
+    left: 50%;
+}
+@media (orientation:portrait) {
+    .booster-card {
+        width: 70vw;
+        font-size: 2.8vw;
+    }
+}
+
+/* Version portrait par Kévin */
+#left-arrow, #right-arrow {
+    display: none;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	background-color: rgba(150,150,150,.5);
+	height: 4em;
+	padding: 0.25em;
+	width: 2em;
+	border-radius: 100%;
+	font-size: 2em;
+    line-height: 4em;
+    cursor: pointer;
+}
+#left-arrow {
+    left: 0;
+	text-align: right;
+}
+#right-arrow {
+    left: 100%;
+	text-align: left;
+}
+@media (orientation: portrait) {
+    #left-arrow, #right-arrow {
+        display: block;
+    }
+    #play-button, #rewards, #deck, #free-card, #podium, #create-card-button, #gallery-button, #shop-button, .alerts, #rules-button, #history-button {
+        transition: left .5s ease, top .5s ease;
+    }
+    .needtowait { font-size: .75em; }
+    #play-button { width: 60%; }
+    #rewards { width: 80%; left: 10%; }
+    #deck { left: -150%; width:90%; }
+    #deck > .card { font-size: 0.6480vw; }
+    #free-card { left: 70%; top: 68%; }
+    #podium { left: 150%; width: 90%; top: 35%; height: 40%; }
+    #create-card-button, #gallery-button, #shop-button, #rules-button { left: 35%; }
+    .alerts { width: 64%; left: 18%; max-height: 25%; }
+    #history-button { left: 135%; top: 67.5%; }
+    body.left #play-button { left: 150%; }
+    body.left #rewards { left: 110%; }
+    body.left #deck { left: 50%; }
+    body.left #free-card { left: 170%; }
+    body.left #shop-button { top: 82%; left: 50%; }
+    body.left #gallery-button { top: 89%; left: 50%; }
+    body.left #create-card-button { top: 96%; left: 50%; }
+    body.left .alerts { left: 118%; }
+    body.left #left-arrow { display: none; }
+    body.left #rules-button { left:135%; }
+    body.right #play-button { left: -50%; }
+    body.right #free-card { left: 65%; }
+    body.right #podium { left: 50%; }
+    body.right #shop-button { top: 61%; }
+    body.right #gallery-button, body.right #create-card-button { left: -65%; }
+    body.right .alerts { left: -82%; }
+    body.right #right-arrow { display: none; }
+    body.right #rules-button { top: 74%; }
+    body.right #history-button { left: 35%; }
+}
+
+/* Historique par Kévin */
+.popup.history {
+    height: 80%;
+    width: 80%;
+}
+.popup.history .player {
+    width: 48%;
+    display: inline-block;
+    padding: 1%;
+}
+.popup.history .deck .card {
+    display: inline-block;
+    width: 12.5%;
+    font-size: 0/*0.192vw*/;
+    cursor: pointer;
+}
+@media (orientation:portrait) {
+    .popup.history .deck .card {
+        width: 20%;
+        font-size: 0/*0.3072vw*/;
+    }
+}

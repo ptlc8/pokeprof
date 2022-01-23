@@ -1,0 +1,699 @@
+@font-face {
+	font-family: 'Elected Office';
+	src: url('/elected-office.regular.ttf');
+	font-display: swap;
+}
+html {
+	/*background: linear-gradient(-45deg, #82b4df, transparent);*/
+	background: darkgray;
+}
+html, button {
+	font-family: Elected Office, Helvetica, Arial;
+}
+html, body {
+	width: 100%;
+	min-height: 100%;
+	text-align: center;
+	margin: 0;
+}
+.title {
+	text-align: center;
+	font-size: 4em;
+	margin: 0.1em;
+	position: relative;
+	z-index: 2; /*Modif de Léo*/
+}
+.subtitle {
+	text-align: center;
+	font-size: 1.8em;
+	margin: 0.1em;
+	display: block;
+}
+.full-width {
+	width: 100%;
+}
+#login, #logged {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	font-size: 1.1em;
+}
+
+#log-out {
+	position: absolute;
+	top: 2em;
+	right: 1em;
+}
+.button {
+	cursor: pointer;
+	background-color: tomato;
+	padding: .5em 1em;
+	border-radius: 0.2em;
+	box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
+	/*position: absolute; pas faire ça, ça casse d'autres boutons, 'faut créer une autre classe et combinées les deux pour ne pas avoir de conflit*/
+}
+.mainbutton {
+	cursor: pointer;
+	background-color: tomato;
+	padding: .5em 1em;
+	border-radius: 0.2em;
+	box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
+	right: 50%;
+	position: absolute;
+	transform: translate(50%, 50%);
+}
+
+#card-about {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 200;
+	background-color: rgba(100,100,100,.75);
+	overflow: auto;
+}
+#card-about > .card {
+	width: 60vh;
+	font-size: 2.4vh;
+	position: absolute;
+	top: 10vh;
+	right: 50%;
+}
+@media (orientation:portrait) {
+	#card-about > .card {
+		width: 80vw;
+		font-size: 3.2vw;
+		right: 10vw;
+		top: auto;
+		bottom: 35%;
+	}
+}
+#card-about-infos {
+	position: absolute;
+	color: whitesmoke;
+	top: 50%;
+	left: 55%;
+	transform: translateY(-50%);
+	max-width: 40%;
+}
+@media (orientation:portrait) {
+	#card-about-infos {
+		top: 65%;
+		left: 50%;
+		transform: translateX(-50%);
+		max-width: 60%;
+	}
+}
+#card-about-infos .title {
+	font-size: 4em;
+	text-decoration: underline;
+	display: block;
+}
+#card-about-infos .text {
+	font-size: 1.8em;
+	text-align: justify;
+	width: 100%;
+	display: block;
+}
+
+
+.close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 10%;
+	height: 1em;
+	background-color: red;
+}
+
+.no-scroll {
+	overflow: hidden;
+}
+.no-x-scroll {
+	overflow-x: hidden;
+}
+
+
+
+
+
+.moving-card {
+	position: absolute;
+	pointer-events: none;
+	width: 10%;
+	font-size: 0.4vw;
+	z-index: 110;
+	transform: translate(-50%, -50%);
+}
+
+.placed-card {
+	position: absolute;
+	width: 10%;
+	font-size: 0.4vw;
+	transform: translate(-50%, -50%);
+	transition: top .5s ease, left .5s ease, width .25s ease, height .25s ease, transform .5s ease, font-size .25s ease;
+}
+.placed-card.flip {
+	transform: translate(-50%, -50%) scale(0, 1);
+}
+.placed-card.zoom {
+	width: 20%;
+	font-size: 0.8vw;
+}
+.placed-card:hover.show {
+	z-index: 260 !important;
+}
+
+.relative-card {
+	width: 10%;
+	font-size: 0.4vw;
+}
+
+.moving-card, .placed-card, .relative-card {
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+.moving-card, .placed-card, .relative-card {
+	box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
+}
+@media (orientation:portrait) {
+    .placed-card {
+    	width: 20%;
+    	font-size: 0.8vw;
+    }
+}
+
+#veil, .veil {
+	position: absolute;
+	width: 100%;
+	z-index: 185;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgba(127, 127, 127, 0.5);
+}
+.show, .showlock {
+	z-index: 220 !important;
+	cursor: pointer;
+	display: block !important;
+}
+.showlock {
+    pointer-events: none;
+}
+
+/*to play.css*/
+
+.attacking {
+	animation: attack 1s;
+}
+
+@keyframes attack {
+	0% { margin-top: 0;}
+	20% { margin-top: -10%;}
+	100% { margin-top: 0%;}
+}
+
+.shake, .stress:hover {
+	/* Start the shake animation and make the animation last for 0.5 seconds */
+	animation: shake 0.5s;
+	/* When the animation is finished, start again */
+	animation-iteration-count: infinite;
+}
+.stress {
+	cursor: pointer;
+}
+
+/* source : w3schools.com */
+@keyframes shake {
+	0% { transform: translate(1px, 1px) rotate(0deg); }
+	10% { transform: translate(-1px, -2px) rotate(-1deg); }
+	20% { transform: translate(-3px, 0px) rotate(1deg); }
+	30% { transform: translate(3px, 2px) rotate(0deg); }
+	40% { transform: translate(1px, -1px) rotate(1deg); }
+	50% { transform: translate(-1px, 2px) rotate(-1deg); }
+	60% { transform: translate(-3px, 1px) rotate(0deg); }
+	70% { transform: translate(3px, 1px) rotate(-1deg); }
+	80% { transform: translate(-1px, -1px) rotate(1deg); }
+	90% { transform: translate(1px, 2px) rotate(0deg); }
+	100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.shining {
+	overflow: hidden;
+}
+.shining:after {
+	animation: shine 5s ease-in-out infinite;
+	animation-fill-mode: forwards;
+	content: "";
+	position: absolute;
+	top: -110%;
+	left: -210%;
+	width: 300%;
+	height: 200%;
+	opacity: 0;
+	transform: rotate(30deg);
+	background: rgba(255, 255, 255, 0.13);
+	background: linear-gradient(
+		to right, 
+		rgba(255, 255, 255, 0.13) 0%,
+		rgba(255, 255, 255, 0.13) 77%,
+		rgba(255, 255, 255, 0.5) 92%,
+		rgba(255, 255, 255, 0.0) 100%
+	);
+	pointer-events: none;
+}
+
+/* source : http://jsfiddle.net/nqQc7/512/ */
+@keyframes shine{
+  10% {
+	opacity: 1;
+	top: -30%;
+	left: -30%;
+	transition-property: left, top, opacity;
+	transition-duration: 0.7s, 0.7s, 0.15s;
+	transition-timing-function: ease;
+  }
+  100% {
+	opacity: 0;
+	top: -30%;
+	left: -30%;
+	transition-property: left, top, opacity;
+  }
+}
+
+#end-screen {
+	position: absolute;
+	background-color: rgb(150,150,150);
+	background-color: rgba(150,150,150,.5);
+	top: 50%;
+	left: 50%;
+	border-radius: 1em;
+	transform: translate(-50%, -50%);
+	padding: 1em 2em;
+	min-width: 50%;
+}
+#end-screen .title {
+	font-size: 6em;
+	display: block;
+}
+#end-screen .text {
+	font-size: 2em;
+	display: block;
+}
+#end-screen .button {
+	font-size: 2em;
+	display: block;
+	background-color: dodgerblue;
+}
+
+img.emote, canvas.emote {
+	height: 1.6em;
+	vertical-align: middle;
+}
+
+.clickme {
+	animation: clickme 1.5s infinite alternate ease;
+}
+@keyframes clickme {
+	0% {transform: scale(1.8);}
+	100% {transform: scale(1);}
+} 
+
+
+/* quand fut herbergé sur 000webhost */
+/*body > div:not([class]):not([id]) {
+	left: 100%;
+	pointer-events: none;
+	user-select: none;
+	user-drag: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}*/
+
+/* Principe de popup par Kévin */
+.popup-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(100,100,100,.5); z-index: 100; }
+.popup { position: absolute; width: 30%; height: 60%; background-color: white; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 16px; box-shadow: 0 0 10px 2px rgba(0,0,0,.1); overflow-x: hidden; overflow-y: auto; }
+.popup > .close-button { position: absolute; top: 16px; right: 16px; font-size: large; cursor: pointer; z-index: 110; }
+@media (orientation: portrait) {
+	.popup {width: 60%}
+}
+
+/* Interieur des cartes */
+.card { background-color: whitesmoke; border-radius: 4%/2.6%; /*font-size: 8px;*/ font-family: Arial; user-select: none; --text-color: black; --text-color2: whitesmoke; --text-ocolor: whitesmoke; --text-ocolor2: black; overflow: hidden; }
+.card .inner { position: relative; margin: 4%; width: 92%; padding-bottom: 125.333%; text-align: center; background-position: center; background-size: cover; background-repeat: no-repeat; }
+.card .type { position: absolute; color: var(--text-color2); font-size: 1.8em; right: 0; margin: 3%; }
+.card .proftype { display: block; position: absolute; top: 4%; width: 50%; left: 25%; font-size: 1.3em;  color: var(--text-color2); }
+.card .image { width: 93%; height: 50%; position: absolute; top: 9%; left: 3.5%; background-position: center top; background-size: cover; background-repeat: no-repeat; }
+.card .title { position: absolute; top: 59%; height: 10%; font-size: 180%; border: .1em solid lightgray; left: 3.5%; width: calc(93% - .2em); line-height: 1.6em; color: var(--text-color); margin: 0; word-break: break-all; line-break: anywhere; overflow: hidden; }
+.card .attacks { position: absolute; top: 71%; width: 100%; color: var(--text-color2); }
+.card .attacks > div { position: relative; }
+.card .attacks .name { font-size: 1.5em; width: 100%; display: block; }
+.card .attacks .damage { font-size: 1.2em; position: absolute; top: 0; margin: .2em; right: 0; }
+.card .attacks > .selectable { border: #d02020 4px solid; cursor: pointer; }
+.card .attacks > .selectable:hover { background-color: rgba(200,200,200,.5); border-color: #ff0000; }
+.card .rarity { position: absolute; left: 25%; width: 50%; bottom: 1%; font-size: 1.5em; text-shadow: 1px 1px 0 whitesmoke, -1px 1px 0 whitesmoke, -1px -1px 0 whitesmoke, 1px -1px 0 whitesmoke; }
+.card .mana, .card .life, .card .shield, .card .strength { position: absolute; width: 23%; height: 17%; background-size: contain; background-position: center; background-repeat: no-repeat; font-size: 2.5em; line-height: 2.1em; text-shadow: 1px 1px 0 var(--text-color2), -1px 1px 0 var(--text-color2), -1px -1px 0  var(--text-color2), 1px -1px 0 var(--text-color2);  color: var(--text-ocolor2); }
+.card .mana { top: 0; left: 0; }
+.card .life { top: 0; right: 0; }
+.card .shield { top: 20%; right: 0; }
+.card .strength { top: 20%; left: 0; }
+.card .max { font-size: .5em; position: absolute; right: 0; bottom: 5%; line-height: normal; }
+.card .max::before { content: '/'; }
+.card.back { background-image: url(assets/back.png); background-position: center; background-size: cover; background-repeat: no-repeat; }
+.card .shiny { filter: hue-rotate(180deg); }
+.card .shiny .mana, .card .shiny .life, .card .shiny .shield, .card .shiny .strength { filter: hue-rotate(-180deg); }
+.card .holo { background-image: linear-gradient(rgba(0,0,0,0.3), rgba(255,255,255,0.3), rgba(0,0,0,0.3)); background-size: 100% 150%; animation: card-holo 8s ease infinite; }
+@keyframes card-holo {0%{background-position:bottom;} 50%{background-position:top;} 100%{background-position:bottom;}}
+.card .text { position: absolute; font-size: 5em; left: 50%; top: 50%; width: 100%; transform: translate(-50%,-50%); /*font-weight: bold;*/ color: var(--text-color); }
+.card .button { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); margin-bottom: 0.25em; color: var(--text-ocolor2); background-color: var(--text-color2); font-weight: bold; }
+.card .amount { position: absolute; font-size: 5em; bottom: 6%; right: 5%; color: var(--text-color); font-weight: bold; }
+.card .amount::before { content: '×'; }
+
+/* user-profile par Kévin */
+.user-profile .pp {
+	width: 50%;
+	margin-top: 10%;
+	border-radius: 8%;
+}
+.user-profile .gold-border { border: thick ridge gold; }
+.user-profile .silver-border { border: thick ridge silver; }
+.user-profile .bronze-border { border: thick ridge #cd7f32; }
+.user-profile .rainbow-border { background-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%); padding: 4px; }
+.user-profile .name {
+	font-size: xx-large;
+	display: block;
+}
+.user-profile .trophies, .user-profile .cards {
+	font-size: large;
+	display: inline-block;
+	margin: 0 .5em;
+}
+.user-profile .trophies::after { content: '🏆'; }
+.user-profile .cards::after { content: '🎴'; }
+
+.user-profile .tags span {
+	border: solid 1px darkgray;
+	padding: 0.2em 0.4em;
+	border-radius: 8px;
+	display: inline-block;
+	margin: .5em .5em 0 .5em;
+}
+
+/* search-popup par Kévin (et page de recherche) */
+.loading {
+	position: relative;
+	animation: 2.2s cubic-bezier(0.4, 0, 0.6, 1) 0s infinite circleX, 2s cubic-bezier(0.4, 0, 0.6, 1) 0.6s infinite circleY;
+	/*animation: 2s cubic-bezier(0.4, 0, 0.6, 1) 0s infinite circleX, 2s cubic-bezier(0.4, 0, 0.6, 1) 1s infinite circleY;*/
+	font-size: 4em;
+	pointer-events: none;
+	user-select: none;
+}
+@keyframes circleX {
+	0% {left: 1em;}
+	50% {left: -1em;}
+	100% {left: 1em;}
+}
+@keyframes circleY {
+	0% {top: 0;}
+	50% {top : 2em;}
+	100% {top: 0;}
+}
+.search-popup {
+    padding-top: 5%;
+    height: 35%;
+}
+.search-popup .bot-button, .search-popup .back-button {
+    display: block;
+	margin: 1em auto;
+	padding: .5em 1em;
+	border: 0;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 1.1em;
+}
+.search-popup .bot-button {
+    background-color: yellow;
+}
+.search-popup .back-button {
+    background-color: orange;
+}
+
+/* shop par Kévin */
+.shop.popup {
+	width: 60%;
+	height: 80%;
+}
+.shop > div {
+	margin: 3%;
+}
+.shop .booster {
+	display: inline-block;
+	width: 25%;
+}
+.shop .booster img {
+	width: 70%;
+	margin: 0 15%;
+	border-radius: 4px;
+}
+.shop .booster button, .shop-card button {
+	border: 2px black solid;
+	width: 50%;
+	padding: .25em;
+	border-radius: 1em;
+	font-weight: 700;
+	background-color: lightgrey;
+	cursor: pointer;
+	display: block;
+	margin: auto;
+}
+.shop .money {
+    position: absolute;
+	top: 1em;
+	left: 1em;
+	font-size: 1.5em;
+}
+.booster-detail {
+    width: 50%;
+}
+.booster-detail .card {
+    width: 21%;
+    margin: 2%;
+    display: inline-block;
+    font-size: 0.42vw;
+}
+.shop-card {
+    width: 23%;
+    padding: 0 1%;
+	display: inline-block;
+}
+.shop-card .card {
+    width: 100%;
+    font-size: 0.552vw;
+    cursor: pointer;
+}
+@media (orientation:portrait) {
+    .shop.popup { width: 100%; height:80%; }
+    .shop .money { top: 2.5em; }
+    .booster-detail { width: 90%; }
+    .booster-detail .card { width: 29.333%; font-size: 1.056vw; }
+    .shop .booster { width: 33.33%; }
+    .shop-card { width: 31.33%; }
+    .shop-card .card { font-size: 1.2533vw; }
+}
+
+/* Bulle de tuto par Kévin */
+.tutorial {
+    position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(120, 120, 120, 0.5);
+	z-index: 190;
+}
+.tutorial .speaker {
+    position: absolute;
+	bottom: 0;
+	right: 0;
+	max-width: 55vmin;
+	max-height: 35vmin;
+}
+.tutorial.left .speaker {
+	left: 0;
+}
+.tutorial .bubble {
+    position: absolute;
+	bottom: 0;
+	margin-bottom: 23vmin;
+	right: 42vmin;
+	width: 30%;
+	background-color: white;
+	min-height: 10%;
+	border-radius: 1em;
+	padding: 3% 5%;
+	font-size: 1.2em;
+}
+.tutorial.left .bubble {
+    left: 42vmin;
+}
+.tutorial .bubble * {
+    z-index: 1;
+    position: relative;
+}
+.tutorial .bubble .button {
+    display: block;
+	margin-top: 1em;
+}
+.tutorial .bubble:after {
+	content: '';
+	background-color: white;
+	position: absolute;
+	top: 72%;
+	left: 75%;
+	width: 30%;
+	height: 30%;
+	transform: skew(50deg,20deg);
+}
+.tutorial.left .bubble:after {
+	right: 75%;
+	left: auto;
+	transform: skew(-50deg,-20deg);
+}
+
+/* Scrollbar par Kévin */
+::-webkit-scrollbar {
+	width: .5em;
+	height: .5em;
+}
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px grey;
+	border-radius: .25em;
+}
+::-webkit-scrollbar-thumb {
+	background-color: #555555;
+	border-radius: 10px;
+	transition: background-color .5s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+	background-color: #222222;
+	width: 30px;
+}
+
+/* Chargement par Kévin */
+@keyframes rotate-loading {
+    0%{transform: translate(-50%,-50%) rotate(0deg)}
+    33.333%{transform: translate(-50%,-50%) rotate(120deg)}
+    66.666%{transform: translate(-50%,-50%) rotate(240deg)}
+    100%{transform: translate(-50%,-50%) rotate(360deg)}
+}
+@keyframes fadin-loading {
+    from { opacity:0; }
+    to { opacity:1; }
+}
+#loading, #loading-removing {
+    animation: 3s rotate-loading ease-out infinite, .5s fadin-loading ease;
+    opacity: 1;
+    transition: opacity .5s ease;
+    z-index: 230;
+    transform: translate(-50%, -50%);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	max-width: 50%;
+	max-height: 50%;
+}
+
+/* Popup de règles par Kévin */
+.popup.rules {
+    width: 90%;
+	height: 80%;
+}
+.extender { cursor:pointer; margin: 0; }
+.extender:before { content: '▶'; transition: transform .25s ease; transform: rotate(0deg); display: inline-block; margin: .5em;}
+.extender.extended:before { /*content: '▼ ';*/ transform: rotate(90deg); }
+.extender + div { max-height:0; overflow:hidden; transition: max-height .25s ease; margin-left: 2em; margin-bottom: 1em; }
+.extender.extended + div { max-height:none; }
+
+/* Principe d'alertes par Edwin */
+.alerts{
+	position:absolute;
+	top: 7em/*12% modif de Kévin*/;
+	left: 38%;
+	width: 24%;
+	height:28.5%;
+	overflow-x: auto/*visible modif de Kévin*/;
+	
+	display:flex;
+	flex-direction:column;
+	
+	z-index:2;
+}
+
+.alerts .alert {
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+	padding: 20px;
+	background-color: #f44336; /* Rouge par defaut */
+	color: white;
+	margin-bottom: 0.5em;
+
+}
+
+.alerts .alert a{
+	text-decoration: none;
+	color: #FFFFFF;
+	width: 100%; /*modif de kévin*/
+}
+
+.alerts .alert .btns{
+	;
+}
+
+.alerts .alert .btns .closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  align-self: flex-end;
+  font-size: 30px;
+  line-height: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.alerts .alert .btns .closebtn:hover {
+  color: black;
+}
+
+.alerts .alert .morebtns{
+	background-color:#F0F0F0;
+	color: black;
+	display:none;
+	flex-direction:column;
+	justify-content:space-around;
+	width:50%;
+	height:22.5%;
+	position: absolute;
+	margin-left:10px;
+	z-index:2;
+	top:0%;
+	right: 0;/*left:100%; modif de Kévin*/
+	transition:1s;
+}
+
+.alerts .alert .morebtns:hover{
+	background-color:#D0D0D0;
+	transition:1s;
+}
+
+.alerts .alert .morebtns a{
+	text-decoration: none;
+	color: black;
+}

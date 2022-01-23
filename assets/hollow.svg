@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="100" width="100" viewBox="0 0 100 100">
+    <linearGradient id="gradient-top" x1="0" x2="0" y1="1" y2="0">
+        <stop offset="20%" stop-color="white"/>
+        <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <linearGradient id="gradient-top-right" x1="0" x2="0.85" y1="1" y2="0.15">
+        <stop offset="20%" stop-color="white"/>
+        <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <linearGradient id="gradient-right" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="20%" stop-color="white"/>
+        <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <linearGradient id="gradient-bottom-right" x1="0" x2="0.85" y1="0" y2="0.85">
+        <stop offset="20%" stop-color="white"/>
+        <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <linearGradient id="gradient-bottom" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="20%" stop-color="white"/>
+        <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <linearGradient id="gradient-bottom-left" x1="1" x2="0.15" y1="0" y2="0.85">
+        <stop offset="20%" stop-color="white"/>
+        <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <linearGradient id="gradient-left" x1="1" x2="0" y1="0" y2="0">
+        <stop offset="20%" stop-color="white"/>
+        <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <linearGradient id="gradient-top-left" x1="1" x2="0.15" y1="1" y2="0.15">
+        <stop offset="20%" stop-color="white"/>
+        <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <polygon points="99,60 99,40 50,50" fill="url(#gradient-right)" />
+    <polygon points="92,22 78,8 50,50" fill="url(#gradient-top-right)" />
+    <polygon points="60,1 40,1 50,50" fill="url(#gradient-top)" />
+    <polygon points="22,8 8,22 50,50" fill="url(#gradient-top-left)" />
+    <polygon points="1,40 1,60 50,50" fill="url(#gradient-left)" />
+    <polygon points="8,78 22,92 50,50" fill="url(#gradient-bottom-left)" />
+    <polygon points="40,99 60,99 50,50" fill="url(#gradient-bottom)" />
+    <polygon points="78,92 92,78 50,50" fill="url(#gradient-bottom-right)" />
+</svg>

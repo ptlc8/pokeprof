@@ -1,0 +1,319 @@
+/* -- TMP -- */
+body, html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+#logged {
+    position: absolute;
+    right: 0;
+}
+/* -- --- -- */
+
+#game {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: grey;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-blend-mode: multiply;
+	transition: background-image .5s ease;
+}
+#game.ended {
+    pointer-events: none;
+	filter: brightness(0.5);
+	user-select: none;
+}
+
+/* Mains */
+.placed-card[data-zone='his-hand'] {
+	transform: translate(-50%, -50%) rotate(180deg);
+	box-shadow: rgba(0,0,0,.2) -3px -5px 5px;
+}
+.placed-card[data-zone='my-hand'] {
+	transform: translate(-50%, -80%);
+	box-shadow: rgba(0,0,0,.2) -3px -5px 5px;
+	z-index: 10;
+}
+.placed-card[data-zone='my-hand']:hover {
+	width: 20%;
+	transform: translate(-50%, -100%);
+	font-size: 0.8vw;
+	cursor: pointer;
+}
+
+/* Carte lieu et défausses */
+.placed-card[data-zone='place'] {
+	transform: translate(-50%, -50%) rotate(-90deg);
+	box-shadow: rgba(0,0,0,.2) -3px 5px 5px;
+	cursor: pointer;
+}
+
+.placed-card[data-zone='his-discard'], .placed-card[data-zone='his-draw'] {
+	transform: translate(-50%, -50%) rotate(180deg);
+	box-shadow: rgba(0,0,0,.2) -3px -5px 5px;
+}
+
+.placed-card[data-zone='place']:hover, .placed-card[data-zone='his-discard']:hover {
+	transform: translate(-50%, -50%);
+}
+
+.placed-card[data-zone='his-discard']:hover {
+    transform: translate(-50%, -20%);
+}
+
+/* Propriétés en pluss sur les cartes */
+.engaged {
+	filter: brightness(0.8);
+}
+.engaged.show {
+	filter: brightness(0.9);
+}
+.placed-card[data-zone='my-fighters'], .placed-card[data-zone='his-fighters'], .placed-card[data-zone='my-discard'], .placed-card[data-zone='his-discard'] {
+	cursor: pointer;
+}
+.placed-card:not(.back):hover {
+	width: 20%;
+	font-size: 0.8vw;
+	z-index: 60;
+	filter: none;
+}
+@media (orientation:portrait) {
+    .placed-card:not(.back):hover {
+	    width: 40%;
+	    font-size: 1.6vw;
+    }
+}
+
+/* Particules d'effets */
+.card .particles {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	pointer-events: none;
+	z-index: 10;
+}
+.card .particles span {
+	position: absolute;
+	opacity: 0;
+	font-size: 3em;
+}
+.card .particles :nth-child(3n+1) {
+	animation: 6s ease 0s infinite flyingParticle;
+}
+.card .particles :nth-child(3n+2) {
+	animation: 6s ease 2s infinite flyingParticle;
+}
+.card .particles :nth-child(3n) {
+	animation: 6s ease 4s infinite flyingParticle;
+}
+
+@keyframes flyingParticle {
+	0% {display: block; top: 0; left: 0; opacity: 1;}
+	20% {left: 1em; opacity: 1;}
+	60% {left: -1em; opacity: 1;}
+	100%{display: none; top: -5em; left: 1em; opacity: 0;}
+}
+
+/* Boutons de droite */
+#end-turn {
+	position: absolute;
+	top: 50%;
+	right: 1em;
+	transform: translateY(-50%);
+	z-index: 180;
+}
+#give-up {
+	position: absolute;
+	top: 46%;
+	top: calc(50% - 3em);
+	right: 1em;
+	transform: translateY(-50%);
+	z-index: 180;
+}
+
+/* Ciblage de l'adversaire directement */
+#opponent {
+	position: absolute;
+	top: 0;
+	background-color: #ffffff;
+	background-color: rgba(255,255,255,.75);
+	width: 60%;
+	height: 20%;
+	left: 20%;
+	border-radius: 0 0 .2em .2em;
+	z-index: 10;
+	display: none;
+}
+#opponent span {
+	font-size: 2em;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/* Pseudos */
+#player-name, #opponent-name {
+    position: absolute;
+    left: 9%;
+    transform: translateX(-50%);
+	font-size: 1.2em;
+}
+#player-name {
+	top: 58%;
+	top: calc(59% - .5em);
+}
+#opponent-name {
+	top: 22%;
+	top: calc(23% - .5em);
+}
+
+/* PV et mana */
+.mana-container, .hp-container {
+	position: absolute;
+	transform: translateY(-50%);
+	width: 4em;
+	z-index: 180;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	filter: drop-shadow(3px 5px 5px rgba(0,0,0,.25));
+	/* pixelated */
+	image-rendering: -moz-crisp-edges;
+	image-rendering: -o-crisp-edges;
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+	-ms-interpolation-mode: nearest-neighbor;
+}
+.mana-container:before, .hp-container:before {
+    content: '';
+	padding-top: 100%;
+	width: 1px;
+	float: left;
+	margin-left: -1px;
+	height: 0;
+}
+.mana-container:after, .hp-container:after {
+    content: '';
+    clear: both;
+}
+#player-mana-container, #player-hp-container {
+	top: 64%;
+}
+#opponent-mana-container, #opponent-hp-container {
+	top: 28%;
+}
+.mana-container {
+	background-image: url('assets/mana.svg');
+	right: 6%;
+}
+.hp-container {
+	background-image: url('assets/heart.svg');
+	left: 6%;
+}
+
+.hp-container > span, .mana-container > span {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 200%;
+	z-index: 5;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+.hp-container > span {
+	color: whitesmoke;
+}
+.mana-container > span {
+	color: black;
+}
+
+/* Timer */
+#timer {
+	position: absolute;
+	left: 50%;
+	top: 77%;
+	transform: translate(-50%, -50%);
+	width: 50%;
+	height: 1em;
+	background-color: skyblue;
+	border: #ffffff .1em solid;
+	border-radius: 1em;
+	padding: .1em;
+}
+#timer > div {
+	height: 100%;
+	width: 0;
+	transition: width 0.1s linear;
+	background-color: #FFFFFF;
+	border-radius: 1em;
+}
+
+/* Sélecteur d'attaque (et afficheur de carte) */
+#select-attack {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 200;
+	top: 0;
+	left: 0;
+	background-color: rgba(127, 127, 127, 0.5);
+	cursor: default;
+}
+#select-attack-card {
+	width: 35%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 1.4vw;
+}
+@media (orientation:portrait) {
+    #select-attack-card {
+        width: 75%;
+        font-size: 3vw;
+    }
+}
+
+/* particules : damage, heal, bolt... */
+.particle {
+	display: inline-block;
+	position: absolute;
+	/*background-image: url(assets/damage.png);*/
+	background-size: 100%;
+	width: 8%;
+	transform: translate(-50%, -50%);
+	z-index: 70;
+	animation: popingParticle 2s ease;
+}
+.particle > div {
+	margin-top: 100%;
+}
+.particle > span {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 2em;
+	color: white;
+	color: lightgoldenrodyellow;
+}
+@keyframes popingParticle {
+	0% {opacity: 0;}
+	5% {opacity: 1;}
+	75% {opacity: 1;}
+	100% {opacity: 0;}
+}
+@media (orientation:portrait) {
+    .particle {
+    	width: 16%;
+    }
+}

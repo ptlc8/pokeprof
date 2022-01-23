@@ -1,0 +1,127 @@
+#logged, #log-out {
+    left: 1em;
+    right: inherit;
+}
+#cards {
+    position: absolute;
+    top: 4em;
+    left: 0;
+    width: 20%;
+    height: calc(100% - 4em);
+    display: block;
+    overflow-y: scroll;
+    border-collapse: collapse;
+}
+#cards tr, #cards th {
+    border: 1px solid black;
+    cursor: pointer;
+}
+#cards th img {
+    height: 1.5em;
+	vertical-align: middle;
+}
+#cards .name {
+    text-align: left;
+}
+#cards .tags {
+    text-align: right;
+}
+#preview-container {
+    position: absolute;
+    top: 0;
+    left: 20%;
+    width: 40%;
+    height: 100%;
+}
+#preview {
+    width: 90%;
+    margin: 1% 5%;
+    font-size: 1.44vw;
+}
+#inputs {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 90%;
+    overflow-y: auto;
+}
+#inputs select, #inputs input, #inputs textarea, #inputs .multiselect {
+    margin: 1%;
+    display: inline-block;
+    width: calc(96% - 2px);
+    padding: 1%;
+    border: 1px solid black;
+    resize: none;
+    border-radius: 4px;
+}
+#inputs .multiselect {
+    padding: 8px 1%;
+}
+#inputs select {
+    cursor: pointer;
+}
+#inputs input[type=checkbox] {
+    vertical-align: middle;
+    width: auto;
+    cursor: pointer;
+}
+
+#inputs [name=cost], #inputs [name^=atk][name$=name] {
+    width: calc(66% - 2px);
+}
+#inputs [name=color], #inputs [name^=atk][name$=dama] {
+    width: calc(26% - 2px);
+}
+#inputs [id^=script][id$=-comment] {
+    color: red;
+}
+#inputs [id^=script][id$=-comment].correct {
+    color: green;
+}
+#buttons {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40%;
+    height: 10%;
+}
+#buttons button {
+    width: calc(50% - 2px);
+    height: calc(50% - 2px);
+    border: 1px solid black;
+    padding: 0;
+    cursor: pointer;
+}
+@media (orientation:portrait) {
+    #inputs {
+        left: 20%;
+        width: 70%;
+        height: 40%;
+    }
+    #preview-container {
+        right: 0;
+        width: 80%;
+        top: 40%;
+        height: 50%;
+    }
+    #preview {
+        font-size: 2.88vw;
+    }
+    #buttons {
+        top: 0;
+        width: 10%;
+    }
+    #buttons button {
+        width: calc(100% - 2px);
+    }
+}
+
+/* multiselect par Kévin aussi dans create.css */
+.multiselect { display: inline-block; border-radius: 4px; padding: 8px; background-color: #fff; width: calc(60% - 64px); border: 0; color: #404040; color: rgba(0, 0, 0, 0.75); vertical-align: top; position: relative; z-index: 10; font-family: Helvetica, Arial; }
+.multiselect > .selected-option, .multiselect > .add, .multiselect > .menu > .option { padding: 4px; border: 1px solid #606060; border-radius: 2px; display: inline-block; cursor: pointer; }
+.multiselect > .placeholder { color: grey; }
+.multiselect > * + .placeholder { display: none; }
+.multiselect > .menu { background-color: inherit; max-height: 200px; overflow: auto; transition: max-height .5s ease, box-shadow .5s ease; position: absolute; top: calc(100% - 8px); left: 0; padding: 0 8px 8px 8px; border-radius: 0 0 4px 4px; box-shadow: 0 6px 6px rgba(0,0,0,.2); width: calc(100% - 16px); }
+.multiselect > .menu.hide, .multiselect.disabled > .menu { max-height: 0; box-shadow: none; }
+.multiselect.disabled { background-color: rgba(239, 239, 239, 0.3); color: rgb(84, 84, 84); }

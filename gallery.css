@@ -1,0 +1,82 @@
+.card-container {
+	display: inline-block;
+	text-align: center;
+	vertical-align: top;
+	position: relative;
+}
+@media screen and (orientation:landscape) {
+	.card-container {
+		width: 15.666%/*24%*/;
+		height: calc(32% + 1.5em);
+		margin: 0.5%;
+	}
+	.card-container .card {
+	    font-size: 0.624vw;
+	}
+}
+@media screen and (orientation:portrait) {
+	.card-container {
+		width: 31.333%/*48%*/;
+		height : calc(64% + 1.5em);
+		margin: 1%;
+	}
+	.card-container .card {
+	    font-size: 1.252vw;
+	}
+}
+.card-container .card, .card-container #add-card {
+	width: 100%;
+	cursor: pointer;
+}
+.card-container .author {
+	font-size: 1.3em;
+}
+
+.card.shining {
+	position: relative;
+}
+.card-container.new::before, .card-container.buff::before, .card-container.nerf::before {
+	position: absolute;
+	content: "";
+	z-index: 10;
+	display: inline-block;
+	width: 22%;
+	height: 20%;
+	top: 0;
+	margin-top: 115%;
+	right: -5%;
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+.card-container.new::before {
+	background-image: url(assets/new.webp);
+}
+.card-container.buff::before {
+	background-image: url(assets/buff.webp);
+}
+.card-container.nerf::before {
+	background-image: url(assets/nerf.webp);
+}
+
+/* joli fond qui tourne */
+.hollow, .hollowed:before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+	z-index: -1;
+    background-image: url('assets/hollow.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+	background-position: center;
+    animation: rotate 40s infinite linear;
+    top: -50%;
+	left: -50%;
+}
+.hollow {
+    position: fixed;
+}
+@keyframes rotate {
+  0% {transform: rotate(0);}
+  100% {transform: rotate(360deg);}
+}

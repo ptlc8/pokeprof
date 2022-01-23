@@ -1,0 +1,136 @@
+.all-cards-view, .deck-view {
+	float: left;
+	width: 45%;
+	max-height: calc(100vh - 4em - 6px);
+	overflow: auto;
+}
+.deck-chooser {
+	float: left;
+	width: 10%;
+	height: calc(100vh - 4em - 6px - 2em);
+	overflow: auto;
+	padding-top: 2em;
+}
+.deck-chooser .button {
+	margin: 1em;
+}
+.card-view {
+	width: 18%;
+	position: relative;
+	float: left;
+	margin: 1%;
+}
+.card-view .card {
+    font-size: 0.324vw;
+}
+.card-view:not(.no-shadow) {
+	box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
+}
+.card-view img, .card-view canvas {
+	width: 100%;
+	cursor: pointer;
+	box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
+}
+.card-view:hover img, .card-view:hover canvas {
+	filter: brightness(80%);
+}
+.card-view .menu {
+	display: none;
+	position: absolute;
+	width: 100%;
+	z-index: 100;
+	text-align: center;
+	padding: 0.1em;
+	border-radius: 0 0 0.4em 0.4em;
+	background-color: rgba(255,255,255,0.75);
+}
+.card-view:hover .menu {
+	display:block;
+}
+.card-view .menu * {
+	z-index: inherit;
+	opacity: 1;
+}
+.card-view .menu .button, .deck-chooser .button {
+    display: block;
+	cursor: pointer;
+	background-color: tomato;
+	padding: .5em 1em;
+	border-radius: 0.2em;
+	box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
+}
+.card-view .menu .button {
+    margin: .1em;
+}
+/*.card-view .amount {
+	position: absolute;
+	right: 10%;
+	color: white;
+	bottom: 10%;
+	font-size: 1.2em;
+}
+.card-view .amount::before {
+	content: '×';
+}*/
+
+.moving-card {
+	position: absolute;
+	pointer-events: none;
+	width: 10%;
+	font-size: 0.4vw;
+	z-index: 110;
+	transform: translate(-50%, -50%);
+}
+
+#sell-menu {
+    position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 201;
+}
+#sell-menu > div {
+    position: absolute;
+    top: 70%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    padding: 1em;
+    background-color: rgba(200,200,200,.8);
+    border-radius: .5em;
+    overflow: hidden;
+}
+#sell-menu #sell-amount {
+    display: block;
+    position: relative;
+    text-align: center;
+    margin: auto;
+}
+#sell-menu .button {
+    display: block;
+}
+@media (orientation:portrait) {
+    .all-cards-view, .deck-view {
+        width: 100%;
+        max-height: fit-content;
+    }
+    .deck-chooser {
+        width: 100%;
+        height: auto;
+        padding: 0;
+    }
+    .deck-chooser .button {
+        display: inline-block;
+        margin: .1em;
+    }
+    .card-view .card, .moving-card {
+        font-size: 0.8vw; /*0.648vw;*/
+    }
+    .moving-card {
+        width: 20%;
+    }
+    #sell-menu > div {
+        top: 80%;
+    	left: 50%;
+    }
+}
