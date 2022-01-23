@@ -117,7 +117,7 @@
 							+'&image='+encodeURIComponent(e.target.result)).then((c)=>{
 							    if (c.startsWith('success ')) {
 							        alert("Ta carte a bien été sauvegardée, elle apparaîtra dans la galerie et sera en jeu quand elle aura été équilibrée :)");
-							        window.location.href = 'gallery#'+c.replace("success ", "");
+							        window.location.href = 'gallery.php#'+c.replace("success ", "");
 							    } else if (c=='not logged') {
 							        //alert('Vous devez être connecté pour enregistrer des cartes');
 							        queryConnect();

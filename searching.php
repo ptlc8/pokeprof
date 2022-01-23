@@ -42,7 +42,7 @@ if ($result->num_rows === 0) {
 
 // Arrêt des recherches et création du match
 $opponentCardsUser = $result->fetch_assoc();
-sendRequest("UPDATE `CARDSUSERS` SET `lastSearchDate` = '2000-00-00 00:00:00' WHERE `CARDSUSERS`.`id` = ", $cardsUser['id'], " OR `CARDSUSERS`.`id` = ", $opponentCardsUser['id']);
+sendRequest("UPDATE `CARDSUSERS` SET `lastSearchDate` = '2000-01-01 00:00:00' WHERE `CARDSUSERS`.`id` = ", $cardsUser['id'], " OR `CARDSUSERS`.`id` = ", $opponentCardsUser['id']);
 $result = sendRequest("SELECT * FROM CARDS WHERE official > 0 OR official = -1");
 $allcards = [];
 while ($row = $result->fetch_assoc())
@@ -63,6 +63,7 @@ foreach(array($cardsUser,$opponentCardsUser) as $cU) {
 	for ($i = 0; $i < 5; $i++)
 	    array_push($o->hand, array_pop($o->deck));
 	array_push($opponents, $o);
+	print_r($o);
 }
 $match = new Match($opponents);
 $totalCartes = count($allcards);

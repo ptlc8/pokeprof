@@ -410,7 +410,7 @@
 			function search(bot=false) {
 				sendRequest("POST", "searching.php", bot?'bot':'').then(function(response) {
 					if (response=='founded' || response=='playing') {
-						window.location.replace('play');
+						window.location.replace('play.php');
 					} else if (response=='nodeck') {
 						alert('Aïe ! Tu n\'as pas encore de deck ou pas assez de cartes dedans, créez-en un dans le menu principal en cliquant sur "Ton jeu de cartes". Si tu n\'as pas encore de cartes, ouvre les boosters gratuits sur la page principale en cliquant dessus. Bon amusement ! ;)');
 						window.location.replace('.');
@@ -423,7 +423,7 @@
 			function cancelSearch() {
 				sendRequest("POST", "searching.php", "cancel").then(function(response) {
 					if (response=='playing') {
-						window.location.replace('play');
+						window.location.replace('play.php');
 					} else if (response=='canceled') {
 						// do nothing 'cause it's gud
 					}
@@ -434,7 +434,7 @@
 				var args = window.location.hash.replace("#", "").split("=");
 				switch (args[0]) {
 				case "user":
-					sendRequest("GET", "getuser?id="+args[1]).then(function(r) {
+					sendRequest("GET", "getuser.php?id="+args[1]).then(function(r) {
 						if (r == "not found") return;
 						r = JSON.parse(r);
 						let borderClass = r.tags.includes("gold-border") ? "gold-border"
@@ -480,7 +480,7 @@
 					break;
 				case "shop?all":
 				case "shop":
-					sendRequest("GET", "getshop"+(args[0]=="shop?all"?"?all":"")).then(function(response) {
+					sendRequest("GET", "getshop.php"+(args[0]=="shop?all"?"?all":"")).then(function(response) {
 						shop = JSON.parse(response);
 						let moneySpan;
 						createPopup({className:"shop"}, [
@@ -539,7 +539,7 @@
 				    printCardAbout(args[1]);
 				    break;
 				case "rules":
-				    sendRequest("GET","getrules").then(function(rulesHTML){
+				    sendRequest("GET","getrules.php").then(function(rulesHTML){
 				        let rulesDiv = createElement("div");
 				        rulesDiv.innerHTML = rulesHTML;
 				        createPopup({className:"rules"}, [rulesDiv]).then(function() {
@@ -548,7 +548,7 @@
 				    });
 				    break;
 				case "history":
-					sendRequest("GET", "gethistory").then(function(r) {
+					sendRequest("GET", "gethistory.php").then(function(r) {
 						let history = JSON.parse(r);
 						createPopup({className:"history"}, [
 							createElement("span", {className:"title"}, "Historique")

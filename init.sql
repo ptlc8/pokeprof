@@ -155,3 +155,10 @@ ALTER TABLE `MATCHES`
   ADD CONSTRAINT `matches_link_o1` FOREIGN KEY (`opponent1`) REFERENCES `CARDSUSERS` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `matches_link_o2` FOREIGN KEY (`opponent2`) REFERENCES `CARDSUSERS` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+
+--
+-- Création du compte Bot
+--
+
+INSERT INTO `USERS` (`id`, `email`, `name`, `password`, `firstName`, `lastName`) VALUES ('-807', 'bot@bot', 'Bot', 'bot', 'Le', 'bot');
+INSERT INTO `CARDSUSERS` (`id`) VALUES ('-807')

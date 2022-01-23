@@ -146,9 +146,9 @@
 		    		else setCardBackElement(document.getElementById("deck-"+i));
 		    	}
 		    	document.getElementById("deck-name").innerText = String.fromCharCode(65+n);
-		    	let cost = 0;
 		    	Promise.all(decks[n].map(id=>getCardInfos(id))).then(function(cards){
-		    	    document.getElementById("deck-cost").innerText = cards.reduce((acc,card)=>acc+parseInt(card.cost), 0) / decks[n].length;
+		    	    document.getElementById("deck-cost").innerText = cards.reduce((acc,card)=>acc+parseInt(card.cost||0), 0) / decks[n].length;
+		    	    console.log(cards);
 		    	});
 		    }
 		    function chooseDeck(n) {
