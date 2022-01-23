@@ -1,7 +1,9 @@
 <?php
 
+include('credentials.php');
+
 // initialisation BDD
-$mysqli = new mysqli('localhost', 'u609859979_encre', 'qwerty', 'u609859979_papier');
+$mysqli = new mysqli(POKEPROF_DB_HOSTNAME, POKEPROF_DB_USER, POKEPROF_DB_PASSWORD, POKEPROF_DB_NAME);
 if ($mysqli->connect_errno) {
 	echo 'Erreur de connexion côté serveur, veuillez réessayer plus tard';
 	exit;
