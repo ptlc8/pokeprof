@@ -16,6 +16,8 @@ define('POKEPROF_DB_HOSTNAME', 'localhost');
 define('POKEPROF_DB_USER', 'user');
 define('POKEPROF_DB_PASSWORD', 'password123');
 define('POKEPROF_DB_NAME', 'pokeprof');
+define('POKEPROF_WEBHOOK_CARD_CREATE', null);
+define('POKEPROF_WEBHOOK_CARD_EDIT', null);
 ?>
 ```
  - exécuter dans la base de données le script SQL [init.sql](init.sql)

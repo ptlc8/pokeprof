@@ -11,7 +11,7 @@ $cardsUser = $cardsUserRequest->fetch_assoc();
 if (!isset($_REQUEST['name']) || $_REQUEST['name']=='') exit('La carte a besoin d\'un nom');
 if (!isset($_REQUEST['image']) || $_REQUEST['image']=='') exit('La carte a besoin d\'une image');
 if (!isset($_REQUEST['type']) || $_REQUEST['type']=='') exit('La carte a besoin d\'un type');
-if (!isset($_REQUEST['color']) || strpos($_REQUEST['color'], '#') !== 0) exit('La carte a besoin d\une couleur');
+if (!isset($_REQUEST['color']) || strpos($_REQUEST['color'], '#') !== 0) exit('La carte a besoin d\'une couleur');
 if (!isset($_REQUEST['cost']) || !is_numeric($_REQUEST['cost'])) exit('La carte a besoin d\'un coût d\'invocation');
 if (!isset($_REQUEST['origin']) || $_REQUEST['origin']=='') exit('Explique-nous l\'origine de ta super carte. On adore les ragots :)');
 
@@ -54,17 +54,18 @@ if (!in_array("@🧩 Créateur de cartes", $tags)) {
 }
 
 // envoi d'un message dans le salon Discord #cartes-créées
-set_error_handler(function() { /* ignore errors */ });
-$url = "https://discord.com/api/webhooks/897633797560991794/K-lV-38h2C3IfMVUChL3NX9mH-fhs03Exbut68T9HpluZuwmNq2WqXmXyjbqTthApkDi";
-$context  = stream_context_create(array(
-    'http' => array(
-        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-        'method'  => 'POST',
-        'content' => http_build_query(array('content' => '**'.$user['name'].'** a créé une carte ***'.$_REQUEST['name'].'*** ('.$_REQUEST['type'].', '.$_REQUEST['cost'].' manas, *'.($_REQUEST['atk1name']??'').'*, *'.($_REQUEST['atk2name']??'').'*)'."\n".implode("\n",array_map(function($line){return '> '.$line;},explode("\n",$_REQUEST['origin'])))))
-    )
-));
-file_get_contents($url, false, $context);
-restore_error_handler();
+if (isset(POKEPROF_WEBHOOK_CARD_CREATE) && POKEPROF_WEBHOOK_CARD_CREATE!=null) {
+	set_error_handler(function() { /* ignore errors */ });
+	$context  = stream_context_create(array(
+		'http' => array(
+		    'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+		    'method'  => 'POST',
+		    'content' => http_build_query(array('content' => '**'.$user['name'].'** a créé une carte ***'.$_REQUEST['name'].'*** ('.$_REQUEST['type'].', '.$_REQUEST['cost'].' manas, *'.($_REQUEST['atk1name']??'').'*, *'.($_REQUEST['atk2name']??'').'*)'."\n".implode("\n",array_map(function($line){return '> '.$line;},explode("\n",$_REQUEST['origin'])))))
+		)
+	));
+	file_get_contents(POKEPROF_WEBHOOK_CARD_CREATE, false, $context);
+	restore_error_handler();
+}
 
 // succès
 echo('success '.$cardId);
