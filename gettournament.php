@@ -1,7 +1,7 @@
 <?php
 include("init.php");
 
-$tournamentId=$_REQUEST['id']
+$tournamentId=$_REQUEST['id'];
 
 // récupération du tournoi
 $result = sendRequest("SELECT * FROM TOURNAMENT WHERE id = '", $tournamentId, "'");
