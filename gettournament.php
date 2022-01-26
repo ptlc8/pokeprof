@@ -1,12 +1,16 @@
 <?php
 include("init.php");
 
-$tournamentId=$_REQUEST['id'];
-
+if (isset($_REQUEST['id'])) {
+	$tournamentId=$_REQUEST['id'];
+} else {
+	exit("L iditenfiant du tournoi n est pas donne.");
+}
+	
 // récupération du tournoi
 $result = sendRequest("SELECT * FROM TOURNAMENT WHERE id = '", $tournamentId, "'");
 if ($result->num_rows === 0) {
-	exit("<a href=".">Ce tournoi n'existe pas.</a>");
+	exit("Ce tournoi n existe pas.");
 }
 $tournament = $result->fetch_assoc();
 
