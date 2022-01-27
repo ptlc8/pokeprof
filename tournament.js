@@ -10,7 +10,7 @@ function displayTournament(tournamentDiv, tournament) {
 			var fighters = turn.split(".");
 			var fightersNumber = Math.pow(2,turns.length-t-1);
 			for (let i = 0; i < fightersNumber; i+=2) {
-				if (i >= fighters.length)
+				if (i >= fighters.length || !fighters[i])
 					turnDiv.appendChild(createElement("div", {className:"tournament-match"}, [
 						createElement("div", {className:"tournament-fighters"})
 					]));
@@ -42,4 +42,16 @@ function displayTournament(tournamentDiv, tournament) {
 			}	
 		}
 	}
+}
+
+function queryTournament(id) {
+	return new Promise(function (resolve, reject){
+		sendRequest("GET", "gettournament.php", "id="+id).then(function(response){
+			try {
+				return JSON.decode(response);
+			} catch (e) {
+				reject(e);
+			}
+		}).catch(reject);
+	});
 }

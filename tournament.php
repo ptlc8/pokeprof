@@ -10,8 +10,10 @@
 	<body>
 		<div id="tournament"></div>
 		<script>
-			displayTournament(document.getElementById("tournament"), "Léo.z.e.r.t.yoyo.u.i.o.Jules.q.Brayan,Léo.2.3.4.Jules.Brayan.pere noel.dealer,Léo.2.Jules.4,Léo.Jules,Jules")
-			
+			var params = new URLSearchParams(window.location.search);
+			queryTournament(params.get("id")).then(function(tournament) {
+				displayTournament(document.getElementById("tournament"), tournament.fighters);
+			});
 		</script>
 	</body>
 </html>
