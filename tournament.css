@@ -6,6 +6,7 @@
     vertical-align: middle;
     min-height: 100%;
     flex-direction: column;
+    flex-shrink: 0;
 }
 .tournament-match {
 	flex: 1;
