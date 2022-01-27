@@ -1,3 +1,6 @@
+body {
+	text-align: center;
+}
 .tournament {
 	display: inline-flex;
 }
@@ -38,6 +41,7 @@
 	border: solid 1px black;
 	height: 1em;
 	width: calc(100% - 2em - 2px);
+	background-color: whitesmoke;
 }
 .tournament-alone-fighter {
 	margin: auto;
