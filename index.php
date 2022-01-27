@@ -57,6 +57,18 @@
 			$_REQUEST['tuto'] = 'tuto';
 		}
 		$cardsUser = $result->fetch_assoc();
+		      
+		//Tournament
+		$result = sendRequest("SELECT id FROM TOURNAMENT");
+		if ($result->num_rows != 0) {
+			$tournament=[];
+			k=0;
+			$tabTourn=$result->fetch_all();
+			for (int $i=0; i<$result->num_rows; i++) {
+				$tournament[k]=sendRequest("SELECT * FROM TOURNAMENT WHERE id='"+$tabTourn[i]+"'")->fetc_assoc();
+			}
+		}
+		//A finir, Léo
 		
 		?>
 		<span id="title" class="title">PokéProf !</span>
