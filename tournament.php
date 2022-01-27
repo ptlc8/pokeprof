@@ -13,6 +13,8 @@
 			var params = new URLSearchParams(window.location.search);
 			queryTournament(params.get("id")).then(function(tournament) {
 				displayTournament(document.getElementById("tournament"), tournament.fighters);
+			}).catch(function(){
+				alert("Impossible d'afficher ce tournoi");
 			});
 		</script>
 	</body>
