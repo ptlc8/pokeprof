@@ -35,7 +35,7 @@ function prettyTable4Tournament ($textFighters) {
 	$a=1;
 	$fighters=array();
 	//on s'intéresse seulement au tableau principal
-	foreach ($trees[0] as $branch) {
+	foreach ($trees3[0] as $branch) {
 		foreach ($branch as $node) {
 			$j=0;
 			foreach ($fighters as $fighter) {
