@@ -78,13 +78,24 @@ function prettyTable4Tournament ($textFighters) {
 	}
 	$trees3[0]=$Tree;
 	$textFinal="";
+	$a=0;
 	for ($i=0; $i<count($trees3); $i++) {
 		for ($j=0; $j<count($trees3[$i]); $j++) {
 			for ($k=0; $k<count($trees3[$i][$j]); $k++) {
 				if ($k==0) {
-					$textFinal=$textFinal.$trees3[$i][$j][$k];	
+					if ($trees3[$i][$j][$k]=='_') {
+						$textFinal=$textFinal.$fighters[$a][0];
+						$a++;
+					} else {
+						$textFinal=$textFinal.$trees3[$i][$j][$k];
+					}
 				} else {
-					$textFinal=$textFinal.'.'.$trees3[$i][$j][$k];
+					if ($trees3[$i][$j][$k]=='_') {
+						$textFinal=$textFinal.'.'.$fighters[$a][0];
+						$a++;
+					} else {
+						$textFinal=$textFinal.'.'.$trees3[$i][$j][$k];
+					}
 				}
 			}
 			if ($j<count($trees3[$i])-1) {
