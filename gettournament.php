@@ -2,20 +2,20 @@
 
 //fonctions pour faire des tableaux corrects, Léo
 
-function recurPrettyTable ($tree, $nbQualified, $i, $j) {
-	global $tree;
+global $Tree;
+
+function recurPrettyTable ($Tree, $nbQualified, $i, $j) {
 	if ($nbQualified<=1) {
-		$tree[$i][$j]='_';	//emplacement d'un id de joueur
+		$Tree[$i][$j]='_';	//emplacement d'un id de joueur
 	}
 	else  {
-		$tree[$i][$j]=' ';
-		recurPrettyTable($tree, intdiv($nbQualified,2)+($nbQualified%2), $i-1, $j*2);
-		recurPrettyTable($tree, intdiv($nbQualified,2), $i-1, ($j*2)+1);
+		$Tree[$i][$j]=' ';
+		recurPrettyTable($Tree, intdiv($nbQualified,2)+($nbQualified%2), $i-1, $j*2);
+		recurPrettyTable($Tree, intdiv($nbQualified,2), $i-1, ($j*2)+1);
 	}
 }
 
 function prettyTable4Tournament ($textFighters) {
-	global $Tree;
 	$Tree=array();
 	if (($textFighters==null)||(!isset($textFighters))) {
 		return(null);	
