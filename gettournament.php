@@ -3,7 +3,6 @@
 //fonctions pour faire des tableaux corrects, Léo
 
 function recurPrettyTable ($tree, $nbQualified, $i, $j) {
-	echo "\nlevel: ".$i." , ".$j;
 	if ($nbQualified<=1) {
 		$tree[$i][$j]='_';	//emplacement d'un id de joueur
 	}
@@ -28,8 +27,6 @@ function prettyTable4Tournament ($textFighters) {
 			$trees3[$i][$j]=explode('.',$trees2[$i][$j]);
 		}
 	}
-	print_r($trees3[0]);
-	echo "\n";
 	//on vérifie si le tournoi a commencé. 2 méthodes:
 	//- regarde les doublons dans le tableau
 	//- existance des repêchages
@@ -60,11 +57,9 @@ function prettyTable4Tournament ($textFighters) {
 	if ($j!=0) { //le tournoi a commencé
 		return($trees3);
 	}
-	print_r($fighters);
 	//modif avec appel récursif
 	$trees=array();
 	recurPrettyTable ($trees, count($fighters), ceil(log(count($fighters),2)), 0);
-	print_r($trees);
 	$k=0;
 	foreach ($trees as $branch) {
 		foreach ($branch as $node) {
@@ -74,7 +69,8 @@ function prettyTable4Tournament ($textFighters) {
 			}
 		}
 	}
-	return($trees);
+	$trees3[0]=$trees;
+	return($trees3);
 }
 
 include("init.php");
@@ -92,7 +88,7 @@ if ($result->num_rows === 0) {
 }
 $tournament = $result->fetch_assoc();
 
-print_r(prettyTable4Tournament($tournament['fighters']));
+$tournament['fighters']=prettyTable4Tournament($tournament['fighters']);
 
 echo json_encode($tournament);
 
