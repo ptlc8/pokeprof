@@ -32,7 +32,7 @@ function prettyTable4Tournament ($textFighters) {
 	//- existance des repêchages
 	//on choisit la première pour récupérer les participants au passage
 	$i=0;
-	$a=1;
+	$a=0;
 	$fighters=array();
 	//on s'intéresse seulement au tableau principal
 	foreach ($trees3[0] as $branch) {
@@ -46,13 +46,13 @@ function prettyTable4Tournament ($textFighters) {
 			if ($j<1) {
 				$fighters[$a][0]=$node;
 				$fighters[$a][1]=1;
+				a++;
 			} else {
 				$fighters[$a][1]+=$j;
 			}
 		}
 	}
 	print_r($fighters);
-	echo $j;
 	if ($j!=0) { //le tournoi a commencé
 		return($textFighters);
 	}
