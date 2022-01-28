@@ -3,6 +3,7 @@
 //fonctions pour faire des tableaux corrects, Léo
 
 function recurPrettyTable ($tree, $nbQualified, $i, $j) {
+	global $tree;
 	if ($nbQualified<=1) {
 		$tree[$i][$j]='_';	//emplacement d'un id de joueur
 	}
