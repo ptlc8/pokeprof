@@ -37,7 +37,7 @@
 			}
 			?>
 			
-			<p><a href="register.php<?php echo isset($_REQUEST['go']) ? '?go='.urlencode($_REQUEST['go']) : (isset($_REQUEST['closeafter']) ? '?closeafter' : ''); ?>">Je me connecte pour la première fois</a><br /><a href="forgotten-password.php">J'ai oublié mon mot de passe</a></p>
+			<p><a href="/register.php<?php echo isset($_REQUEST['go']) ? '?go='.urlencode($_REQUEST['go']) : (isset($_REQUEST['closeafter']) ? '?closeafter' : ''); ?>">Je me connecte pour la première fois</a><br /><a href="/forgotten-password.php">J'ai oublié mon mot de passe</a></p>
 		</form>
 	</body>
 </html>
