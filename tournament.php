@@ -12,7 +12,9 @@
 		<span id="tournament-name" class="title"></span>
 		<br />
 		<span id="tournament-infos"></span>
-		<br />
+		<div id="actions">
+			<button id="join-button" class="button">Rejoindre</span>
+		</div>
 		<div id="tournament"></div>
 		<script>
 			var params = new URLSearchParams(window.location.search);

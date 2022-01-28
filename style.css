@@ -50,6 +50,8 @@ html, body {
 	padding: .5em 1em;
 	border-radius: 0.2em;
 	box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
+	border-style: none;
+	font-size: inherit;
 	/*position: absolute; pas faire ça, ça casse d'autres boutons, 'faut créer une autre classe et combinées les deux pour ne pas avoir de conflit*/
 }
 .mainbutton {
