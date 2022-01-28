@@ -4,7 +4,7 @@
 
 function recurPrettyTable ($tree, $nbQualified, $i, $j) {
 	if ($nbQualified<=1) {
-		tree[i][j]='_';	//emplacement d'un id de joueur
+		$tree[i][j]='_';	//emplacement d'un id de joueur
 	}
 	else  {
 		$tree[i][j]=' ';
@@ -51,8 +51,7 @@ function prettyTable4Tournament ($textFighters) {
 		return($trees3);
 	}
 	//modif avec appel récursif
-	$tree=array();
-	return(recurPrettyTable ($tree, count($fighters), ceil(log(count($fighters),2)), 0));
+	return(recurPrettyTable ($trees, count($fighters), ceil(log(count($fighters),2)), 0));
 }
 
 include("init.php");
