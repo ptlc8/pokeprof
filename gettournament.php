@@ -70,7 +70,7 @@ function prettyTable4Tournament ($textFighters) {
 	}
 	//modif avec appel récursif
 	$trees=array();
-	recurPrettyTable (&$trees, $a, ceil(log($a,2)), 0);
+	recurPrettyTable (& $trees, $a, ceil(log($a,2)), 0);
 	$k=0;
 	foreach ($trees as $branch) {
 		foreach ($branch as $node) {
