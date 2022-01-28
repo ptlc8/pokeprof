@@ -390,7 +390,7 @@
 			//annonces pour rediriger vers la page tournoi
 			if (isset($tournament)) {
 				for ($i=0; $i<$lengthTournmnt; $i++) {
-					if (($tournament[$i]['nbPlaces']==null) || ($trounament[$i]['nbPlaces']>=0)) {
+					if (($tournament[$i]['nbPlaces']==null) || ($tournament[$i]['nbPlaces']>=0)) {
 						echo 'newalert({text:"Le tournoi '.$tournament[$i]["name"].' est en cours! Clique ici pour le rejoindre!", target:"", href:"tournament.php?id='.$tournament[$i]["id"].'"}, {close:true});';
 					}
 				}
