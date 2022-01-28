@@ -79,13 +79,34 @@ function prettyTable4Tournament ($textFighters) {
 	$trees3[0]=$Tree;
 	print_r($trees3);
 	$textFinal="";
-	foreach ($trees3 as $tree) {
+	/*foreach ($trees3 as $tree) {
 		foreach ($tree as $branch) {
-			$branch=implode('.',$branch);
+			//$branch=implode('.',$branch);
+			foreach ($branch as $node) {
+		
+			}
 		}
-		$tree=implode(',',$tree);
+		//$tree=implode(',',$tree);
 	}
-	$textFinal=implode(';', $trees3);
+	//$textFinal=implode(';', $trees3);
+	*/
+	for ($i=0; $i<count($trees3); $i++) {
+		for ($j=0; $j<count($trees3[$i]); $j++) {
+			for ($k=0; $k<count($trees3[$i][$j]); $k++) {
+				if ($k==0) {
+					$textFinal=$textFinal.$node;	
+				} else {
+					$textFinal=$textFinal.'.'.$node;
+				}
+			}
+			if ($j<count($trees3[$i])-1) {
+				$textFinal=$textFinal.',';
+			}
+		}
+		if ($j<count($trees3)-1) {
+			$textFinal=$textFinal.';';
+		}
+	}
 	return($textFinal);
 }
 
