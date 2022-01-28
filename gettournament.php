@@ -40,7 +40,7 @@ function prettyTable4Tournament ($textFighters) {
 		while (($k<count($fighters))&&($k<count($trees3[0][$i]))&&($j==0)) {
 			if ($fighters[$k]==$trees3[0][$i][$k]) {
 				$fighters[$k]=$trees3[0][$i][$k];
-			else {
+			} else {
 				$j=1; //on a un doublon	
 			}
 			$k++;
