@@ -41,14 +41,17 @@ function prettyTable4Tournament ($textFighters) {
 	foreach ($trees3[0] as $branch) {
 		foreach ($branch as $node) {
 			$i=0;
+			$j=0;
 			while ($i<$a) {
-				if ($fighters[$a-1][0]==$node) {
-					$fighters[$a-1][1]++;
-				} else {
-					$fighters[$a-1]=[$node,1];
-					$a++;
+				if ($fighters[$i][0]==$node) {
+					$fighters[$i][1]++;
+					$j=1;
 				}
 				$i++;
+			}
+			if ($j!=1) {
+				$fighters[$a]=[$node,1];
+				$a++;
 			}
 		}
 	}
