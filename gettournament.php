@@ -39,10 +39,14 @@ function prettyTable4Tournament ($textFighters) {
 	while (($i<count($trees3[0]))&&($j==0)) {
 		$k=0;
 		while (($k<count($fighters))&&($k<count($trees3[0][$i]))&&($j==0)) {
-			if ($fighters[$k]==$trees3[0][$i][$k]) {
-				$fighters[$k]=$trees3[0][$i][$k];
-			} else {
-				$j=1; //on a un doublon	
+			$l=0;
+			while (($l<count($trees3[0][$i]))&&($j==0)) {
+				if ($fighters[$k]==$trees3[0][$i][$l]) {
+					$fighters[$k]=$trees3[0][$i][$l];
+				} else {
+					$j=1; //on a un doublon
+				}
+				$l++;
 			}
 			$k++;
 		}
@@ -51,6 +55,7 @@ function prettyTable4Tournament ($textFighters) {
 	if ($j!=0) { //le tournoi a commencé
 		return($trees3);
 	}
+	print_r($fighters);
 	//modif avec appel récursif
 	$trees=array();
 	recurPrettyTable ($trees, count($fighters), ceil(log(count($fighters),2)), 0);
