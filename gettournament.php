@@ -1,29 +1,22 @@
 <?php
 
 //fonction pour faire des tableaux corrects, Léo
-/*
 function prettyTable4Tournament ($textFighters) {
 	if (($textFighters==null)||(!isset($textFighters))) {
 		return(null);	
 	}
-	$tree=array();
-	$j=0;
-	$i=0;
-	$tree[0][0]=$textFighters[0];
-	while (count($textFighters)>$i) {
-		$k=0;
-		$l=0;
-		while (
-		for ($l=0; $l<=$j; $l++) {
-			if (
+	$trees=array();
+	$trees2=array();
+	$trees3=array();
+	$trees=explode(';',$textFighters);
+	for ($i=0; $i<count($trees); $i++) {
+		$trees2[$i]=explode(',',$trees);
+		for ($j=0; $j<count($trees2[$i]); $j++) {
+			$trees3[$i][$j]=explode('.',$trees2[$i]);
 		}
-		$i++;
 	}
-	if ($textFighters[$i]==',') {
-		return($textFighters);	
-	}
+	return($trees3);
 }
-*/
 
 include("init.php");
 
@@ -39,6 +32,8 @@ if ($result->num_rows === 0) {
 	exit("Ce tournoi n existe pas.");
 }
 $tournament = $result->fetch_assoc();
+
+print_r(prettyTable4Tournament($tournament['fighters']));
 
 echo json_encode($tournament);
 
