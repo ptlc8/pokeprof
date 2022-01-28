@@ -21,8 +21,14 @@
 			queryTournament(params.get("id")).then(function(tournament) {
 				displayTournament(document.getElementById("tournament"), tournament.fighters);
 				document.getElementById("tournament-name").innerText = tournament.name;
-				if (tournament.nbPlaces)
-					document.getElementById("tournament-infos").innerText = tournament.nbPlaces+" places";
+				if (tournament.nbPlaces!=null) {
+					if (tournament.nbPlaces>0)
+						document.getElementById("tournament-infos").innerText = tournament.nbPlaces+" places";
+					else if (tournament.nbPlaces==0)
+						document.getElementById("tournament-infos").innerText = "Les inscriptions sont fermées!";
+					else
+						document.getElementById("tournament-infos").innerText = "Ce tournoi est terminé.";
+				}
 			}).catch(function(){
 				alert("Impossible d'afficher ce tournoi");
 			});
