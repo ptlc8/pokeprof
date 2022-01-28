@@ -45,9 +45,9 @@ function prettyTable4Tournament ($textFighters) {
 			}
 			if ($j<1) {
 				$fighters[$a][0]=$node;
-				$fighters[$a][1]=0;
+				$fighters[$a][1]=1;
 			} else {
-				$fighters[$a][1]+=$j;	
+				$fighters[$a][1]+=$j;
 			}
 		}
 	}
@@ -72,7 +72,7 @@ function prettyTable4Tournament ($textFighters) {
 	$textFinal="";
 	foreach ($trees3 as $tree) {
 		foreach ($tree as $branch) {
-			$branch=implode('.',$branch);	
+			$branch=implode('.',$branch);
 		}
 		$tree=implode(',',$tree);
 	}
