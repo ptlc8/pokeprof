@@ -3,12 +3,13 @@
 //fonctions pour faire des tableaux corrects, Léo
 
 function recurPrettyTable ($tree, $nbQualified, $i, $j) {
-	print_r($tree);
 	if ($nbQualified<=1) {
-		$tree[$i][$j]=1;	//emplacement d'un id de joueur
+		echo '1';
+		$tree[$i][$j]='_';	//emplacement d'un id de joueur
 	}
 	else  {
-		$tree[$i][$j]=0;
+		$tree[$i][$j]=' ';
+		echo '0,0<br />';
 		recurPrettyTable($tree, intdiv($nbQualified,2)+($nbQualified%2), $i-1, $j*2);
 		recurPrettyTable($tree, intdiv($nbQualified,2), $i-1, ($j*2)+1);
 	}
