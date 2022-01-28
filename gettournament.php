@@ -14,7 +14,8 @@ function recurPrettyTable ($tree, $nbQualified, $i, $j) {
 }
 
 function prettyTable4Tournament ($textFighters) {
-	global $Tree=array();
+	global $Tree;
+	$Tree=array();
 	if (($textFighters==null)||(!isset($textFighters))) {
 		return(null);	
 	}
