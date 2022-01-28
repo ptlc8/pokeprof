@@ -68,27 +68,28 @@ function prettyTable4Tournament ($textFighters) {
 	//modif avec appel récursif
 	recurPrettyTable ($Tree, $a, ceil(log($a,2)), 0);
 	$trees3[0]=$Tree;
-	print_r($fighters);
 	$textFinal="";
 	$a=0;
 	for ($i=0; $i<count($trees3); $i++) {
 		for ($j=0; $j<count($trees3[$i]); $j++) {
 			for ($k=0; $k<count($trees3[$i][$j]); $k++) {
 				if ($k==0) {
-					if ($trees3[$i][$j][$k]=='_') {
-						$textFinal=$textFinal.$fighters[$a][0];
-						$a++;
-					} else {
-						$textFinal=$textFinal.$trees3[$i][$j][$k];
+					if (isset($trees3[$i][$j][$k])) {
+						if ($trees3[$i][$j][$k]=='_') {
+							$textFinal=$textFinal.$fighters[$a][0];
+							$a++;
+						} else {
+							$textFinal=$textFinal.$trees3[$i][$j][$k];
+						}
 					}
 				} else {
-					if ($trees3[$i][$j][$k]=='_') {
-						echo '<br />';
-						print_r($trees3[$i][$j]);
-						$textFinal=$textFinal.'.'.$fighters[$a][0];
-						$a++;
-					} else {
-						$textFinal=$textFinal.'.'.$trees3[$i][$j][$k];
+					if (isset($trees3[$i][$j][$k])) {
+						if ($trees3[$i][$j][$k]=='_') {
+							$textFinal=$textFinal.'.'.$fighters[$a][0];
+							$a++;
+						} else {
+							$textFinal=$textFinal.'.'.$trees3[$i][$j][$k];
+						}
 					}
 				}
 			}
