@@ -4,16 +4,16 @@
 
 function recurPrettyTable ($tree, $nbQualified, $i, $j) {
 	if ($nbQualified<=1) {
-		echo '1,';
+		echo '1. ';
 		$tree[$i][$j]='_';	//emplacement d'un id de joueur
 	}
 	else  {
 		$tree[$i][$j]=' ';
-		echo '0,';
+		echo '0.';
 		recurPrettyTable($tree, intdiv($nbQualified,2)+($nbQualified%2), $i-1, $j*2);
-		echo '0,';
+		echo '0.';
 		recurPrettyTable($tree, intdiv($nbQualified,2), $i-1, ($j*2)+1);
-		echo '<br />';
+		echo ',<br />';
 	}
 }
 
