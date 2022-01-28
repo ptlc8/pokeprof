@@ -390,16 +390,10 @@
 			//annonces pour rediriger vers la page tournoi
 			if (isset($tournament)) {
 				for ($i=0; $i<$lengthTournmnt; $i++) {
-		?>
-					newalert({text:"Le tournoi
-		<?php
-			echo $tournament[$i]['name'];			
-		?>
-						  
-						  est en cours! Clique ici pour le rejoindre!", target:"", href:"tournament.php"}, {close:true});	
-		<?php
+					echo 'newalert({text:"Le tournoi'+$tournament[$i]["name"]+'est en cours! Clique ici pour le rejoindre!", target:"", href:"tournament.php"}, {close:true});';
 				}
 			}
+			
 			//autres annonces
 			if (isset($cardsUser['rewardLevel']) && $cardsUser['rewardLevel']>=7 ){ ?>
 			newalert({text:"Vous avez la possibilité de récuperer des Boosters",target:"",href:"#"}, {close:true});
