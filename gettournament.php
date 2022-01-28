@@ -79,6 +79,7 @@ function prettyTable4Tournament ($textFighters) {
 		}
 	}
 	$trees3[0]=$trees;
+	print_r($trees3);
 	$textFinal="";
 	foreach ($trees3 as $tree) {
 		foreach ($tree as $branch) {
