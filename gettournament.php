@@ -3,7 +3,7 @@
 //fonctions pour faire des tableaux corrects, Léo
 
 function recurPrettyTable ($tree, $nbQualified, $i, $j) {
-	echo "\nlvl: ".$i." , ".$j;
+	echo "<br />lvl: (".$i." , ".$j.") ".$nbQualified;
 	if ($nbQualified<=1) {
 		$tree[$i][$j]='_';	//emplacement d'un id de joueur
 	}
@@ -55,7 +55,6 @@ function prettyTable4Tournament ($textFighters) {
 			}
 		}
 	}
-	print_r($fighters);
 	$j=0;
 	$a=0;
 	foreach ($fighters as $fighter) {
