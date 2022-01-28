@@ -145,7 +145,8 @@ $user = login(true, false);
 					return;
 				let startHistoryIndex = historyIndex;
 				while (historyIndex < match.history.length) {
-					let action = match.history[historyIndex];
+					let action = match.history[historyIndex++];
+					console.log(historyIndex);
 					console.info("[Poképrof] Action '"+action.name+"'");
 					let agent;
 					switch (action.name) {
@@ -174,7 +175,6 @@ $user = login(true, false);
 							match.opponents[action.playerId].mana = action.mana;
 							break;
 						case "playfightercard":
-						    console.log(action.card);
 							if (action.playerId == match.playerId) {
 								if (typeof player.hand == "number") player.hand--;
 								else player.hand.splice(action.index, 1);
@@ -426,7 +426,6 @@ $user = login(true, false);
 					}
 					refresh();
 					await sleep(Math.min(500, 5000/(match.history.length-startHistoryIndex)));
-					historyIndex++;
 				}
 				/*if (newActions.length!=0)
 					refresh();*/

@@ -483,8 +483,8 @@ if (isset($_REQUEST['error'])) {
 							console.error("[Poképrof] Unknow action name : "+action.name);
 					}
 					refresh();
-					await sleep(Math.min(500, 5000/(match.history.length-startHistoryIndex)));
 					historyIndex++;
+					await sleep(Math.min(500, 5000/(match.history.length-startHistoryIndex)));
 				}
 				/*if (newActions.length!=0)
 					refresh();*/
