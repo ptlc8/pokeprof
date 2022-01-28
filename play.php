@@ -448,7 +448,8 @@ if (isset($_REQUEST['error'])) {
 							card.eg = card.mi = false;
 							card.slp = card.prl = card.efr = card.pvq = card.elc = card.shield = card.strength = 0;
 							card.hp = card.hpmax;
-							match.opponents[action.playerId].hand.push(card);
+							if (action.playerId==match.playerId) player.hand.push(card);
+							else match.opponents[action.playerId].hand++;
 							(action.playerId==match.playing?playerFightersDivs:opponentFightersDivs).push(createGamePlacedCard(card.id, {x:50, y:50, edit:card}));
 							break;
 						case "givecard": {
