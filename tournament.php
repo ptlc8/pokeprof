@@ -9,6 +9,13 @@
 		<link rel="icon" href="assets/icon.png" />
 	</head>
 	<body>
+		<?php
+		
+		include("init.php");
+		login(true,false);
+		
+		?>
+		
 		<span id="tournament-name" class="title"></span>
 		<br />
 		<span id="tournament-infos"></span>
