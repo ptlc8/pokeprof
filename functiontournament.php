@@ -1,4 +1,4 @@
-<? php
+<?php
   
  //fonctions pour faire des tableaux corrects, Léo
 
