@@ -46,7 +46,7 @@ function prettyTable4Tournament ($textFighters) {
 			if ($j<1) {
 				$fighters[$a][0]=$node;
 				$fighters[$a][1]=1;
-				a++;
+				$a++;
 			} else {
 				$fighters[$a][1]+=$j;
 			}
