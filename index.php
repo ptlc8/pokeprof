@@ -417,6 +417,7 @@
 					} else if (response.startsWith("searching")) {
 					    let infos = response.split(" ");
 					    document.getElementById("search-infos").innerText = infos[1]+" joueurs en ligne (dont "+infos[2]+" en match)";
+						document.getElementById("spectate-button").style.display = parseInt(infos[2])>0?"":"none";
 					}
 				});
 			}
@@ -469,9 +470,12 @@
 						createElement("button", {className:"bot-button"}, "Affronter l'ordinateur", {click:function(){
 							search(true);
 						}}),
+						createElement("button", {className:"spectate-button",id:"spectate-button",style:{display:"none"}}, "Regarder un match", {click:function(){
+							window.location = "spectate.php?match=last";
+						}}),
 						createElement("button", {className:"back-button"}, "Retourner au menu", {click:function(){
 							this.parentElement.parentElement.click();
-						}}),
+						}})
 					]).then(function() {
 						clearInterval(searchTimerId);
 						window.location.hash = "";
