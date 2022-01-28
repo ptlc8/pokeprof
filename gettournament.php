@@ -70,7 +70,15 @@ function prettyTable4Tournament ($textFighters) {
 		}
 	}
 	$trees3[0]=$trees;
-	return($trees3);
+	$textFinal="";
+	foreach ($trees3 as $tree) {
+		foreach ($tree as $branch) {
+			$branch=implode('.',$branch);	
+		}
+		$tree=implode(',',$tree);
+	}
+	$textFinal=implode(';', $trees3);
+	return($textFinal);
 }
 
 include("init.php");
