@@ -11,10 +11,10 @@ function prettyTable4Tournament ($textFighters) {
 	$trees=explode(';',$textFighters);
 	print_r($trees);
 	for ($i=0; $i<count($trees); $i++) {
-		$trees2[$i]=explode(',',$trees);
+		$trees2[$i]=explode(',',$trees[$i]);
 		print_r($trees2);
 		for ($j=0; $j<count($trees2[$i]); $j++) {
-			$trees3[$i][$j]=explode('.',$trees2[$i]);
+			$trees3[$i][$j]=explode('.',$trees2[$i][$j]);
 		}
 	}
 	return($trees3);
