@@ -14,7 +14,7 @@
 		<span id="tournament-infos"></span>
 		<div id="actions">
 			<button id="join-button" class="button">Rejoindre</button>
-			<a href="." class="button">Rejoindre</a>
+			<a href="." class="button">Revenir au menu</a>
 		</div>
 		<div id="tournament"></div>
 		<script>
