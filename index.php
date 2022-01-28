@@ -61,12 +61,12 @@
 		//Tournament
 		$result = sendRequest("SELECT id FROM TOURNAMENT");
 		if ($result->num_rows != 0) {
-			$tournament=[];
+			$tournament=array();
 			$lengthTournmnt=0;
 			$tabTourn=$result->fetch_all();
 			for ($i=0; $i<$result->num_rows; $i++) {
-				$tournament[$lengthTournmnt]=[];
-				$tournament[$lengthTournmnt]=sendRequest("SELECT * FROM TOURNAMENT WHERE id="+$tabTourn[$i])->fetc_assoc();
+				$result2=sendRequest("SELECT * FROM TOURNAMENT WHERE id="+$tabTourn[$i]);
+				$tournament[$lengthTournmnt]=$result2->fetc_assoc();
 				$lengthTournmnt++;
 			}
 		}
