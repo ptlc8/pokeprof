@@ -132,14 +132,15 @@ $user = login(true, false);
 			}
 			
 			// Actualisation du match
-			async function update(newActions, from) {
+			async function update(newActions) {
 				if (!match) return;
 				console.info("[Poképrof] Actualisation de l'historique");
 				let player = match.opponents[match.playerId];
 				if (newActions.find(a=>a.name=="endgame"))
 					stop = true;
-				for (let i = 0; i < newActions.length; i++)
-				    match.history[from+i] = newActions[i];
+				/*for (let i = 0; i < newActions.length; i++)
+				    match.history[from+i] = newActions[i];*/
+				match.history = newActions;
 				if (historyIndex < match.history.length-newActions.length)
 					return;
 				let startHistoryIndex = historyIndex;
