@@ -105,5 +105,27 @@ function prettyTable4Tournament ($textFighters) {
 	}
 	return($textFinal);
 }
+
+
+//Join
+
+function tournamentIncludesPlayer($fighters, $playerId) {
+	return in_array($fighters[0][0], $playerId);
+}
+
+function tournamentAddPlayer($fighters, $playerId) {
+	// TODO
+}
+
+function parseFighters($fighters) {
+	$fightersArray = explode(';',$fighters);
+	foreach($fightersArray as &$tree) {
+		$tree = explode(',',$tree);
+		foreach ($tree as &$branch)
+			$branch = explode('.', $branch);
+	}
+	return fightersArray;
+}
+
   
 ?>
