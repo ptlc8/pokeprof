@@ -63,8 +63,7 @@
 		if ($result->num_rows != 0) {
 			$tournament=array();
 			$lengthTournmnt=0;
-			$tabTourn=$result->fetch_all();
-			print_r($tabTourn);
+			$tabTourn=$result->fetch_all()[0];
 			for ($i=0; $i<$result->num_rows; $i++) {
 				$result2=sendRequest("SELECT * FROM TOURNAMENT WHERE id="+$tabTourn[$i]);
 				$tournament[$lengthTournmnt]=$result2->fetc_assoc();
