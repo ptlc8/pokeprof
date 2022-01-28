@@ -68,6 +68,7 @@ function prettyTable4Tournament ($textFighters) {
 	//modif avec appel récursif
 	recurPrettyTable ($Tree, $a, ceil(log($a,2)), 0);
 	$trees3[0]=$Tree;
+	print_r($trees3);
 	$textFinal="";
 	$a=0;
 	for ($i=0; $i<count($trees3); $i++) {
