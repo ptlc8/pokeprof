@@ -13,7 +13,8 @@
 		<br />
 		<span id="tournament-infos"></span>
 		<div id="actions">
-			<button id="join-button" class="button">Rejoindre</span>
+			<button id="join-button" class="button">Rejoindre</button>
+			<a href="." class="button">Rejoindre</a>
 		</div>
 		<div id="tournament"></div>
 		<script>
