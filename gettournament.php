@@ -83,6 +83,8 @@ function prettyTable4Tournament ($textFighters) {
 					}
 				} else {
 					if ($trees3[$i][$j][$k]=='_') {
+						echo '<br />';
+						print_r($trees3[$i][$j]);
 						$textFinal=$textFinal.'.'.$fighters[$a][0];
 						$a++;
 					} else {
