@@ -8,7 +8,9 @@ function recurPrettyTable ($tree, $nbQualified, $i, $j) {
 	}
 	else  {
 		$tree[$i][$j]=' ';
-		recurPrettyTable($tree, intdiv($nbQualified,2)+1, $i-1, $j*2);
+		if ($nbQualified%2!=0) {
+			recurPrettyTable($tree, intdiv($nbQualified,2)+1, $i-1, $j*2);
+		}
 		recurPrettyTable($tree, intdiv($nbQualified,2), $i-1, ($j*2)+1);
 	}
 }
