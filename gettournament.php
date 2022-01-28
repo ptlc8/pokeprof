@@ -38,7 +38,7 @@ function prettyTable4Tournament ($textFighters) {
 	$j=0;
 	$a=1;
 	$fighters=array();
-	$fighter[0]=-10;
+	$fighters[0]=-10;
 	//on s'intéresse seulement au tableau principal
 	while (($i<count($trees3[0]))&&($j==0)) {
 		$k=0;
