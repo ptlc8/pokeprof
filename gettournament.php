@@ -54,18 +54,26 @@ function prettyTable4Tournament ($textFighters) {
 			}
 		}
 	}
-	print_r($fighters);
+	$j=0;
+	$a=0;
+	foreach ($fighters as $fighter) {
+		if ($fighter[1]>1) {
+			$j=1;	
+		} else {
+			$a++;
+		}
+	}
 	if ($j!=0) { //le tournoi a commencé
 		return($textFighters);
 	}
 	//modif avec appel récursif
 	$trees=array();
-	recurPrettyTable ($trees, count($fighters), ceil(log(count($fighters),2)), 0);
+	recurPrettyTable ($trees, $a, ceil(log($a,2)), 0);
 	$k=0;
 	foreach ($trees as $branch) {
 		foreach ($branch as $node) {
 			if ($node=='_') {
-				$node=$fighters[$k];
+				$node=$fighters[$k][0];
 				$k++;
 			}
 		}
