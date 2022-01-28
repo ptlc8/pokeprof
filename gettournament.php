@@ -72,7 +72,7 @@ function prettyTable4Tournament ($textFighters) {
 	$a=0;
 	for ($i=0; $i<count($trees3); $i++) {
 		for ($j=0; $j<count($trees3[$i]); $j++) {
-			for ($k=0; $k<max(array_keys($trees3[$i][$j])); $k++) {
+			for ($k=0; $k<=max(array_keys($trees3[$i][$j])); $k++) {
 				if ($k==0) {
 					if (isset($trees3[$i][$j][$k])) {
 						if ($trees3[$i][$j][$k]=='_') {
