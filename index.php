@@ -389,9 +389,14 @@
 		<?php
 			//annonces pour rediriger vers la page tournoi
 			if (isset($tournament)) {
-				for ($i=0; $i<=$lengthTournmnt; $i++) {
+				for ($i=0; $i<$lengthTournmnt; $i++) {
 		?>
-					newalert({text:"Le tournoi "+$tournament[$i]['name']+" est en cours! Clique ici pour le rejoindre!", target:"", href:"tournament.php"}, {close:true});	
+					newalert({text:"Le tournoi
+		<?php
+			echo $tournament[$i]['name'];			
+		?>
+						  
+						  est en cours! Clique ici pour le rejoindre!", target:"", href:"tournament.php"}, {close:true});	
 		<?php
 				}
 			}
