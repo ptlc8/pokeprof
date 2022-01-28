@@ -9,8 +9,10 @@ function prettyTable4Tournament ($textFighters) {
 	$trees2=array();
 	$trees3=array();
 	$trees=explode(';',$textFighters);
+	print_r($trees);
 	for ($i=0; $i<count($trees); $i++) {
 		$trees2[$i]=explode(',',$trees);
+		print_r($trees2);
 		for ($j=0; $j<count($trees2[$i]); $j++) {
 			$trees3[$i][$j]=explode('.',$trees2[$i]);
 		}
