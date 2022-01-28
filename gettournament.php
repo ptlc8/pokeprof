@@ -55,7 +55,7 @@ function prettyTable4Tournament ($textFighters) {
 		$i++;
 	}
 	if ($j!=0) { //le tournoi a commencé
-		return($trees3);
+		return($textFighters);
 	}
 	//modif avec appel récursif
 	$trees=array();
