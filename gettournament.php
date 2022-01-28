@@ -40,7 +40,7 @@ function prettyTable4Tournament ($textFighters) {
 			$j=0;
 			foreach ($fighters as $fighter) {
 				if ($fighter[0]==$node) {
-					j++;
+					$j++;
 				}
 			}
 			if ($j<1) {
