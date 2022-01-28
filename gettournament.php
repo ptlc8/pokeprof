@@ -2,9 +2,16 @@
 
 //fonctions pour faire des tableaux corrects, Léo
 
-//function recurPrettyTable ($tree, $nbQualified, $i, $j, $fighters, $indexFighter) {
-	
-//}
+function recurPrettyTable ($tree, $nbQualified, $i, $j) {
+	if ($nbQualified<=1) {
+		tree[i][j]='_';	//emplacement d'un id de joueur
+	}
+	else  {
+		$tree[i][j]=' ';
+		recurPrettyTable($tree, intdiv($nbQualified,2)+1, $i-1, $j*2);
+		recurPrettyTable($tree, intdiv($nbQualified,2), $i-1, ($j*2)+1);
+	}
+}
 
 function prettyTable4Tournament ($textFighters) {
 	if (($textFighters==null)||(!isset($textFighters))) {
@@ -44,7 +51,7 @@ function prettyTable4Tournament ($textFighters) {
 		return($trees3);
 	}
 	//modif avec appel récursif
-	return($trees3);
+	return(recurPrettyTable ($trees3[0], count($fighters), ceil(log(count($fighters),2)), 0));
 }
 
 include("init.php");
