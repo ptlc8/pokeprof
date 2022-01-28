@@ -35,13 +35,14 @@ function prettyTable4Tournament ($textFighters) {
 	$i=0;
 	$j=0;
 	$fighters=array();
+	$fighter[0]=-10;
 	//on s'intéresse seulement au tableau principal
 	while (($i<count($trees3[0]))&&($j==0)) {
 		$k=0;
-		while (($k<count($fighters))&&($k<count($trees3[0][$i]))&&($j==0)) {
+		while (($k<count($fighters))&&($j==0)) {
 			$l=0;
 			while (($l<count($trees3[0][$i]))&&($j==0)) {
-				if ($fighters[$k]==$trees3[0][$i][$l]) {
+				if ($fighters[$k]!=$trees3[0][$i][$l]) {
 					$fighters[$k]=$trees3[0][$i][$l];
 				} else {
 					$j=1; //on a un doublon
