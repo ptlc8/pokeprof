@@ -4,15 +4,14 @@
 
 function recurPrettyTable ($tree, $nbQualified, $i, $j) {
 	echo "<br />lvl: (".$i." , ".$j.") ".$nbQualified;
+	print_r($tree);
 	if ($nbQualified<=1) {
 		$tree[$i][$j]='_';	//emplacement d'un id de joueur
 	}
 	else  {
 		$tree[$i][$j]=' ';
-		if ($nbQualified%2!=0) {
-			recurPrettyTable($tree, intdiv($nbQualified,2)+1, $i-1, $j*2);
-		}
-		recurPrettyTable($tree, intdiv($nbQualified,2), $i-1, ($j*2)+($nbQualified%2));
+		recurPrettyTable($tree, intdiv($nbQualified,2)+($nbQualified%2), $i-1, $j*2);
+		recurPrettyTable($tree, intdiv($nbQualified,2), $i-1, ($j*2)+1);
 	}
 }
 
