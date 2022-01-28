@@ -1,4 +1,30 @@
 <?php
+
+//fonction pour faire des tableaux corrects, Léo
+/*
+function prettyTable4Tournament ($textFighters) {
+	if (($textFighters==null)||(!isset($textFighters))) {
+		return(null);	
+	}
+	$tree=array();
+	$j=0;
+	$i=0;
+	$tree[0][0]=$textFighters[0];
+	while (count($textFighters)>$i) {
+		$k=0;
+		$l=0;
+		while (
+		for ($l=0; $l<=$j; $l++) {
+			if (
+		}
+		$i++;
+	}
+	if ($textFighters[$i]==',') {
+		return($textFighters);	
+	}
+}
+*/
+
 include("init.php");
 
 if (isset($_REQUEST['id'])) {
