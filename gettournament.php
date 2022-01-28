@@ -54,7 +54,7 @@ function prettyTable4Tournament ($textFighters) {
 		}
 		$i++;
 	}
-	print_r($figthers);
+	print_r($fighters);
 	echo $j;
 	if ($j!=0) { //le tournoi a commencé
 		return($textFighters);
