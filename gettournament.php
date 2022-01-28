@@ -9,9 +9,11 @@ function recurPrettyTable ($tree, $nbQualified, $i, $j) {
 	}
 	else  {
 		$tree[$i][$j]=' ';
-		echo '0,0<br />';
+		echo '0,';
 		recurPrettyTable($tree, intdiv($nbQualified,2)+($nbQualified%2), $i-1, $j*2);
+		echo '0,';
 		recurPrettyTable($tree, intdiv($nbQualified,2), $i-1, ($j*2)+1);
+		echo '<br />';
 	}
 }
 
