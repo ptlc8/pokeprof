@@ -32,6 +32,13 @@
 			}).catch(function(){
 				alert("Impossible d'afficher ce tournoi");
 			});
+			document.getElementById("join-button").addEventListener("click", function(e) {
+				sendRequest("POST", "jointournament.php").then(function(response) {
+					if (response=="not logged")
+						window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
+					else alert('TODO');
+				});
+			});
 		</script>
 	</body>
 </html>
