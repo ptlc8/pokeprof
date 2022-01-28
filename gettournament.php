@@ -4,7 +4,7 @@
 
 function recurPrettyTable ($tree, $nbQualified, $i, $j) {
 	if ($nbQualified<=1) {
-		echo '1';
+		echo '1,';
 		$tree[$i][$j]='_';	//emplacement d'un id de joueur
 	}
 	else  {
