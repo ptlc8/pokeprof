@@ -123,6 +123,8 @@ $tournament = $result->fetch_assoc();
 
 $tournament['fighters']=prettyTable4Tournament($tournament['fighters']);
 
+sendRequest("UPDATE TOURNAMENT SET fighters=$tournament['fighters'] WHERE id = '", $tournamentId, "'");
+
 echo json_encode($tournament);
 
 ?>
