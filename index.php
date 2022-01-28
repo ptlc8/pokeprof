@@ -62,11 +62,11 @@
 		$result = sendRequest("SELECT id FROM TOURNAMENT");
 		if ($result->num_rows != 0) {
 			$tournament=[];
-			$k=0;
+			$lengthTournmnt=0;
 			$tabTourn=$result->fetch_all();
 			for ($i=0; $i<$result->num_rows; $i++) {
-				$tournament[$k]=sendRequest("SELECT * FROM TOURNAMENT WHERE id='"+$tabTourn[$i]+"'")->fetc_assoc();
-				$k++;
+				$tournament[$lengthTournmnt]=sendRequest("SELECT * FROM TOURNAMENT WHERE id="+$tabTourn[$i])->fetc_assoc();
+				$lengthTournmnt++;
 			}
 		}
 		//A finir, Léo
@@ -385,7 +385,17 @@
 						
 					}
 		
-		<?php if (isset($cardsUser['rewardLevel']) && $cardsUser['rewardLevel']>=7 ){ ?>
+		<?php
+			//annonces pour rediriger vers la page tournoi
+			if (isset($tournament)) {
+				for ($i=0; $i<=$lengthTournmnt; $i++) {
+		?>
+					newalert({text:"Le tournoi "+$tournament[$i]['name']+" est en cours! Clique ici pour le rejoindre!", target:"", href:"tournament.php"}, {close:true});	
+		<?php
+				}
+			}
+			//autres annonces
+			if (isset($cardsUser['rewardLevel']) && $cardsUser['rewardLevel']>=7 ){ ?>
 			newalert({text:"Vous avez la possibilité de récuperer des Boosters",target:"",href:"#"}, {close:true});
 		<?php } ?>
 		<?php if( !isset($userinfos['discord']) || $userinfos['discord']=='1' ){ ?>
