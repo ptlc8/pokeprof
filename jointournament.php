@@ -32,7 +32,7 @@ if (tournamentIncludesPlayer($fighters, $user['id']))
 
 tournamentAddPlayer($fighters, $user['id']);
 
-$tournament['fighters']=stringifyFighters($fighters, null);
+$tournament['fighters']=prettyTable4Tournament(stringifyFighters($fighters, null));
 
 echo json_encode($tournament);
 
