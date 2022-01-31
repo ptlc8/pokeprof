@@ -13,15 +13,15 @@ function recurPrettyTable (& $Tree, $nbQualified, $i, $j) {
 	}
 }
 
-function prettyTable4Tournament ($textFighters) {
+function prettyTable4Tournament ($trees3) {
 	$Tree=array();
-	if (($textFighters==null)||(!isset($textFighters))) {
+	if (($trees3==null)||(!isset($trees3))) {
 		return(null);	
 	}
 	$trees=array();
 	$trees2=array();
 	$trees3=array();
-	$trees3=parseFighters($textFighters);
+	//$trees3=parseFighters($textFighters);
 	/*$trees=explode(';',$textFighters);
 	for ($i=0; $i<count($trees); $i++) {
 		$trees2[$i]=explode(',',$trees[$i]);
