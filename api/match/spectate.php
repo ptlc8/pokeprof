@@ -1,6 +1,6 @@
 <?php
 
-include('init.php');
+include('../../init.php');
 
 // Vérification du mode test
 $test = isset($_REQUEST['test']);
@@ -20,7 +20,7 @@ if ($result->num_rows === 0)
 $resultMatch = $result->fetch_assoc();
 
 $end = $resultMatch['end']==1;
-include('match.php');
+include('../../match.php');
 $match = Match::fromStd(json_decode($resultMatch['infos']));
 if ($resultMatch['opponent1'] == -807)
     $resultMatch['opponent1Name'] .= ' ('.BOT_LEVELS[$match->botDifficult].')';

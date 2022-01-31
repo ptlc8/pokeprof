@@ -1,5 +1,5 @@
 <?php
-include('init.php');
+include('../../init.php');
 
 // connexion à un compte
 $user = login(false, true);
@@ -47,7 +47,7 @@ $result = sendRequest("SELECT * FROM CARDS WHERE official > 0 OR official = -1")
 $allcards = [];
 while ($row = $result->fetch_assoc())
 	$allcards[$row['id']] = $row;
-include('match.php');
+include('../../match.php');
 // Création des joueurs
 $opponents = [];
 foreach(array($cardsUser,$opponentCardsUser) as $cU) {
