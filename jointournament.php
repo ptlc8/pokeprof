@@ -30,8 +30,8 @@ $fighters = parseFighters($fighters);
 if (tournamentIncludesPlayer($fighters, $user['id']))
 	exit('already in tournament');
 
-tournamentAddPlayer($fighters, $user['id']);
+echo json_encode(tournamentAddPlayer($fighters, $user['id']));
 
-echo 'success';
+//echo 'success';
 
 ?>
