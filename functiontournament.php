@@ -141,7 +141,7 @@ function stringifyFighters($trees3, $fighters) {
 							if ($fighters==null) {
 								throw new Exception("La liste des combattants n'est pas définie alors qu'elle est nécessaire.");	
 							}
-							if (isset($fighters[$a][0]) {
+							if (isset($fighters[$a][0])) {
 								$textFinal=$textFinal.$fighters[$a][0];
 							} else {
 								$textFinal=$textFinal.$fighters[$a];
@@ -157,7 +157,7 @@ function stringifyFighters($trees3, $fighters) {
 							if ($fighters==null) {
 								throw new Exception("La liste des combattants n'est pas définie alors qu'elle est nécessaire.");	
 							}
-							if (isset($fighters[$a][0]) {
+							if (isset($fighters[$a][0])) {
 								$textFinal=$textFinal.'.'.$fighters[$a][0];
 							} else {
 								$textFinal=$textFinal.'.'.$fighters[$a];
