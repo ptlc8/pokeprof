@@ -46,7 +46,7 @@
 				setInterval(search, 3000);
 			}
 			function search(bot=false) {
-				post('oldsearching.php', bot?'bot':'', response => {
+				post('api/match/oldsearch.php', bot?'bot':'', response => {
 					if (response=='founded' || response=='playing') {
 						window.location.replace('play.php');
 					} else if (response=='nodeck') {

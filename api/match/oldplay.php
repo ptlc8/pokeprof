@@ -6,7 +6,7 @@ define('TURN_TIME', 75); // en secondes
 define('TROPHIES', 60);
 define('ELECTRIFY_DAMAGE', 10);
 
-include('api/init.php');
+include('../init.php');
 // connexion à un compte
 if (!isset($_SESSION['username'], $_SESSION['password'])
 	|| ($userRequest = sendRequest("SELECT id, name FROM USERS WHERE `name` = '", $_SESSION['username'], "' and `password` = '", $_SESSION['password'], "'"))->num_rows === 0) {
