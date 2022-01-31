@@ -71,7 +71,7 @@ async function getCardInfos(cardId, edit={}) {
 				infos = JSON.parse(sessionStorage.getItem('card'+cardId));
 				//console.log(cardId+" from sessionStorage");
 			} else /**/{
-				let json = await sendRequest("GET", "get.php?card="+cardId);
+				let json = await sendRequest("GET", "api/card/get.php?card="+cardId);
 				infos = JSON.parse(json);
 				//console.log(cardId+" from request")
 				if (sessionStorage) sessionStorage.setItem('card'+cardId, json);
