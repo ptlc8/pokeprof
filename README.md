@@ -9,7 +9,7 @@ La version Poképrof de l'EISTI (ex CY Tech) est actuellement à cette URL : [am
 Il est possible de lancer le projet en local.
 Pour cela il faut faudra PHP et mysql.
  - cloner le projet
- - créer un fichier credentials.php contenant identifiants de la base de données, sous cette forme :
+ - créer un fichier credentials.php dans le dossier api contenant identifiants de la base de données, sous cette forme :
 ```php
 <?php
 define('POKEPROF_DB_HOSTNAME', 'localhost');
