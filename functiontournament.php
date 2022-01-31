@@ -178,7 +178,7 @@ function stringifyFighters($trees3, $fighters) {
 				$textFinal=$textFinal.',';
 			}
 		}
-		if ($j<count($trees3)-1) {
+		if ($i<count($trees3)-1) {
 			$textFinal=$textFinal.';';
 		}
 	}
