@@ -543,7 +543,7 @@
 				    printCardAbout(args[1]);
 				    break;
 				case "rules":
-				    sendRequest("GET","getrules.php").then(function(rulesHTML){
+				    sendRequest("GET","api/getrules.php").then(function(rulesHTML){
 				        let rulesDiv = createElement("div");
 				        rulesDiv.innerHTML = rulesHTML;
 				        createPopup({className:"rules"}, [rulesDiv]).then(function() {
