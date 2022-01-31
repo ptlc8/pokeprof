@@ -100,7 +100,7 @@
 					}
 					var reader = new FileReader();
 					reader.onload = (e) => {
-						post_('save.php', 'name='+form.name.value
+						post_("api/card/create.php", 'name='+form.name.value
 							+'&cost='+encodeURIComponent(form.invo.value)
 							+'&type='+encodeURIComponent(form.cardtype.value)
 							+(form.cardtype.value=='prof'?'&hp='+encodeURIComponent(form.hp.value):'')

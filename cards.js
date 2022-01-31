@@ -99,7 +99,7 @@ async function getType(typeId) {
 		if (sessionStorage && sessionStorage.getItem("pokeprof.type."+typeId)) {
 			typeInfos = JSON.parse(sessionStorage.getItem("pokeprof.type."+typeId));
 		} else {
-			let types = JSON.parse(await sendRequest("GET", "getfighterstypes.php"));
+			let types = JSON.parse(await sendRequest("GET", "api/card/getfighterstypes.php"));
             if (sessionStorage) for (let id in types) {
     			sessionStorage.setItem("pokeprof.type."+id, JSON.stringify(types[id]));
             }

@@ -189,7 +189,7 @@
 				}
 				if (resolveTuto) resolveTuto();
 				let id = movingId;
-				post('usecard.php', 'deck='+choosenDeck+'&id='+movingId+'&index='+index, (response) => {
+				post("api/card/use.php", "deck="+choosenDeck+"&id="+movingId+"&index="+index, (response) => {
 					switch (response.split(" ")[0]) {
 					case 'success':
 					    decks[choosenDeck][index] = id;

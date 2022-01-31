@@ -146,7 +146,7 @@
 			async function getFreeCard() {
 				if (resolveTuto) resolveTuto();
 				let cardDiv = createPlacedCard("back", {targetPos:document.querySelector("#free-card img"), classList:["free-card"]});
-				let response = await sendRequest("POST", "loot.php", "what=freecard");
+				let response = await sendRequest("POST", "api/card/loot.php", "what=freecard");
 				if (response == "need to wait") {
 				    await sleep(5000);
 				    cardDiv.parentElement.removeChild(cardDiv);
@@ -201,7 +201,7 @@
 			}
 			function openRewardBooster(level) {
 				let promise = new Promise((resolve, reject) =>{
-					displayLoading(sendRequest("POST", "loot.php", "what=reward"+level)).then(async function(response) {
+					displayLoading(sendRequest("POST", "api/card/loot.php", "what=reward"+level)).then(async function(response) {
 						if (response == "need more") {
 							aff("Gagne des points de récompenses en combattant !");
 							resolve();
@@ -593,7 +593,7 @@
 			
 			function openShopBooster(boosterId) {
 				let promise = new Promise((resolve, reject) =>{
-					displayLoading(sendRequest("POST", "loot.php", "what=shopbooster&id="+boosterId)).then(function(response) {
+					displayLoading(sendRequest("POST", "api/card/loot.php", "what=shopbooster&id="+boosterId)).then(function(response) {
 						if (response == "need money") {
 							aff("Tu manques de 💳");
 							resolve();
@@ -610,7 +610,7 @@
 			
 			function buyShopCard(cardId) {
 			    let promise = new Promise((resolve, reject) =>{
-					displayLoading(sendRequest("POST", "loot.php", "what=shopcard&id="+cardId)).then(function(response) {
+					displayLoading(sendRequest("POST", "api/card/loot.php", "what=shopcard&id="+cardId)).then(function(response) {
 						if (response == "need money") {
 							aff("Tu manques de 💳");
 							resolve();

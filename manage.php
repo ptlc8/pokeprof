@@ -255,7 +255,7 @@
 			    if (editing.boosterId!=original.boosterId) pushBody += "&booster="+editing.boosterId;
 			    if (editing.prestigeable!=original.prestigeable) pushBody += "&prestigeable="+editing.prestigeable;
 			    if (editing.origin!=original.origin) pushBody += "&origin="+encodeURIComponent(editing.origin);
-			    sendRequest("post", "editcard.php", pushBody).then(function(r) {
+			    sendRequest("post", "api/card/edit.php", pushBody).then(function(r) {
 			        if (r=="success") {
 			            alert("La carte a bien été enregistrée avec succès");
 			            allfullinfoscards[editing.id] = JSON.parse(JSON.stringify(editing));
