@@ -114,7 +114,7 @@ function tournamentIncludesPlayer($fighters, $playerId) {
 }
 
 function tournamentAddPlayer($fighters, $playerId) {
-	// TODO
+	array_push($fighters[0][0],$playerId);
 }
 
 function parseFighters($fighters) {
