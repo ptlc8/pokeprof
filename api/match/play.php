@@ -36,7 +36,7 @@ $matchId = $resultMatch['id'];
 $opponentName = $resultMatch['opponentName'];
 $opponentTrophies = $resultMatch['opponentTrophies'];
 $end = $resultMatch['end']==1;
-include('../../match.php');
+include('match.php');
 $match = Match::fromStd(json_decode($resultMatch['infos']));
 if ($resultMatch['opponentId'] == -807) $opponentName .= ' ('.BOT_LEVELS[$match->botDifficult].')'; // BOT_LEVELS est défini dans match.php
 
