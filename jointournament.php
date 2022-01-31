@@ -22,10 +22,10 @@ if ($result->num_rows == 0)
 	exit('invalid tournament');
 $tournament = $result->fetch_assoc();
 
-if ($tournament->nbPlaces < 0)
+if ($tournament['nbPlaces'] < 0)
 	exit('ended tournament');
 
-$fighters = parseFighters($fighters);
+$fighters = parseFighters($tournament['fighters']);
 
 if (tournamentIncludesPlayer($fighters, $user['id']))
 	exit('already in tournament');
