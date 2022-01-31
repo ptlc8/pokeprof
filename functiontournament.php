@@ -115,7 +115,7 @@ function prettyTable4Tournament ($trees3) {
 //Join
 
 function tournamentIncludesPlayer($fighters, $playerId) {
-	return in_array($fighters[0][0], $playerId);
+	return in_array($playerId, $fighters[0][0]);
 }
 
 function tournamentAddPlayer($fighters, $playerId) {
