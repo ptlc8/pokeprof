@@ -45,7 +45,11 @@
 				sendRequest("POST", "jointournament.php").then(function(response) {
 					if (response=="not logged")
 						window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
-					else alert('TODO');
+					else {
+						var newTab=JSON.parse(response);
+						//displayTournament(document.getElementById("tournament"), newTab.fighters);
+						alert('Done');
+					}
 				});
 			});
 		</script>
