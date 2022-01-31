@@ -20,7 +20,6 @@ function prettyTable4Tournament ($trees3) {
 	}
 	$trees=array();
 	$trees2=array();
-	$trees3=array();
 	//$trees3=parseFighters($textFighters);
 	/*$trees=explode(';',$textFighters);
 	for ($i=0; $i<count($trees); $i++) {
@@ -35,12 +34,10 @@ function prettyTable4Tournament ($trees3) {
 	//on choisit la première pour récupérer les participants au passage
 	$i=0;
 	$a=1;
-	print_r($trees3);
 	if (!isset($trees3[0][0][0])) {
 		$trees2[0]=$trees3;
 		$trees3=$trees2;
 	}
-	print_r($trees3);
 	$fighters=[[$trees3[0][0][0],0]];
 	//on s'intéresse seulement au tableau principal
 	foreach ($trees3[0] as $branch) {
