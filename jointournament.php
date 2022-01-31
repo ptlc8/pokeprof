@@ -26,7 +26,6 @@ if ($tournament['nbPlaces'] < 0)
 	exit('ended tournament');
 
 $fighters = parseFighters($tournament['fighters']);
-print_r($fighters);
 
 if (tournamentIncludesPlayer($fighters, $user['id']))
 	exit('already in tournament');
