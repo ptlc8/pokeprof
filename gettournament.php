@@ -16,7 +16,7 @@ if ($result->num_rows === 0) {
 }
 $tournament = $result->fetch_assoc();
 
-$tournament['fighters']=prettyTable4Tournament($tournament['fighters']);
+$tournament['fighters']=prettyTable4Tournament(parseFighters($tournament['fighters']));
 
 echo json_encode($tournament);
 
