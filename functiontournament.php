@@ -39,6 +39,7 @@ function prettyTable4Tournament ($trees3) {
 		$trees2[0]=$trees3;
 		$trees3=$trees2;
 	}
+	print_r($trees3);
 	$fighters=[[$trees3[0][0][0],0]];
 	//on s'intéresse seulement au tableau principal
 	foreach ($trees3[0] as $branch) {
