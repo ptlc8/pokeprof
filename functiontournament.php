@@ -126,7 +126,7 @@ function parseFighters($fighters) {
 		foreach ($tree as &$branch)
 			$branch = explode('.', $branch);
 	}
-	return fightersArray;
+	return $fightersArray;
 }
 
 function stringifyFighters($trees3, $fighters) {
