@@ -408,7 +408,7 @@
 			}
 			
 			function search(bot=false) {
-				sendRequest("POST", "searching.php", bot?'bot':'').then(function(response) {
+				sendRequest("POST", "api/match/search.php", bot?'bot':'').then(function(response) {
 					if (response=='founded' || response=='playing') {
 						window.location.replace('play.php');
 					} else if (response=='nodeck') {
@@ -422,7 +422,7 @@
 				});
 			}
 			function cancelSearch() {
-				sendRequest("POST", "searching.php", "cancel").then(function(response) {
+				sendRequest("POST", "api/match/search.php", "cancel").then(function(response) {
 					if (response=='playing') {
 						window.location.replace('play.php');
 					} else if (response=='canceled') {

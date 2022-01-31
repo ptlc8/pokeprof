@@ -84,11 +84,11 @@ if (isset($_REQUEST['error'])) {
 			});
 			
 			function get() {
-				sendRequest("POST", "yoplay.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=get").then(onServerResponse);
+				sendRequest("POST", "api/match/play.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=get").then(onServerResponse);
 			}
 			
 			function getUpdate() {
-				sendRequest("POST", "yoplay.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=update").then(onServerResponse);
+				sendRequest("POST", "api/match/play.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=update").then(onServerResponse);
 			}
 			
 			// Quand le serveur répond
@@ -698,7 +698,7 @@ if (isset($_REQUEST['error'])) {
 				}
 				console.info("[Poképrof] Utilisation de la carte "+index);
 				let targets = context.targetsofyou.map((t,i)=>"&target"+i+"ofyou="+t).join("")+context.targetsofhim.map((t,i)=>"&target"+i+"ofhim="+t).join("");
-				if (!tuto) sendRequest("POST", "yoplay.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=playcard&index="+index+targets).then(onServerResponse);
+				if (!tuto) sendRequest("POST", "api/match/play.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=playcard&index="+index+targets).then(onServerResponse);
 			}
 			
 			// Faire attaquer un combattant
@@ -707,7 +707,7 @@ if (isset($_REQUEST['error'])) {
 				let context = await queryScriptTargets(decompileScript(card.scripts[scriptIndex]), {});
 				console.info("[Poképrof] Attaque du combattant "+cardIndex+" avec le script "+scriptIndex);
 				let targets = context.targetsofyou.map((t,i)=>"&target"+i+"ofyou="+t).join("")+context.targetsofhim.map((t,i)=>"&target"+i+"ofhim="+t).join("");
-				if (!tuto) sendRequest("POST", "yoplay.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=attack&cardindex="+cardIndex+"&scriptindex="+scriptIndex+targets).then(onServerResponse);
+				if (!tuto) sendRequest("POST", "api/match/play.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=attack&cardindex="+cardIndex+"&scriptindex="+scriptIndex+targets).then(onServerResponse);
 			}
 			
 			// Finir le tour
@@ -715,13 +715,13 @@ if (isset($_REQUEST['error'])) {
 				if (match.playing != match.playerId) return;
 				console.info("[Poképrof] Fin du tour");
 				if (tuto) resolveTuto();
-				else sendRequest("POST", "yoplay.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=endturn").then(onServerResponse);
+				else sendRequest("POST", "api/match/play.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=endturn").then(onServerResponse);
 			}
 			
 			// Abandonner le match
 			function giveUp() {
 				console.info("[Poképrof] Abandon");
-				sendRequest("POST", "yoplay.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=giveup").then(onServerResponse);
+				sendRequest("POST", "api/match/play.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=giveup").then(onServerResponse);
 			}
 			
 			// Actualiser le timer
