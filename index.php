@@ -46,7 +46,7 @@
 	<body class="middle">
 		<div id="background"></div>
 		<?php
-		include('init.php');
+		include('api/init.php');
 		$user = login(true, true);
 		
 		// récupération des cartes et du deck du joueur
@@ -484,7 +484,7 @@
 					break;
 				case "shop?all":
 				case "shop":
-					sendRequest("GET", "getshop.php"+(args[0]=="shop?all"?"?all":"")).then(function(response) {
+					sendRequest("GET", "api/user/getshop.php"+(args[0]=="shop?all"?"?all":"")).then(function(response) {
 						shop = JSON.parse(response);
 						let moneySpan;
 						createPopup({className:"shop"}, [

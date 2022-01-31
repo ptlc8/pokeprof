@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<?php
-		include("init.php"); // init bdd and sendRequest
+		include("api/init.php"); // init bdd and sendRequest
 		$user = login(true, true); // init $user and connect
 		//if (!in_array($user["id"], array("0", "19", "59", "72", "73"))) { // Kévin, Brayan, Timothée, Léo, Edwin
 		if (sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "' AND admin=1")->num_rows <= 0) {

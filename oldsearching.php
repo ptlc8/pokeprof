@@ -5,7 +5,7 @@ define('START_HP', 160);
 define('MIN_MANA', 1);
 define('TURN_TIME', 90); // en secondes (à sync avec yoplay)
 
-include('init.php');
+include('api/init.php');
 
 // connexion à un compte
 if (!isset($_SESSION['username'], $_SESSION['password'])

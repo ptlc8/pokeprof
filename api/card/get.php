@@ -10,7 +10,7 @@ if (file_exists($cachefile) && time() - $cachetime < filemtime($cachefile)) {
 	exit;
 }
 
-include('../../init.php');
+include('../init.php');
 
 // render the page and capture the HTML.
 ob_start();

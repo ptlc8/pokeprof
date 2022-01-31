@@ -14,7 +14,7 @@
 		<a href="gallery.php" class="button">Explorer la galerie</a>
 		<a href="." class="button">Retourner au menu principal</a>
 		<?php
-		include('init.php');
+		include('api/init.php');
 		$user = login(true, true);
 		$color = dechex(random_int(0, 16777215));
 		?>

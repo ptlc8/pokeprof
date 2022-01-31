@@ -17,7 +17,7 @@
 			<input type="submit" value="Se connecter" />
 			
 			<?php
-			include("init.php");
+			include("api/init.php");
 			if (!(isset($_REQUEST['username'], $_POST['password']))) {}
 			else {
 				$hashed_password = hash('sha512', $_POST['password']);

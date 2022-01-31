@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<?php
-		include('init.php');
+		include('api/init.php');
 		// connexion à un compte
 		if (!isset($_SESSION['username'], $_SESSION['password'])
 			|| ($userRequest = sendRequest("SELECT id, name FROM USERS WHERE `name` = '", $_SESSION['username'], "' and `password` = '", $_SESSION['password'], "'"))->num_rows === 0) {

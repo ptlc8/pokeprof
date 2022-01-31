@@ -1,6 +1,6 @@
 <?php
 
-include('../../init.php');
+include('../init.php');
 
 // Vérification du mode test
 $test = isset($_REQUEST['test']);

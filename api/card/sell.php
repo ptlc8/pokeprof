@@ -1,5 +1,5 @@
 <?php
-include('init.php');
+include('../init.php');
 $user = login(false, true);
 
 // vérification du post

@@ -1,5 +1,5 @@
 <?php
-include('init.php');
+include('api/init.php');
 // connexion à un compte
 $user = login(true, false);
 ?>

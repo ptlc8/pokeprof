@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<?php
-		include('init.php');
+		include('api/init.php');
 		$user = login(true,true);
 		
 		// récupération des cartes et du deck du joueur ~
@@ -238,7 +238,7 @@
                 var title = createElement("span", {className:"title"}, cardInfos.name);
                 infos.appendChild(title);
                 var button = createElement("span", {className:"button"}, "Vendre", {click: () => {
-                    sendRequest("POST", 'sell.php', 'card='+cardId+'&amount='+input.value).then((response)=>{
+                    sendRequest("POST", "api/card/sell.php", "card="+cardId+"&amount="+input.value).then((response)=>{
                         switch (response) {
                             case 'card doesn\'t have/exist':
                                 aff("Vous ne pouvez pas vendre une carte que vous ne possédez pas.");

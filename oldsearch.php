@@ -27,7 +27,7 @@
 	</head>
 	<body>
 		<?php
-		include('init.php');
+		include('api/init.php');
 		include('initconnect.php');
 		
 		?>
