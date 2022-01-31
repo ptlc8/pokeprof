@@ -21,13 +21,14 @@ function prettyTable4Tournament ($textFighters) {
 	$trees=array();
 	$trees2=array();
 	$trees3=array();
-	$trees=explode(';',$textFighters);
+	$trees3=parseFighters($textFighters);
+	/*$trees=explode(';',$textFighters);
 	for ($i=0; $i<count($trees); $i++) {
 		$trees2[$i]=explode(',',$trees[$i]);
 		for ($j=0; $j<count($trees2[$i]); $j++) {
 			$trees3[$i][$j]=explode('.',$trees2[$i][$j]);
 		}
-	}
+	}*/
 	//on vérifie si le tournoi a commencé. 2 méthodes:
 	//- regarde les doublons dans le tableau
 	//- existance des repêchages
@@ -68,7 +69,8 @@ function prettyTable4Tournament ($textFighters) {
 	//modif avec appel récursif
 	recurPrettyTable ($Tree, $a, ceil(log($a,2)), 0);
 	$trees3[0]=$Tree;
-	$textFinal="";
+	$textFinal=stringifyFighters($trees3, $fighters);
+	/*$textFinal="";
 	$a=0;
 	for ($i=0; $i<count($trees3); $i++) {
 		for ($j=0; $j<count($trees3[$i]); $j++) {
@@ -102,7 +104,7 @@ function prettyTable4Tournament ($textFighters) {
 		if ($j<count($trees3)-1) {
 			$textFinal=$textFinal.';';
 		}
-	}
+	}*/
 	return($textFinal);
 }
 
@@ -127,5 +129,57 @@ function parseFighters($fighters) {
 	return fightersArray;
 }
 
+function stringifyFighters($trees3, $fighters) {
+	$textFinal="";
+	$a=0;
+	for ($i=0; $i<count($trees3); $i++) {
+		for ($j=0; $j<count($trees3[$i]); $j++) {
+			for ($k=0; $k<=max(array_keys($trees3[$i][$j])); $k++) {
+				if ($k==0) {
+					if (isset($trees3[$i][$j][$k])) {
+						if ($trees3[$i][$j][$k]=='_') {
+							if ($fighters==null) {
+								throw new Exception("La liste des combattants n'est pas définie alors qu'elle est nécessaire.");	
+							}
+							if (isset($fighters[$a][0]) {
+								$textFinal=$textFinal.$fighters[$a][0];
+							} else {
+								$textFinal=$textFinal.$fighters[$a];
+							}
+							$a++;
+						} else {
+							$textFinal=$textFinal.$trees3[$i][$j][$k];
+						}
+					}
+				} else {
+					if (isset($trees3[$i][$j][$k])) {
+						if ($trees3[$i][$j][$k]=='_') {
+							if ($fighters==null) {
+								throw new Exception("La liste des combattants n'est pas définie alors qu'elle est nécessaire.");	
+							}
+							if (isset($fighters[$a][0]) {
+								$textFinal=$textFinal.'.'.$fighters[$a][0];
+							} else {
+								$textFinal=$textFinal.'.'.$fighters[$a];
+							}
+							$a++;
+						} else {
+							$textFinal=$textFinal.'.'.$trees3[$i][$j][$k];
+						}
+					} else {
+						$textFinal=$textFinal.'.';	
+					}
+				}
+			}
+			if ($j<count($trees3[$i])-1) {
+				$textFinal=$textFinal.',';
+			}
+		}
+		if ($j<count($trees3)-1) {
+			$textFinal=$textFinal.';';
+		}
+	}
+	return($textFinal);
+}
   
 ?>
