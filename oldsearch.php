@@ -28,8 +28,7 @@
 	<body>
 		<?php
 		include('api/init.php');
-		include('initconnect.php');
-		
+		login(true, true);
 		?>
 		<span>Recherche d'adversaire...</span>
 		<br />
