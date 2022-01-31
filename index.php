@@ -280,7 +280,7 @@
 		}
 		
 		function sendinfo(info){
-			post('postinfo.php',info);
+			post('api/user/postinfo.php',info);
 			//window.open('./postinfo.php?' + info, ' ',"height=1,width=1,alwaysLowered=yes,left=1920,top=1080");
 			//self.focus();
 			reload();

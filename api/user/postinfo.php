@@ -1,5 +1,5 @@
 <?php
-    include('init.php');
+    include('../../init.php');
     $user = login(false, true);
     
     $infoslist = sendRequest("SELECT infos FROM CARDSUSERS WHERE id = '", $user['id'], "'");
