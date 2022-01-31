@@ -35,6 +35,7 @@ function prettyTable4Tournament ($trees3) {
 	//on choisit la première pour récupérer les participants au passage
 	$i=0;
 	$a=1;
+	print_r($trees3);
 	if (!isset($trees3[0][0][0])) {
 		$trees2[0]=$trees3;
 		$trees3=$trees2;
