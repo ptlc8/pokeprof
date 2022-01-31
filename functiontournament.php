@@ -118,7 +118,7 @@ function tournamentIncludesPlayer($fighters, $playerId) {
 	return in_array($playerId, $fighters[0][0]);
 }
 
-function tournamentAddPlayer($fighters, $playerId) {
+function tournamentAddPlayer(& $fighters, $playerId) {
 	array_push($fighters[0][0],$playerId);
 }
 
