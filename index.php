@@ -435,7 +435,7 @@
 				var args = window.location.hash.replace("#", "").split("=");
 				switch (args[0]) {
 				case "user":
-					sendRequest("GET", "getuser.php?id="+args[1]).then(function(r) {
+					sendRequest("GET", "api/user/get.php?id="+args[1]).then(function(r) {
 						if (r == "not found") return;
 						r = JSON.parse(r);
 						let borderClass = r.tags.includes("gold-border") ? "gold-border"
@@ -552,7 +552,7 @@
 				    });
 				    break;
 				case "history":
-					sendRequest("GET", "gethistory.php").then(function(r) {
+					sendRequest("GET", "api/user/gethistory.php").then(function(r) {
 						let history = JSON.parse(r);
 						createPopup({className:"history"}, [
 							createElement("span", {className:"title"}, "Historique")
