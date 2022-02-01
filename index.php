@@ -430,6 +430,15 @@
 					}
 				});
 			}
+			function spectateLastMatch() {
+				sendRequest("POST", "searching.php", "cancel").then(function(response) {
+					if (response=="playing") {
+						window.location.replace("play.php");
+					} else if (response=="canceled") {
+						window.location.replace("spectate.php?match=last");
+					}
+				});
+			}
 			
 			function onHashChange() {
 				var args = window.location.hash.replace("#", "").split("=");
@@ -471,7 +480,7 @@
 							search(true);
 						}}),
 						createElement("button", {className:"spectate-button",id:"spectate-button",style:{display:"none"}}, "Regarder un match", {click:function(){
-							window.location = "spectate.php?match=last";
+							spectateLastMatch();
 						}}),
 						createElement("button", {className:"back-button"}, "Retourner au menu", {click:function(){
 							this.parentElement.parentElement.click();
