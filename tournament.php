@@ -54,9 +54,9 @@
 			});
 			document.getElementById("join-button").addEventListener("click", function(e) {
 				sendRequest("POST", "jointournament.php", "id="+tournamentId).then(function(response) {
-					if (response=="not logged")
+					if (response=="not logged") {
 						window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
-					else if (response=="already in tournament") {
+					} else if (response=="already in tournament") {
 						alert("Vous êtes déjà inscrit!");
 						document.getElementById("join-button").style.display="none";
 					} else {
