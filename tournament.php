@@ -36,7 +36,7 @@
 					if (response=="already in tournament") {
 						document.getElementById("join-button").style.display="none";
 					}
-				}
+				});
 				if (tournament.nbPlaces!=null) {
 					if (tournament.nbPlaces>0)
 						document.getElementById("tournament-infos").innerText = tournament.nbPlaces+" places";
