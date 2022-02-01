@@ -8,7 +8,7 @@ include('../init.php');
 $user = login(false, true);
 $result = sendRequest("SELECT deck, choosenDeck FROM CARDSUSERS WHERE id = '", $user['id'], "'");
 if ($result->num_rows === 0)
-	exit("<span>Veuillez d'abord aller à la page suivante : agnd.fr/cards/</span>");
+	exit('invalid account');
 $cardsUser = $result->fetch_assoc();
 
 // vérification supplémentaire

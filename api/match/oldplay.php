@@ -18,9 +18,8 @@ $user = $userRequest->fetch_assoc();
 
 // récupération des cartes et du deck du joueur
 $result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
-if ($result->num_rows === 0) {
-	exit("<span>Veuillez d'abord aller à la page suivante : agnd.fr/cards/</span>");
-}
+if ($result->num_rows === 0)
+	exit('invalid account');
 $cardsUser = $result->fetch_assoc();
 
 // vérification du paramètre action

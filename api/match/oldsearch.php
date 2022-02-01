@@ -18,7 +18,7 @@ $user = $userRequest->fetch_assoc();
 // connexion au compte cards
 $result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
 if ($result->num_rows === 0) {
-	exit("Veuillez d'abord aller à la page suivante : agnd.fr/cards");
+	exit('invalid account');
 }
 $cardsUser = $result->fetch_assoc();
 

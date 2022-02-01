@@ -16,9 +16,8 @@ if ($amount<=0)
 
 // vérification de la possession de la carte // NON ?
 $result = sendRequest("SELECT cards, rewardLevel, id FROM CARDSUSERS WHERE id = '", $user['id'], "'");
-if ($result->num_rows === 0) {
-	exit("<span>Veuillez d'abord aller à la page suivante : agnd.fr/cards/</span>");
-}
+if ($result->num_rows === 0)
+	exit('invalid account');
 $cardsUser = $result->fetch_assoc();
 $cards = json_decode($cardsUser['cards']);
 

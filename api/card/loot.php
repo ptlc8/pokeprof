@@ -7,7 +7,7 @@ $user = login(false, true);
 // connexion au compte cards
 $result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
 if ($result->num_rows === 0) {
-	exit("<script>window.location.replace('');</script>");
+	exit('invalid account');
 }
 $cardsUser = $result->fetch_assoc();
 

@@ -16,9 +16,8 @@
 		
 		// récupération des cartes et du deck du joueur ~
 		$result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
-		if ($result->num_rows === 0) {
-			exit("<script>window.location.replace('');</script>");
-		}
+		if ($result->num_rows === 0)
+			header('Location: .');
 		$cardsUser = $result->fetch_assoc();
 		
 		?>
