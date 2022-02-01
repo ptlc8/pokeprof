@@ -49,7 +49,7 @@ if ($result->num_rows === 0) {
 	exit("searching");
 } else {
 	$opponent = $result->fetch_assoc();
-	sendRequest("UPDATE `CARDSUSERS` SET `lastSearchDate` = '2000-00-00 00:00:00' WHERE `CARDSUSERS`.`id` = ", $cardsUser['id'], " OR `CARDSUSERS`.`id` = ", $opponent['id']);
+	sendRequest("UPDATE `CARDSUSERS` SET `lastSearchDate` = '2000-01-01 00:00:00' WHERE `CARDSUSERS`.`id` = ", $cardsUser['id'], " OR `CARDSUSERS`.`id` = ", $opponent['id']);
 	$result = sendRequest("SELECT * FROM CARDS WHERE official > 0 OR official = -1");
 	$allcards = [];
 	while ($row = $result->fetch_assoc())

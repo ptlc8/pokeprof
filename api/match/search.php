@@ -19,7 +19,7 @@ if ($result->num_rows !== 0) {
 
 // annulation de la recherche si demandée
 if (isset($_REQUEST['cancel'])) {
-    sendRequest("UPDATE `CARDSUSERS` SET `lastSearchDate` = '2001-00-00 00:00:00' WHERE `CARDSUSERS`.`id` = '", $cardsUser['id'], "'");
+    sendRequest("UPDATE `CARDSUSERS` SET `lastSearchDate` = '2001-01-01 00:00:00' WHERE `CARDSUSERS`.`id` = '", $cardsUser['id'], "'");
     exit("canceled");
 }
 
