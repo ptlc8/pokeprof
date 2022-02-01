@@ -20,7 +20,9 @@
 		<br />
 		<span id="tournament-infos"></span>
 		<div id="actions">
+			
 			<button id="join-button" class="button">Rejoindre</button>
+			
 			<a href="." class="button">Revenir au menu</a>
 		</div>
 		<div id="tournament"></div>
@@ -46,6 +48,8 @@
 				sendRequest("POST", "jointournament.php", "id="+tournamentId).then(function(response) {
 					if (response=="not logged")
 						window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
+					else if (response=="already in tournament")
+						alert("Vous êtes déjà inscrit!");
 					else {
 						var newTab=JSON.parse(response);
 						displayTournament(document.getElementById("tournament"), newTab.fighters);
