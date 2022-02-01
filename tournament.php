@@ -58,7 +58,7 @@
 						window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
 					} else if (response=="already in tournament") {
 						alert("Vous êtes déjà inscrit!");
-						document.getElementById("join-button").style.display="none";
+						//document.getElementById("join-button").style.display="none";
 					} else {
 						var newTab=JSON.parse(response);
 						displayTournament(document.getElementById("tournament"), newTab.fighters);
