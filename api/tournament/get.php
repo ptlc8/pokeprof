@@ -1,7 +1,7 @@
 <?php
 
-include("init.php");
-include("functiontournament.php");
+include('../init.php');
+include('tournament.php');
 
 if (isset($_REQUEST['id'])) {
 	$tournamentId=$_REQUEST['id'];

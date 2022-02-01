@@ -43,7 +43,7 @@
 				window.location.href='.';
 			});
 			document.getElementById("join-button").addEventListener("click", function(e) {
-				sendRequest("POST", "jointournament.php", "id="+tournamentId).then(function(response) {
+				sendRequest("POST", "api/tournament/join.php", "id="+tournamentId).then(function(response) {
 					if (response=="not logged")
 						window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
 					else {

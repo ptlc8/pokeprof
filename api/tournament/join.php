@@ -1,7 +1,7 @@
 <?php
 
-include('init.php');
-include("functiontournament.php");
+include('../init.php');
+include('tournament.php');
 
 // connexion à un compte
 $user = login(false, true);

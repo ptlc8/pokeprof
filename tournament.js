@@ -46,7 +46,7 @@ function displayTournament(tournamentDiv, tournament) {
 
 function queryTournament(id) {
 	return new Promise(function (resolve, reject){
-		sendRequest("GET", "gettournament.php?id="+id).then(function(response){
+		sendRequest("GET", "api/tournament/get.php?id="+id).then(function(response){
 			try {
 				resolve(JSON.parse(response));
 			} catch (e) {
