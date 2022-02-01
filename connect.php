@@ -31,7 +31,7 @@
 					} else if (isset($_REQUEST['closeafter'])) {
 					    echo("<script>window.close();</script>");
 					} else{
-						echo("<script>window.location.replace('/');</script>");
+						echo("<script>window.location.replace('.');</script>");
 					}
 				}
 			}
