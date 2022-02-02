@@ -140,7 +140,8 @@ function tournamentDelPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null)
 	if (($index[0]!==false)||($index[0]!==false)) {
 		foreach ($index as $del) {
 			if ($del!==false) {
-				unset($fighters[$del]);
+				unset($fighters[0][$del]);
+				sort($fighters[0][$del]);
 				$nbDel++;
 			}
 		}
