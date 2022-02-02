@@ -33,7 +33,7 @@ if (tournamentIncludesPlayer($fighters, $user['id'])) {
 	} else {
 		exit('already in tournament');
 	}
-} else {
+} else if (isset($_REQUEST['add'])) {
 	tournamentAddPlayer($fighters, $user['id'], $tournament['id'], $tournament['nbPlaces']);
 }
 
