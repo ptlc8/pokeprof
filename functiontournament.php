@@ -130,6 +130,7 @@ function tournamentAddPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null)
 
 function tournamentDelPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null) {
 	$index=array();
+	$temp=array();
 	$nbDel=0;
 	$index[0]=array_search($playerId, $fighters[0][0]);
 	if (isset($fighters[0][1])) {
@@ -140,7 +141,9 @@ function tournamentDelPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null)
 	if (($index[0]!==false)||($index[0]!==false)) {
 		for ($i=0; $i<count($index); $i++) {
 			if ($index[$i]!==false) {
-				$fighters[0][$i][$index[$i]]='';
+				$temp=array_slice($fighters[0][$i], 0, $index[$i], true);
+				$fighters[0][$i]=array_slice($fighters[0][$i], $index[$i]+1);
+				$fighters[0][$i]=array_merge($temp, $fighters[0][$i]);
 				$nbDel++;
 			}
 		}
