@@ -68,6 +68,7 @@
 						displayTournament(document.getElementById("tournament"), newTab.fighters);
 					}
 				});
+				affGraphTournament(tournamentId);
 			});
 			document.getElementById("leave-button").addEventListener("click", function(e) {
 				sendRequest("POST", "jointournament.php", "id="+tournamentId+"&del=1").then(function(response) {
@@ -78,6 +79,7 @@
 						displayTournament(document.getElementById("tournament"), newTab.fighters);
 					}
 				});
+				affGraphTournament(tournamentId);
 			});
 		</script>
 	</body>
