@@ -23,6 +23,8 @@
 			
 			<button id="join-button" class="button">Rejoindre</button>
 			
+			<button id="leave-button" class="button">Se désinscrire</button>
+			
 			<a href='.' ><button class="button">Revenir au menu</button></a>
 		</div>
 		<div id="tournament"></div>
@@ -35,6 +37,8 @@
 				sendRequest("POST", "jointournament.php", "id="+tournamentId).then(function(response) {
 					if (response=="already in tournament") {
 						document.getElementById("join-button").style.display="none";
+					} else {
+						document.getElementById("leave-button").style.display="none";
 					}
 				});
 				if (tournament.nbPlaces!=null) {
@@ -59,6 +63,16 @@
 					} else if (response=="already in tournament") {
 						alert("Vous êtes déjà inscrit!");
 						document.getElementById("join-button").style.display="none"; //pas vraiment nécessaire
+					} else {
+						var newTab=JSON.parse(response);
+						displayTournament(document.getElementById("tournament"), newTab.fighters);
+					}
+				});
+			});
+			document.getElementById("leave-button").addEventListener("click", function(e) {
+				sendRequest("POST", "jointournament.php", "id="+tournamentId+"del=1").then(function(response) {
+					if (response=="not logged") {
+						window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
 					} else {
 						var newTab=JSON.parse(response);
 						displayTournament(document.getElementById("tournament"), newTab.fighters);
