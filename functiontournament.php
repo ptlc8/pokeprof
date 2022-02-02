@@ -132,7 +132,11 @@ function tournamentDelPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null)
 	$index=array();
 	$nbDel=0;
 	$index[0]=array_search($playerId, $fighters[0][0]);
-	$index[1]=array_search($playerId, $fighters[0][1]);
+	if (isset($fighters[0][1])) {
+		$index[1]=array_search($playerId, $fighters[0][1]);
+	} else {
+		$index[1]=false;
+	}
 	if (($index[0]!==false)||($index[0]!==false)) {
 		foreach ($index as $del) {
 			if ($del!==false) {
