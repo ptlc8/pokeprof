@@ -56,7 +56,7 @@ function queryTournament(id) {
 	});
 }
 
-function affGraphTournament (tournamentId) {
+function affGraphTournament(tournamentId) {
 	queryTournament(tournamentId).then(function(tournament) {
 		displayTournament(document.getElementById("tournament"), tournament.fighters);
 		document.getElementById("tournament-name").innerText = tournament.name;
