@@ -147,7 +147,7 @@ function tournamentDelPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null)
 		if ($idDB!=null) {
 			sendRequest("UPDATE TOURNAMENT SET fighters='", stringifyFighters($fighters, null), "' WHERE id='", $idDB, "'");
 			if ($nbPlaces!=null) {
-				sendRequest("UPDATE TOURNAMENT SET nbPlaces=", $nbPlaces-$nbDel, " WHERE id='", $idDB, "'");
+				sendRequest("UPDATE TOURNAMENT SET nbPlaces=", $nbPlaces+$nbDel, " WHERE id='", $idDB, "'");
 			}
 		}
 	}
