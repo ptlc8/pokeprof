@@ -56,6 +56,7 @@
 				alert("Impossible d'afficher ce tournoi");
 				window.location.href='.';
 			});
+			affGraphTournament(tournamentId);
 			document.getElementById("join-button").addEventListener("click", function(e) {
 				sendRequest("POST", "jointournament.php", "id="+tournamentId+"&add=1").then(function(response) {
 					if (response=="not logged") {
