@@ -81,5 +81,6 @@ function affGraphTournament(tournamentId) {
 	}).catch(function(){
 		alert("Impossible d'afficher ce tournoi");
 		window.location.href='.';
-	});	
+	});
+	alert("Maj");
 }
