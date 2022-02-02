@@ -23,7 +23,7 @@
 			
 			<button id="join-button" class="button">Rejoindre</button>
 			
-			<a href="." class="button">Revenir au menu</a>
+			<button onclick="header('.')" class="button">Revenir au menu</button>
 		</div>
 		<div id="tournament"></div>
 		<script>
