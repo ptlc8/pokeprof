@@ -128,6 +128,27 @@ function tournamentAddPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null)
 	}
 }
 
+function tournamentDelPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null) {
+	$index=array();
+	$nbDel=0;
+	$index[0]=array_search($playerId, $fighters[0][0]);
+	$index[1]=array_search($playerId, $fighters[0][1]);
+	if (($index[0]!==false)||($index[0]!==false)) {
+		foreach ($index as $del) {
+			if ($del!==false) {
+				unset($fighters[$del]);
+				$nbDel++;
+			}
+		}
+		if ($idDB!=null) {
+			sendRequest("UPDATE TOURNAMENT SET fighters='", stringifyFighters($fighters, null), "' WHERE id='", $idDB, "'");
+			if ($nbPlaces!=null) {
+				sendRequest("UPDATE TOURNAMENT SET nbPlaces=", $nbPlaces-$nbDel, " WHERE id='", $idDB, "'");
+			}
+		}
+	}
+}
+
 function parseFighters($fighters) {
 	$fightersArray = explode(';',$fighters);
 	foreach($fightersArray as &$tree) {
