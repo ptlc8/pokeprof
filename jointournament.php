@@ -30,7 +30,7 @@ $fighters = parseFighters($tournament['fighters']);
 if (tournamentIncludesPlayer($fighters, $user['id']))
 	exit('already in tournament');
 
-tournamentAddPlayer($fighters, $user['id'], $tournament['id']);
+tournamentAddPlayer($fighters, $user['id'], $tournament['id'], $tournament['nbPlaces']);
 
 $tournament['fighters']=prettyTable4Tournament($fighters);
 
