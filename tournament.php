@@ -70,7 +70,7 @@
 				});
 			});
 			document.getElementById("leave-button").addEventListener("click", function(e) {
-				sendRequest("POST", "jointournament.php", "id="+tournamentId+"del=1").then(function(response) {
+				sendRequest("POST", "jointournament.php", "id="+tournamentId+"&del=1").then(function(response) {
 					if (response=="not logged") {
 						window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
 					} else {
