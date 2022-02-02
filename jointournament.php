@@ -29,7 +29,7 @@ $fighters = parseFighters($tournament['fighters']);
 
 if (tournamentIncludesPlayer($fighters, $user['id'])) {
 	if (isset($_REQUEST['del'])) {
-		tournamentAddPlayer($fighters, $user['id'], $tournament['id'], $tournament['nbPlaces']); 
+		tournamentDelPlayer($fighters, $user['id'], $tournament['id'], $tournament['nbPlaces']); 
 	} else {
 		exit('already in tournament');
 	}
