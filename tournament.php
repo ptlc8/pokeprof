@@ -62,7 +62,7 @@
 						window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
 					} else if (response=="already in tournament") {
 						alert("Vous êtes déjà inscrit!");
-						document.getElementById("join-button").style.display="none"; //pas vraiment nécessaire
+						location.reload();
 					} else {
 						var newTab=JSON.parse(response);
 						displayTournament(document.getElementById("tournament"), newTab.fighters);
@@ -74,6 +74,9 @@
 				sendRequest("POST", "jointournament.php", "id="+tournamentId+"&del=1").then(function(response) {
 					if (response=="not logged") {
 						window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
+					} else if (response=="not in tournament") {
+						alert("Vous n'êtes pas encore inscrit!");
+						location.reload();
 					} else {
 						var newTab=JSON.parse(response);
 						displayTournament(document.getElementById("tournament"), newTab.fighters);
