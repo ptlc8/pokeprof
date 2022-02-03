@@ -33,9 +33,15 @@ if (tournamentIncludesPlayer($fighters, $user['id'])) {
 	} else {
 		exit('already in tournament');
 	}
-} else if (isset($_REQUEST['add'])) {
-	tournamentAddPlayer($fighters, $user['id'], $tournament['id'], $tournament['nbPlaces']);
+} else {
+	if (isset($_REQUEST['add'])) {
+		tournamentAddPlayer($fighters, $user['id'], $tournament['id'], $tournament['nbPlaces']);
+	}
+	if (isset($_REQUEST['del'])) {
+		exit('not in tournament');
+	}
 }
+
 
 $tournament['fighters']=prettyTable4Tournament($fighters);
 
