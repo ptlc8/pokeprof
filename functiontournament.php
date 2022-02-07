@@ -65,8 +65,6 @@ function prettyTable4Tournament ($trees3) {
 	recurPrettyTable ($Tree, $a, ceil(log($a,2)), 0);
 	$trees3[0]=$Tree;
 	$textFinal=stringifyFighters($trees3, $fighters);
-	var_dump($trees3);
-	echo "\n".$textFinal."\n";
 	return($textFinal);
 }
 
