@@ -47,9 +47,11 @@
 					else if (tournament.nbPlaces==0) {
 						document.getElementById("tournament-infos").innerText = "Les inscriptions sont fermées!";
 						document.getElementById("join-button").style.display="none";
+						document.getElementById("leave-button").style.display="block";
 					} else {
 						document.getElementById("tournament-infos").innerText = "Ce tournoi est terminé.";
 						document.getElementById("leave-button").style.display="none";
+						document.getElementById("join-button").style.display="block";
 					}
 				}
 			}).catch(function(){
