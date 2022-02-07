@@ -20,14 +20,6 @@ function prettyTable4Tournament ($trees3) {
 	}
 	$trees=array();
 	$trees2=array();
-	//$trees3=parseFighters($textFighters);
-	/*$trees=explode(';',$textFighters);
-	for ($i=0; $i<count($trees); $i++) {
-		$trees2[$i]=explode(',',$trees[$i]);
-		for ($j=0; $j<count($trees2[$i]); $j++) {
-			$trees3[$i][$j]=explode('.',$trees2[$i][$j]);
-		}
-	}*/
 	//on vérifie si le tournoi a commencé. 2 méthodes:
 	//- regarde les doublons dans le tableau
 	//- existance des repêchages
@@ -71,9 +63,10 @@ function prettyTable4Tournament ($trees3) {
 	}
 	//modif avec appel récursif
 	recurPrettyTable ($Tree, $a, ceil(log($a,2)), 0);
-	var_dump($Tree);
 	$trees3[0]=$Tree;
 	$textFinal=stringifyFighters($trees3, $fighters);
+	var_dump($trees3);
+	echo "\n".$textFinal."\n";
 	return($textFinal);
 }
 
