@@ -76,7 +76,7 @@ function tournamentIncludesPlayer($fighters, $playerId) {
 }
 
 function tournamentAddPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null) {
-	if (($fighters==null)||(!isset($fighters[0]))||(!isset($fighters[0][0]))) {
+	if (($fighters==null)||(!isset($fighters[0]))||(!isset($fighters[0][0]))||(count($fighters[0][0])==0)||(count($fighters[0])==0)) {
 		$fighters[0][0][0]=$playerId;
 	} else {
 		array_push($fighters[0][0],$playerId);
