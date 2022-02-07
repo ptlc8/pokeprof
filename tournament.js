@@ -63,8 +63,10 @@ function affGraphTournament(tournamentId) {
 		sendRequest("POST", "jointournament.php", "id="+tournamentId).then(function(response) {
 			if (response=="already in tournament") {
 				document.getElementById("join-button").style.display="none";
+				document.getElementById("leave-button").style.display="inline-block";
 			} else {
 				document.getElementById("leave-button").style.display="none";
+				document.getElementById("join-button").style.display="inline-block";
 			}
 		});
 		if (tournament.nbPlaces!=null) {
