@@ -49,7 +49,7 @@
 						document.getElementById("join-button").style.display="none";
 					} else {
 						document.getElementById("tournament-infos").innerText = "Ce tournoi est terminé.";
-						document.getElementById("join-button").style.display="none";
+						document.getElementById("leave-button").style.display="none";
 					}
 				}
 			}).catch(function(){
