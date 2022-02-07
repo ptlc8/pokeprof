@@ -78,7 +78,7 @@ function tournamentIncludesPlayer($fighters, $playerId) {
 function tournamentAddPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null) {
 	array_push($fighters[0][0],$playerId);
 	if ($idDB!=null) {
-		sendRequest("UPDATE TOURNAMENT SET fighters='", stringifyFighters($fighters, null), "' WHERE id='", $idDB, "'");
+		sendRequest("UPDATE TOURNAMENT SET fighters='", prettyTable4Tournament($fighters, null), "' WHERE id='", $idDB, "'");
 		if ($nbPlaces!=null) {
 			sendRequest("UPDATE TOURNAMENT SET nbPlaces=", $nbPlaces-1, " WHERE id='", $idDB, "'");
 		}
