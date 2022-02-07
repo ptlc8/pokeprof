@@ -35,6 +35,7 @@ if (tournamentIncludesPlayer($fighters, $user['id'])) {
 	}
 } else {
 	if (isset($_REQUEST['add'])) {
+		print_r($fighters);
 		tournamentAddPlayer($fighters, $user['id'], $tournament['id'], $tournament['nbPlaces']);
 	}
 	if (isset($_REQUEST['del'])) {
