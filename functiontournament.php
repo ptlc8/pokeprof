@@ -54,7 +54,8 @@ function prettyTable4Tournament ($trees3) {
 		$trees2[0]=$trees3;
 		$trees3=$trees2;
 	}
-	$fighters=[[$trees3[0][0][0],0]];
+	$fighters=recupFighters($trees3[0]);
+	/*$fighters=[[$trees3[0][0][0],0]];
 	//on s'intéresse seulement au tableau principal
 	foreach ($trees3[0] as $branch) {
 		foreach ($branch as $node) {
@@ -72,7 +73,7 @@ function prettyTable4Tournament ($trees3) {
 				$a++;
 			}
 		}
-	}
+	}*/
 	$j=0;
 	$a=0;
 	foreach ($fighters as $fighter) {
@@ -100,8 +101,9 @@ function tournamentIncludesPlayer($fighters, $playerId) {
 }
 
 function tournamentAddPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null) {
-	if (($fighters==null)||(!isset($fighters[0]))||(!isset($fighters[0][0]))||(count($fighters[0][0])==0)||(count($fighters[0])==0)) {
-		$fighters[0][0][0]=$playerId; //faire une recherche de nombre, le tableau contient des ' ' ou ''
+	if ((count($fighters[0])<3)&&(count(recupFighters($fighters[0]))<1)) { //première condition sert à alléger la compléxité
+		$fighters[0]=array();
+		$fighters[0][0][0]=$playerId;
 	} else {
 		array_push($fighters[0][0],$playerId);
 	}
