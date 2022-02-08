@@ -276,11 +276,40 @@ body, html {
 	transform: translate(-50%, -50%);
 	font-size: 1.4vw;
 }
+#select-attack .effects {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 67.5%;
+}
+#select-attack .effects > div {
+	background: #444444;
+	color: whitesmoke;
+	padding: 1em .5em;
+	border-radius: .5em;
+	border: whitesmoke 2px solid;
+	margin: .5em;
+}
+#select-attack .effects .name {
+	display: block;
+	font-size: 1.2em;
+}
 @media (orientation:portrait) {
-    #select-attack-card {
-        width: 75%;
-        font-size: 3vw;
-    }
+	#select-attack-card {
+		width: 75%;
+		font-size: 3vw;
+	}
+	#select-card .effects {
+		font-size: .6em;
+		top: 0;
+		left: 0;
+		width: 100%;
+		text-align: center;
+	}
+	#select-card .effects > div {
+		display: inline-block;
+		width: 25%;
+	}
 }
 
 /* particules : damage, heal, bolt... */
