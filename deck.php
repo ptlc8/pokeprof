@@ -148,7 +148,6 @@
 		    	document.getElementById("deck-name").innerText = String.fromCharCode(65+n);
 		    	Promise.all(decks[n].map(id=>getCardInfos(id))).then(function(cards){
 		    	    document.getElementById("deck-cost").innerText = cards.reduce((acc,card)=>acc+parseInt(card.cost||0), 0) / decks[n].length;
-		    	    console.log(cards);
 		    	});
 		    }
 		    function chooseDeck(n) {
@@ -293,6 +292,8 @@
 				el.style.transform = 'translate(-50%,-50%)';
 				el.style.fontSize = '3em';
 				el.style.opacity = '1';
+				el.style.pointerEvents = 'none';
+				el.style.zIndex = '120';
 				where.appendChild(el);
 				el.style.transition = 'top '+t/1000+'s ease-out, opacity '+t/2000+'s ease';
 							setTimeout(()=>el.style.top = '40%', 10);
