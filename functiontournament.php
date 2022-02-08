@@ -1,5 +1,29 @@
 <?php
   
+function recupFighters($tree) {
+	a=0;
+	$fighters=[[$tree[0][0],0]];
+	//on s'intéresse seulement au tableau principal
+	foreach ($tree as $branch) {
+		foreach ($branch as $node) {
+			$i=0;
+			$j=0;
+			while ($i<$a) {
+				if ($fighters[$i][0]==$node) {
+					$fighters[$i][1]++;
+					$j=1;
+				}
+				$i++;
+			}
+			if (($j!=1)&&($node!='')&&($node!=' ')) {
+				$fighters[$a]=[$node,1];
+				$a++;
+			}
+		}
+	}
+	return($fighters);
+}
+
  //fonctions pour faire des tableaux corrects, Léo
 
 function recurPrettyTable (& $Tree, $nbQualified, $i, $j) {
