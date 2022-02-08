@@ -746,6 +746,13 @@ if (isset($_REQUEST['error'])) {
 			async function showSelectAttack(card, cardIndex) {
 				var selectAttackDiv = document.getElementById("select-attack");
 				await setCardElementById(document.getElementById("select-attack-card"), card.id, card);
+				var effectsDiv = document.getElementById("slect-attack-effects");
+				effectsDiv.innerHTML = "";
+				/*for (let effect of TODO)
+					effectsDiv.appendChild(createElement("div", {}, [
+						createElement("span", {className:"name"}, effect.name),
+						createElement("span", {}, effect.description)
+					]));*/
 				if (match.playerId==match.playing && !card.mi && !card.eg && card.slp<=0 && card.prl<=0 && card.efr<=0) {
 					if (card.scripts[0]) {
 						let script = decompileScript(card.scripts[0]);
@@ -836,6 +843,10 @@ if (isset($_REQUEST['error'])) {
 					if (card[effect]) i++;
 				}
 			}
+			const EFFECTS = {
+				slp: {name:"Endormi", emote:"💤", description:"La carte ne peut pas attaquer"}
+				// TODO
+			};
 			
 			// Animations de particule
 			function displayParticle(name, data={}) { // name, {x, y, text="", parent=gameDiv, targetPos, textColor}
