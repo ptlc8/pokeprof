@@ -45,6 +45,7 @@ if (isset($_REQUEST['error'])) {
 			</div>
 			<div id="select-attack" style="display: none;" onclick="if(!tuto)this.style.display='none';">
 				<div id="select-attack-card" onclick="event.stopPropagation()"></div>
+				<div id="select-attack-effects" class="effects"></div>
 			</div>
 			<div id="timer"><div></div></div>
 		</div>
@@ -745,14 +746,7 @@ if (isset($_REQUEST['error'])) {
 			// Afficher le menu de sélection d'attaque
 			async function showSelectAttack(card, cardIndex) {
 				var selectAttackDiv = document.getElementById("select-attack");
-				await setCardElementById(document.getElementById("select-attack-card"), card.id, card);
-				var effectsDiv = document.getElementById("slect-attack-effects");
-				effectsDiv.innerHTML = "";
-				/*for (let effect of TODO)
-					effectsDiv.appendChild(createElement("div", {}, [
-						createElement("span", {className:"name"}, effect.name),
-						createElement("span", {}, effect.description)
-					]));*/
+				await showCard(card);
 				if (match.playerId==match.playing && !card.mi && !card.eg && card.slp<=0 && card.prl<=0 && card.efr<=0) {
 					if (card.scripts[0]) {
 						let script = decompileScript(card.scripts[0]);
@@ -779,23 +773,29 @@ if (isset($_REQUEST['error'])) {
 						}
 					}
 				}
-				selectAttackDiv.style.display = "";
 				if (tuto) resolveTuto();
 			}
 			// Afficher le menu pour jouer une carte
 			async function showPlayCard(card, index) {
 				var selectAttackDiv = document.getElementById("select-attack");
-				await setCardElementById(document.getElementById("select-attack-card"), card.id, card);
+				await showCard(card);
 				document.querySelector("#select-attack-card .inner").appendChild(createElement("span", {className:"button"}, "Jouer cette carte", {click:function(){
 					playCard(index);
 					selectAttackDiv.style.display = "none";
 				}}));
-				selectAttackDiv.style.display = "";
 			}
 			// Afficher une carte
 			async function showCard(card) {
 				var selectAttackDiv = document.getElementById("select-attack");
 				await setCardElementById(document.getElementById("select-attack-card"), card.id, card);
+				var effectsDiv = document.getElementById("select-attack-effects");
+				effectsDiv.innerHTML = "";
+				for (let id in EFFECTS)
+					if (card[id]>0)
+						effectsDiv.appendChild(createElement("div", {}, [
+							createElement("span", {className:"name"}, EFFECTS[id].emote+" "+EFFECTS[id].name),
+							createElement("span", {}, EFFECTS[id].description)
+						]));
 				selectAttackDiv.style.display = "";
 			}
 			
@@ -819,33 +819,35 @@ if (isset($_REQUEST['error'])) {
 			function updateCardEffects(cardDiv, card) {
 				let div = cardDiv.getElementsByClassName("particles")[0];
 				if (!div) cardDiv.appendChild(div = createElement("div", {className:"particles"}));
-				let effects = {slp:"💤", elc:"⚡", efr:"😱", prl:"🚫", pvq:"🤬"/*, eg:{text:'⏳'}*/};
-				let n = Object.keys(effects).filter(effect=>card[effect]>0).length;
+				let n = Object.keys(EFFECTS).filter(effect=>card[effect]>0).length;
 				let i = 0;
-				for (let effect in effects) {
-					if (card[effect]>0) {
+				for (let effectId in EFFECTS) {
+					if (card[effectId]>0) {
 						setTimeout(function() {
 							for (let j = 0; j < 3; j++) {
-								let particle = div.getElementsByClassName(effect+j)[0];
+								let particle = div.getElementsByClassName(effectId+j)[0];
 								if (!particle) {
 									particle = document.createElement("span");
-									particle.className = effect+j;
-									particle.innerText = effects[effect];
+									particle.className = effectId+j;
+									particle.innerText = EFFECTS[effectId].emote;
 									div.appendChild(particle);
 								}
 							}
 						}, 2000*i/n);
 					} else {
 						let particle;
-						for (let j = 0; (particle = div.getElementsByClassName(effect+j)[0])!=null; j++)
+						for (let j = 0; (particle = div.getElementsByClassName(effectId+j)[0])!=null; j++)
 							div.removeChild(particle);
 					}
-					if (card[effect]) i++;
+					if (card[effectId]) i++;
 				}
 			}
 			const EFFECTS = {
-				slp: {name:"Endormi", emote:"💤", description:"La carte ne peut pas attaquer"}
-				// TODO
+				slp: {name:"Endormie", emote:"💤", description:"La carte ne peut pas attaquer"},
+				elc: {name:"Électrifiée", emote:"⚡", description:"La carte prend 10 dégâts à chaque fin de tour"},
+				efr: {name:"Appeurée", emote:"😱", description: "La carte ne peut pas attaquer"},
+				prl: {name:"Paralysée", emote:"🚫", description: "La carte ne peut pas attaquer"},
+				pvq: {name:"Provoquante", emote:"🤬", description: "L'ennemi doit cibler cette carte en priorité"}
 			};
 			
 			// Animations de particule

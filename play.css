@@ -299,14 +299,15 @@ body, html {
 		width: 75%;
 		font-size: 3vw;
 	}
-	#select-card .effects {
-		font-size: .6em;
+	#select-attack .effects {
+		font-size: .9em;
 		top: 0;
 		left: 0;
 		width: 100%;
 		text-align: center;
+		transform: unset;
 	}
-	#select-card .effects > div {
+	#select-attack .effects > div {
 		display: inline-block;
 		width: 25%;
 	}
