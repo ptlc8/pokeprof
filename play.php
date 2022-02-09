@@ -3,8 +3,10 @@ include('init.php');
 // connexion à un compte
 $user = login(true, true);
 if (isset($_REQUEST['error'])) {
-    $content = '__Erreur JS (play.php) : **'.$_REQUEST['error'].'**__'."\n".'Ligne : '.(!isset($_REQUEST['line'])||$_REQUEST['line']==''?'???':$_REQUEST['line'])."\n".'Fichier : '.(!isset($_REQUEST['file'])||$_REQUEST['file']==''?'???':$_REQUEST['file']);
-    sendToDiscord('https://discord.com/api/webhooks/909609582077280366/ZZP1FqsWYYlGjGUPdb12TT5nSke2qb5iDohaVJDhbR5EvsQnz44IbZ_8ilfEWc-K_K8I', $content);
+	if (defined('POKEPROF_WEBHOOK_ERROR') && POKEPROF_WEBHOOK_ERROR!=null) {
+    	$content = '__Erreur JS (play.php) : **'.$_REQUEST['error'].'**__'."\n".'Ligne : '.(!isset($_REQUEST['line'])||$_REQUEST['line']==''?'???':$_REQUEST['line'])."\n".'Fichier : '.(!isset($_REQUEST['file'])||$_REQUEST['file']==''?'???':$_REQUEST['file']);
+    	sendToDiscord(POKEPROF_WEBHOOK_ERROR, $content);
+	}
     header('Location: play.php');
 }
 ?>

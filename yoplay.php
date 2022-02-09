@@ -153,13 +153,16 @@ if ($end) {
         	save($match, $matchId);
         }
     } catch(Throwable $e) {
-        $content = '';
-        do {
-            $content .= '__**'.$e->getMessage().'**__ dans '.$e->getFile().' (ligne '.$e->getLine().')'.PHP_EOL.$e->getTraceAsString();
-            if ($e->getPrevious() != null)
-                $content .= PHP_EOL.'Caused by ';
-        } while(($e=$e->getPrevious()) != null);
-        sendToDiscord('https://discord.com/api/webhooks/909609582077280366/ZZP1FqsWYYlGjGUPdb12TT5nSke2qb5iDohaVJDhbR5EvsQnz44IbZ_8ilfEWc-K_K8I', $content);
+		if (defined('POKEPROF_WEBHOOK_ERROR') && POKEPROF_WEBHOOK_ERROR!=null) {
+			$content = '';
+			do {
+				$content .= '__**'.$e->getMessage().'**__ dans '.$e->getFile().' (ligne '.$e->getLine().')'.PHP_EOL.$e->getTraceAsString();
+				if ($e->getPrevious() != null)
+					$content .= PHP_EOL.'Caused by ';
+			} while(($e=$e->getPrevious()) != null);
+			sendToDiscord(POKEPROF_WEBHOOK_ERROR, $content);
+		}
+		
     }
 }
 
