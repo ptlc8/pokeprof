@@ -29,8 +29,8 @@ $cardInfos->rarity = intval($card['rarity']);
 $cardInfos->date = $card['date'];
 
 //Modif de Léo
-$result = sendRequest("SELECT name FROM BOOSTERS WHERE id = '", intval($card['boosterId']), "'")->fetch_assoc()['name'];
-$cardInfos->booster = $result ?? "Aucun";
+$result = sendRequest("SELECT name FROM BOOSTERS WHERE id = '", intval($card['boosterId']), "'")->fetch_assoc();
+$cardInfos->booster = $result==null ? "Aucun" : $result['name'];
 
 //$cardInfos->image = "data:image/png;base64,".base64_encode($card['image']);
 

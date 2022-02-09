@@ -18,6 +18,7 @@ function sendRequest(...$requestFrags) {
 		$var = !$var;
 	}
 	global $mysqli;
+    $mysqli->query("SET CHARACTER SET 'utf8';");
 	if (!$result = $mysqli->query($request)) {
 		echo 'Erreur de requête côté serveur, veuillez réessayer plus tard<br>'.$request;
 		exit;
