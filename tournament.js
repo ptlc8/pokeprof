@@ -55,3 +55,33 @@ function queryTournament(id) {
 		}).catch(reject);
 	});
 }
+
+function affGraphTournament(tournamentId) {
+	queryTournament(tournamentId).then(function(tournament) {
+		displayTournament(document.getElementById("tournament"), tournament.fighters);
+		document.getElementById("tournament-name").innerText = tournament.name;
+		sendRequest("POST", "jointournament.php", "id="+tournamentId).then(function(response) {
+			if (response=="already in tournament") {
+				document.getElementById("join-button").style.display="none";
+				document.getElementById("leave-button").style.display="inline-block";
+			} else {
+				document.getElementById("leave-button").style.display="none";
+				document.getElementById("join-button").style.display="inline-block";
+			}
+		});
+		if (tournament.nbPlaces!=null) {
+			if (tournament.nbPlaces>0)
+				document.getElementById("tournament-infos").innerText = tournament.nbPlaces+" places";
+			else if (tournament.nbPlaces==0) {
+				document.getElementById("tournament-infos").innerText = "Les inscriptions sont fermées!";
+				document.getElementById("join-button").style.display="none";
+			} else {
+				document.getElementById("tournament-infos").innerText = "Ce tournoi est terminé.";
+				document.getElementById("join-button").style.display="none";
+			}
+		}
+	}).catch(function(){
+		alert("Impossible d'afficher ce tournoi");
+		window.location.href='.';
+	});
+}
