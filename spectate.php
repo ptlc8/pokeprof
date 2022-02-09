@@ -395,7 +395,7 @@ $user = login(true, false);
 							(action.playerId==match.playing?playerFightersDivs:opponentFightersDivs).push(createGamePlacedCard(card.id, {x:50, y:50, edit:card}));
 							break;
 						case "givecard": {
-							if (typeof match.opponents[action.playerId] != "number") player.hand.push(action.card);
+							if (typeof match.opponents[action.playerId].hand != "number") match.opponents[action.playerId].hand.push(action.card);
 							else match.opponents[action.playerId].hand++;
 							let cardDiv = createGamePlacedCard(action.card.id, {x:50, y:50, edit:action.card});
 							(action.playerId==match.playerId?playerHandDivs:opponentHandDivs).push(cardDiv);
