@@ -453,10 +453,11 @@
 								: r.tags.includes("rainbow-border") ? "rainbow-border"
 								: ""
 						createPopup({className:"user-profile"}, [
-							createElement("img", {className:"pp "+borderClass, src:"/ayaya/assets/utilisateurs/unset.png"}),
+							createElement("img", {className:"pp "+borderClass, src:r.picture}),
 							createElement("span", {className:"name"}, r.name),
 							createElement("span", {className:"trophies"}, r.trophies),
 							createElement("span", {className:"cards"}, r.cards),
+							createElement("div", {className:"lastco"}, r.lastConnection),
 							createElement("div", {className:"tags"}, r.tags.filter(e=>e.startsWith("@")).map(function(tag){
 								return createElement("span", {}, tag.replace("@", ""));
 							}))

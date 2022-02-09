@@ -381,6 +381,7 @@ img.emote, canvas.emote {
 	width: 50%;
 	margin-top: 10%;
 	border-radius: 8%;
+	background-color: whitesmoke;
 }
 .user-profile .gold-border { border: thick ridge gold; }
 .user-profile .silver-border { border: thick ridge silver; }
