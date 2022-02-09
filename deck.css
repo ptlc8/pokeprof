@@ -22,6 +22,7 @@
 }
 .card-view .card {
     font-size: 0.324vw;
+	cursor: pointer;
 }
 .card-view:not(.no-shadow) {
 	box-shadow: rgba(0,0,0,.2) 3px 5px 5px;

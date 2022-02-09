@@ -139,7 +139,12 @@
 		    	for (let i = 0; i < decks[n].length; i++) {
 		    	    let fixedI = i;
 		    		deckDiv.appendChild(createElement("div", {className:"card-view"}, [
-		    		    createElement("div", {id:"deck-"+i, className:"card"}, [], {click:function(event){place(this, fixedI, event)}})
+		    		    createElement("div", {id:"deck-"+i, className:"card"}, [], {click:function(event){
+							if (movingId==-1 && decks[n][i])
+								printCardAbout(decks[n][i]);
+							else
+								place(this, fixedI, event);
+						}})
 		    		]));
 		    		if (decks[n][i])
 		    		    setCardElementById(document.getElementById("deck-"+i), decks[n][i]);
