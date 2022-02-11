@@ -63,7 +63,6 @@ foreach(array($cardsUser,$opponentCardsUser) as $cU) {
 	for ($i = 0; $i < 5; $i++)
 	    array_push($o->hand, array_pop($o->deck));
 	array_push($opponents, $o);
-	print_r($o);
 }
 $match = new Match($opponents);
 $totalCartes = count($allcards);
