@@ -431,7 +431,7 @@
 				});
 			}
 			function spectateLastMatch() {
-				sendRequest("POST", "searching.php", "cancel").then(function(response) {
+				sendRequest("POST", "api/match/search.php", "cancel").then(function(response) {
 					if (response=="playing") {
 						window.location.replace("play.php");
 					} else if (response=="canceled") {
