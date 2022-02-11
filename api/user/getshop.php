@@ -33,12 +33,16 @@ while (($booster = $result->fetch_assoc()) != null) {
 }
 
 $shop->prestiges = [];
+
 $allcards = sendRequest("SELECT * FROM CARDS WHERE official > 0")->fetch_all(MYSQLI_ASSOC);
 $shop->cards = [];
 for ($i=1; $i<4; $i++) {
     $card = $allcards[(time()/60/60/24*$i+intval($user['id']))%count($allcards)];
     array_push($shop->cards, array('id'=>$card['id'], 'price'=>pow(2,intval($card['rarity']))));
 }
+
+$shop->deckslot = new stdClass();
+$shop->deckslot->price = 10;
 
 echo json_encode($shop);
 
