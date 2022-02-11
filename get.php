@@ -1,9 +1,9 @@
 <?php
 // vérification de l'argument
-if (!isset($_REQUEST['card'])) exit('{"msg":"need card id", "card":{}}');
+if (!isset($_REQUEST['card'])) exit('need card');
 
 // cache serveur, source : https://wesbos.com/simple-php-page-caching-technique/
-$cachefile = 'cached/card'.$_REQUEST['card'].'.php';
+$cachefile = 'cached/card'.$_REQUEST['card'].'.json';
 $cachetime = 18000; // 5h
 if (file_exists($cachefile) && time() - $cachetime < filemtime($cachefile)) {
   	include($cachefile);
@@ -17,7 +17,7 @@ ob_start();
 
 // envoi de la requête
 $result = sendRequest("SELECT * FROM CARDS WHERE id = '", $_REQUEST['card'], "'");
-if ($result->num_rows === 0) exit('{"msg":"card doesnt exist", "card":{}}');
+if ($result->num_rows === 0) exit('card doesnt exist');
 
 // oraganisation des résultats
 $card = $result->fetch_assoc();
