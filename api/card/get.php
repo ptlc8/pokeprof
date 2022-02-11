@@ -3,7 +3,7 @@
 if (!isset($_REQUEST['card'])) exit('need card');
 
 // cache serveur, source : https://wesbos.com/simple-php-page-caching-technique/
-$cachefile = 'cached/card'.$_REQUEST['card'].'.json';
+$cachefile = '../../cached/card'.$_REQUEST['card'].'.json';
 $cachetime = 18000; // 5h
 if (file_exists($cachefile) && time() - $cachetime < filemtime($cachefile)) {
   	include($cachefile);
