@@ -85,14 +85,6 @@ CREATE TABLE `USERS` (
   `lastName` tinytext COLLATE utf8_unicode_ci NOT NULL COMMENT 'Nom de famille'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `TOURNAMENT` (
-  `id` int(11) NOT NULL COMMENT 'id du tournoi',
-  `name` tinytext COLLATE utf8_unicode_ci NOT NULL COMMENT 'nom du tournoi',
-  `fighters` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ('') COMMENT 'tous les participants',
-  `nbPlaces` int(11) DEFAULT NULL,
-  `rewards` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ('') COMMENT 'récompenses (boosters, cartes...)'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 ALTER TABLE `BOOSTERS`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
@@ -123,10 +115,6 @@ ALTER TABLE `USERS`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
-ALTER TABLE `TOURNAMENT`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
-
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
@@ -148,9 +136,6 @@ ALTER TABLE `MATCHES`
 
 ALTER TABLE `USERS`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de l''utilisateur';
-
-ALTER TABLE `TOURNAMENT`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id du tournoi';
 
 --
 -- Contraintes pour les tables déchargées

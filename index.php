@@ -57,20 +57,6 @@
 			$_REQUEST['tuto'] = 'tuto';
 		}
 		$cardsUser = $result->fetch_assoc();
-		      
-		//Tournament
-		$result = sendRequest("SELECT id FROM TOURNAMENT");
-		if ($result->num_rows != 0) {
-			$tournament=array();
-			$lengthTournmnt=0;
-			$tabTourn=$result->fetch_all();
-			for ($i=0; $i<$result->num_rows; $i++) {
-				$result2=sendRequest("SELECT * FROM TOURNAMENT WHERE id='",$tabTourn[$i][0],"'");
-				$tournament[$lengthTournmnt]=$result2->fetch_assoc();
-				$lengthTournmnt++;
-			}
-		}
-		//A finir, Léo
 		
 		?>
 		<span id="title" class="title">PokéProf !</span>
@@ -386,18 +372,7 @@
 						
 					}
 		
-		<?php
-			//annonces pour rediriger vers la page tournoi
-			if (isset($tournament)) {
-				for ($i=0; $i<$lengthTournmnt; $i++) {
-					if (($tournament[$i]['nbPlaces']==null) || ($tournament[$i]['nbPlaces']>=0)) {
-						echo 'newalert({text:"Le tournoi '.$tournament[$i]["name"].' est en cours! Clique ici pour le rejoindre!", target:"", href:"tournament.php?id='.$tournament[$i]["id"].'"}, {close:true});';
-					}
-				}
-			}
-			
-			//autres annonces
-			if (isset($cardsUser['rewardLevel']) && $cardsUser['rewardLevel']>=7 ){ ?>
+		<?php if (isset($cardsUser['rewardLevel']) && $cardsUser['rewardLevel']>=7 ){ ?>
 			newalert({text:"Vous avez la possibilité de récuperer des Boosters",target:"",href:"#"}, {close:true});
 		<?php } ?>
 		<?php if( !isset($userinfos['discord']) || $userinfos['discord']=='1' ){ ?>
