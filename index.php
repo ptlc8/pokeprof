@@ -543,7 +543,17 @@
 										}})
 									]);
 								})
-							)
+							),
+							createElement("div", {className:"deckslot"}, [
+								createElement("span", {}, "Acheter un emplacement de deck"),
+								createElement("button", {}, shop.deckslot.price+" 💳", {click:function(){
+									if (parseInt(shop.money) < parseInt(shop.deckslot.price))
+										return alert("Tu n'as assez de 💳");
+									buyDeckSlot();
+									shop.money -= shop.deckslot.price;
+									moneySpan.innerText = shop.money+" 💳";
+								}})
+							])
 						]).then(function() {
 							window.location.hash = "";
 						});
@@ -553,7 +563,7 @@
 				    printCardAbout(args[1]);
 				    break;
 				case "rules":
-				    sendRequest("GET","api/getrules.php").then(function(rulesHTML){
+				    sendRequest("GET", "api/getrules.php").then(function(rulesHTML){
 				        let rulesDiv = createElement("div");
 				        rulesDiv.innerHTML = rulesHTML;
 				        createPopup({className:"rules"}, [rulesDiv]).then(function() {
@@ -627,6 +637,22 @@
 						} else {
 							openBooster(JSON.parse(response)/*, null TODO*/).then(resolve);
 						}
+					});
+				});
+				return promise;
+			}
+
+			function buyDeckSlot() {
+				let promise = new Promise((resolve, reject) =>{
+					displayLoading(sendRequest("POST", "api/user/adddeckslot.php")).then(function(response) {
+						if (response == "need money") {
+							aff("Tu manques de 💳");
+							resolve();
+						} else if (response == "success") {
+							alert("Un emplacement de deck t'a été ajouté !");
+							resolve();
+						} else
+							alert(response);
 					});
 				});
 				return promise;
