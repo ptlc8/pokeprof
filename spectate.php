@@ -1,5 +1,5 @@
 <?php
-include('init.php');
+include('api/init.php');
 // connexion à un compte
 $user = login(true, false);
 ?>
@@ -83,11 +83,11 @@ $user = login(true, false);
 			});
 			
 			function spectate(matchId) {
-			    sendRequest("POST", "yospectate.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=get&match="+matchId).then(onServerResponse);
+			    sendRequest("POST", "api/match/spectate.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=get&match="+matchId).then(onServerResponse);
 			}
 			
 			function getSpectateUpdate(matchId, from) {
-				sendRequest("POST", "yospectate.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=update&from="+from+"&match="+matchId).then(onServerResponse);
+				sendRequest("POST", "api/match/spectate.php", "<?=isset($_REQUEST['test'])?'test&':''?>action=update&from="+from+"&match="+matchId).then(onServerResponse);
 			}
 			
 			function leave() {

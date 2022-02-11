@@ -12,7 +12,7 @@
 	<body>
 		<div id="blur-bg">
     		<?php
-    		include('init.php');
+    		include('api/init.php');
     		
 			$user = login(true, false);
     		

@@ -5,7 +5,7 @@ define('START_HP', 160);
 define('MIN_MANA', 1);
 define('TURN_TIME', 90); // en secondes (à sync avec yoplay)
 
-include('init.php');
+include('../init.php');
 
 // connexion à un compte
 if (!isset($_SESSION['username'], $_SESSION['password'])
@@ -18,7 +18,7 @@ $user = $userRequest->fetch_assoc();
 // connexion au compte cards
 $result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
 if ($result->num_rows === 0) {
-	exit("Veuillez d'abord aller à la page suivante : agnd.fr/cards");
+	exit('invalid account');
 }
 $cardsUser = $result->fetch_assoc();
 
@@ -49,7 +49,7 @@ if ($result->num_rows === 0) {
 	exit("searching");
 } else {
 	$opponent = $result->fetch_assoc();
-	sendRequest("UPDATE `CARDSUSERS` SET `lastSearchDate` = '2000-00-00 00:00:00' WHERE `CARDSUSERS`.`id` = ", $cardsUser['id'], " OR `CARDSUSERS`.`id` = ", $opponent['id']);
+	sendRequest("UPDATE `CARDSUSERS` SET `lastSearchDate` = '2000-01-01 00:00:00' WHERE `CARDSUSERS`.`id` = ", $cardsUser['id'], " OR `CARDSUSERS`.`id` = ", $opponent['id']);
 	$result = sendRequest("SELECT * FROM CARDS WHERE official > 0 OR official = -1");
 	$allcards = [];
 	while ($row = $result->fetch_assoc())

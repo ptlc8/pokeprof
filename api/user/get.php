@@ -1,7 +1,7 @@
 <?php
 if (!isset($_REQUEST['id'])) exit('need user id');
 
-include('init.php');
+include('../init.php');
 
 // envoi de la requête
 $result = sendRequest("SELECT name, email, trophies, tags, cards"/*ROUND((LENGTH(cards)-LENGTH(REPLACE(cards,'\"','')))/2) as cards, ROUND((LENGTH(cards)-LENGTH(REPLACE(cards,'p','')))) as prestiges, ROUND((LENGTH(cards)-LENGTH(REPLACE(cards,'s','')))) as shinies, ROUND((LENGTH(cards)-LENGTH(REPLACE(cards,'h','')))) as holos*/.", lastConnection FROM CARDSUSERS JOIN USERS ON CARDSUSERS.id = USERS.id WHERE USERS.id = '", $_REQUEST['id'], "'");

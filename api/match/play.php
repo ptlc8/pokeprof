@@ -1,15 +1,13 @@
 <?php
 
-include('init.php');
+include('../init.php');
 // connexion à un compte
 $user = login(false, true);
 
 // récupération du joueur
 $result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
-if ($result->num_rows === 0) {
-	header("Location: .");
-	exit("<a href=".">Veuillez d'abord aller à la page suivante</a>");
-}
+if ($result->num_rows === 0)
+	exit('invalid account');
 $cardsUser = $result->fetch_assoc();
 
 // Vérification du mode test

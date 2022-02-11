@@ -22,7 +22,7 @@
 	    <div class="hollow"></div>
 		<span class="title">Galerie</span>
 		<?php
-		include('init.php');
+		include('api/init.php');
 		$user = login(true, false);
 		?>
 		<a href="."><div style="position:absolute; top:2em; left:1em">

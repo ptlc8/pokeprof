@@ -46,7 +46,7 @@
 	<body class="middle">
 		<div id="background"></div>
 		<?php
-		include('init.php');
+		include('api/init.php');
 		$user = login(true, true);
 		
 		// récupération des cartes et du deck du joueur
@@ -146,7 +146,7 @@
 			async function getFreeCard() {
 				if (resolveTuto) resolveTuto();
 				let cardDiv = createPlacedCard("back", {targetPos:document.querySelector("#free-card img"), classList:["free-card"]});
-				let response = await sendRequest("POST", "loot.php", "what=freecard");
+				let response = await sendRequest("POST", "api/card/loot.php", "what=freecard");
 				if (response == "need to wait") {
 				    await sleep(5000);
 				    cardDiv.parentElement.removeChild(cardDiv);
@@ -201,7 +201,7 @@
 			}
 			function openRewardBooster(level) {
 				let promise = new Promise((resolve, reject) =>{
-					displayLoading(sendRequest("POST", "loot.php", "what=reward"+level)).then(async function(response) {
+					displayLoading(sendRequest("POST", "api/card/loot.php", "what=reward"+level)).then(async function(response) {
 						if (response == "need more") {
 							aff("Gagne des points de récompenses en combattant !");
 							resolve();
@@ -280,7 +280,7 @@
 		}
 		
 		function sendinfo(info){
-			post('postinfo.php',info);
+			post('api/user/postinfo.php',info);
 			//window.open('./postinfo.php?' + info, ' ',"height=1,width=1,alwaysLowered=yes,left=1920,top=1080");
 			//self.focus();
 			reload();
@@ -408,7 +408,7 @@
 			}
 			
 			function search(bot=false) {
-				sendRequest("POST", "searching.php", bot?'bot':'').then(function(response) {
+				sendRequest("POST", "api/match/search.php", bot?'bot':'').then(function(response) {
 					if (response=='founded' || response=='playing') {
 						window.location.replace('play.php');
 					} else if (response=='nodeck') {
@@ -422,7 +422,7 @@
 				});
 			}
 			function cancelSearch() {
-				sendRequest("POST", "searching.php", "cancel").then(function(response) {
+				sendRequest("POST", "api/match/search.php", "cancel").then(function(response) {
 					if (response=='playing') {
 						window.location.replace('play.php');
 					} else if (response=='canceled') {
@@ -444,7 +444,7 @@
 				var args = window.location.hash.replace("#", "").split("=");
 				switch (args[0]) {
 				case "user":
-					sendRequest("GET", "getuser.php?id="+args[1]).then(function(r) {
+					sendRequest("GET", "api/user/get.php?id="+args[1]).then(function(r) {
 						if (r == "not found") return;
 						r = JSON.parse(r);
 						let borderClass = r.tags.includes("gold-border") ? "gold-border"
@@ -494,7 +494,7 @@
 					break;
 				case "shop?all":
 				case "shop":
-					sendRequest("GET", "getshop.php"+(args[0]=="shop?all"?"?all":"")).then(function(response) {
+					sendRequest("GET", "api/user/getshop.php"+(args[0]=="shop?all"?"?all":"")).then(function(response) {
 						shop = JSON.parse(response);
 						let moneySpan;
 						createPopup({className:"shop"}, [
@@ -553,7 +553,7 @@
 				    printCardAbout(args[1]);
 				    break;
 				case "rules":
-				    sendRequest("GET","getrules.php").then(function(rulesHTML){
+				    sendRequest("GET","api/getrules.php").then(function(rulesHTML){
 				        let rulesDiv = createElement("div");
 				        rulesDiv.innerHTML = rulesHTML;
 				        createPopup({className:"rules"}, [rulesDiv]).then(function() {
@@ -562,7 +562,7 @@
 				    });
 				    break;
 				case "history":
-					sendRequest("GET", "gethistory.php").then(function(r) {
+					sendRequest("GET", "api/user/gethistory.php").then(function(r) {
 						let history = JSON.parse(r);
 						createPopup({className:"history"}, [
 							createElement("span", {className:"title"}, "Historique")
@@ -603,7 +603,7 @@
 			
 			function openShopBooster(boosterId) {
 				let promise = new Promise((resolve, reject) =>{
-					displayLoading(sendRequest("POST", "loot.php", "what=shopbooster&id="+boosterId)).then(function(response) {
+					displayLoading(sendRequest("POST", "api/card/loot.php", "what=shopbooster&id="+boosterId)).then(function(response) {
 						if (response == "need money") {
 							aff("Tu manques de 💳");
 							resolve();
@@ -620,7 +620,7 @@
 			
 			function buyShopCard(cardId) {
 			    let promise = new Promise((resolve, reject) =>{
-					displayLoading(sendRequest("POST", "loot.php", "what=shopcard&id="+cardId)).then(function(response) {
+					displayLoading(sendRequest("POST", "api/card/loot.php", "what=shopcard&id="+cardId)).then(function(response) {
 						if (response == "need money") {
 							aff("Tu manques de 💳");
 							resolve();

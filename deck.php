@@ -11,14 +11,13 @@
 	</head>
 	<body>
 		<?php
-		include('init.php');
+		include('api/init.php');
 		$user = login(true,true);
 		
 		// récupération des cartes et du deck du joueur ~
 		$result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
-		if ($result->num_rows === 0) {
-			exit("<script>window.location.replace('');</script>");
-		}
+		if ($result->num_rows === 0)
+			header('Location: .');
 		$cardsUser = $result->fetch_assoc();
 		
 		?>
@@ -156,7 +155,7 @@
 		    	});
 		    }
 		    function chooseDeck(n) {
-		        sendRequest("POST", "choosedeck.php", "deck="+n);
+		        sendRequest("POST", "api/user/choosedeck.php", "deck="+n);
 		        choosenDeck = n;
 		        showDeck(n);
 		    }
@@ -193,7 +192,7 @@
 				}
 				if (resolveTuto) resolveTuto();
 				let id = movingId;
-				post('usecard.php', 'deck='+choosenDeck+'&id='+movingId+'&index='+index, (response) => {
+				post("api/card/use.php", "deck="+choosenDeck+"&id="+movingId+"&index="+index, (response) => {
 					switch (response.split(" ")[0]) {
 					case 'success':
 					    decks[choosenDeck][index] = id;
@@ -242,7 +241,7 @@
                 var title = createElement("span", {className:"title"}, cardInfos.name);
                 infos.appendChild(title);
                 var button = createElement("span", {className:"button"}, "Vendre", {click: () => {
-                    sendRequest("POST", 'sell.php', 'card='+cardId+'&amount='+input.value).then((response)=>{
+                    sendRequest("POST", "api/card/sell.php", "card="+cardId+"&amount="+input.value).then((response)=>{
                         switch (response) {
                             case 'card doesn\'t have/exist':
                                 aff("Vous ne pouvez pas vendre une carte que vous ne possédez pas.");

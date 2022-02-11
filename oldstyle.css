@@ -909,7 +909,7 @@ img.emote, canvas.emote {
   width: 100%;
   height: 100%;
 	z-index: -1;
-  background-image: url('http://agnd.fr/cards/assets/hollow.svg');
+  background-image: url('assets/hollow.svg');
   background-repeat: no-repeat;
   background-size: contain;
 	background-position: center;
@@ -984,10 +984,6 @@ body > div:not([class]):not([id]) {
 .alerts .alert a{
     text-decoration: none;
     color: #FFFFFF
-}
-
-.alerts .alert .btns{
-    ;
 }
 
 .alerts .alert .btns .closebtn {

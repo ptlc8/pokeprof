@@ -1,4 +1,4 @@
-credentials.php
+api/credentials.php
 assets/boosters/*
 assets/cards/*
 !assets/cards/undefined.png

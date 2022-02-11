@@ -27,9 +27,8 @@
 	</head>
 	<body>
 		<?php
-		include('init.php');
-		include('initconnect.php');
-		
+		include('api/init.php');
+		login(true, true);
 		?>
 		<span>Recherche d'adversaire...</span>
 		<br />
@@ -46,7 +45,7 @@
 				setInterval(search, 3000);
 			}
 			function search(bot=false) {
-				post('oldsearching.php', bot?'bot':'', response => {
+				post('api/match/oldsearch.php', bot?'bot':'', response => {
 					if (response=='founded' || response=='playing') {
 						window.location.replace('play.php');
 					} else if (response=='nodeck') {

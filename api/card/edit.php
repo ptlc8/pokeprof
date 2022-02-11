@@ -1,6 +1,6 @@
 <?php
 
-include("init.php"); // init bdd and sendRequest
+include("../init.php"); // init bdd and sendRequest
 
 // connexion à un compte
 $user = login(false, true);

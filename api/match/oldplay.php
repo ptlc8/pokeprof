@@ -6,7 +6,7 @@ define('TURN_TIME', 75); // en secondes
 define('TROPHIES', 60);
 define('ELECTRIFY_DAMAGE', 10);
 
-include('init.php');
+include('../init.php');
 // connexion à un compte
 if (!isset($_SESSION['username'], $_SESSION['password'])
 	|| ($userRequest = sendRequest("SELECT id, name FROM USERS WHERE `name` = '", $_SESSION['username'], "' and `password` = '", $_SESSION['password'], "'"))->num_rows === 0) {
@@ -18,9 +18,8 @@ $user = $userRequest->fetch_assoc();
 
 // récupération des cartes et du deck du joueur
 $result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
-if ($result->num_rows === 0) {
-	exit("<span>Veuillez d'abord aller à la page suivante : agnd.fr/cards/</span>");
-}
+if ($result->num_rows === 0)
+	exit('invalid account');
 $cardsUser = $result->fetch_assoc();
 
 // vérification du paramètre action

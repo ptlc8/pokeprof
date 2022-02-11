@@ -657,10 +657,6 @@ img.emote, canvas.emote {
 	width: 100%; /*modif de kévin*/
 }
 
-.alerts .alert .btns{
-	;
-}
-
 .alerts .alert .btns .closebtn {
   margin-left: 15px;
   color: white;

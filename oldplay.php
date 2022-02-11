@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<?php
-		include('init.php');
+		include('api/init.php');
 		// connexion à un compte
 		if (!isset($_SESSION['username'], $_SESSION['password'])
 			|| ($userRequest = sendRequest("SELECT id, name FROM USERS WHERE `name` = '", $_SESSION['username'], "' and `password` = '", $_SESSION['password'], "'"))->num_rows === 0) {
@@ -85,7 +85,7 @@
 				timerId = setInterval(refreshTimer, 100);
 			}
 			function request() {
-				post('oldyoplay.php', 'action=get', (response) => {
+				post('api/match/oldplay.php', 'action=get', (response) => {
 					let cmd = response.match(/\w*/i)[0];
 					if (cmd == 'infos') {
 						refresh(JSON.parse(response.replace(cmd, '').trim()));
@@ -204,7 +204,7 @@
 							targetsId = await queryTargetId(2, true);
 					}
 				}
-				post('oldyoplay.php', 'action=playcard&card='+myHandCards.indexOf(card)+(targetsId[0]?'&target='+targetsId[0]:'')+(targetsId[1]?'&target2='+targetsId[1]:''), onResponse);
+				post('api/match/oldplay.php', 'action=playcard&card='+myHandCards.indexOf(card)+(targetsId[0]?'&target='+targetsId[0]:'')+(targetsId[1]?'&target2='+targetsId[1]:''), onResponse);
 				playSound('playcard'); // TODO : tmp
 			}
 			async function attack(n, card) {
@@ -215,7 +215,7 @@
 				if (card.scripts[n].match(/\Wtarget2ofhim\W/) || card.scripts[n].match(/\Wtarget2\W/)) targetsId = await queryTargetId(2);
 				if (card.scripts[n].match(/\Wtargetofyou\W/)) targetsId = await queryTargetId(1, true);
 				if (card.scripts[n].match(/\Wtarget2ofyou\W/)) targetsId = await queryTargetId(2, true);
-				post('oldyoplay.php', 'action=attack&card='+cardIndex+'&n='+n+(targetsId[0]?'&target='+targetsId[0]:'')+(targetsId[1]?'&target2='+targetsId[1]:''), (response) => {
+				post('api/match/oldplay.php', 'action=attack&card='+cardIndex+'&n='+n+(targetsId[0]?'&target='+targetsId[0]:'')+(targetsId[1]?'&target2='+targetsId[1]:''), (response) => {
 					if (response.startsWith('success')) {		//  5 lin. : à virer plus tard
 						let el = document.getElementById('my-prof-card'+cardIndex);
 						el.classList.add('attacking');
@@ -376,10 +376,10 @@
 				return myTurn;
 			}
 			function endTurn() {
-				post('oldyoplay.php', 'action=endturn', onResponse);
+				post('api/match/oldplay.php', 'action=endturn', onResponse);
 			}
 			function giveup() {
-			    post('oldyoplay.php', 'action=giveup', onResponse);
+			    post('api/match/oldplay.php', 'action=giveup', onResponse);
 			}
 			function show(els) {
 				veil.style.display = '';

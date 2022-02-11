@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<?php
-		include("init.php"); // init bdd and sendRequest
+		include("api/init.php"); // init bdd and sendRequest
 		$user = login(true, true); // init $user and connect
 		//if (!in_array($user["id"], array("0", "19", "59", "72", "73"))) { // Kévin, Brayan, Timothée, Léo, Edwin
 		if (sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "' AND admin=1")->num_rows <= 0) {
@@ -255,7 +255,7 @@
 			    if (editing.boosterId!=original.boosterId) pushBody += "&booster="+editing.boosterId;
 			    if (editing.prestigeable!=original.prestigeable) pushBody += "&prestigeable="+editing.prestigeable;
 			    if (editing.origin!=original.origin) pushBody += "&origin="+encodeURIComponent(editing.origin);
-			    sendRequest("post", "editcard.php", pushBody).then(function(r) {
+			    sendRequest("post", "api/card/edit.php", pushBody).then(function(r) {
 			        if (r=="success") {
 			            alert("La carte a bien été enregistrée avec succès");
 			            allfullinfoscards[editing.id] = JSON.parse(JSON.stringify(editing));
