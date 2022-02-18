@@ -12,7 +12,7 @@
 		<?php
 		
 		include("init.php");
-		login(true,false);
+		$user = login(true,false);
 		
 		?>
 		
@@ -28,63 +28,32 @@
 			<a href='.' ><button class="button">Revenir au menu</button></a>
 		</div>
 		<div id="tournament"></div>
+        
+        <?php
+        if (in_array($user["id"], array("0", "19", "59", "-72", "73"))) {
+        ?>
+        <div id="managementBord">
+            <h3>Administration du tournoi</h3>
+            
+            <div id="actionTournament">
+                Démarrer tournoi, modifier nombre de places, supprimer tournoi, cloturer tournoi
+            </div>
+            <div id="players">A remplir avec du js (action sur les joueurs: suppr, si tournoi pas démarré)</div>
+                
+        </div>
+        
+        <?php
+        }
+        ?>
+        
 		<script>
 			var params = new URLSearchParams(window.location.search);
 			var tournamentId=params.get("id");
             affGraphTournament(tournamentId);
-			/*queryTournament(tournamentId).then(function(tournament) {
-				displayTournament(document.getElementById("tournament"), tournament.fighters);
-				document.getElementById("tournament-name").innerText = tournament.name;
-				sendRequest("POST", "jointournament.php", "id="+tournamentId).then(function(response) {
-					if (response=="already in tournament") {
-						document.getElementById("join-button").style.display="none";
-						document.getElementById("leave-button").style.display="inline-block";
-					} else {
-						document.getElementById("leave-button").style.display="none";
-						document.getElementById("join-button").style.display="inline-block";
-					}
-				});
-				if (tournament.nbPlaces!=null) {
-					if (tournament.nbPlaces>0)
-						document.getElementById("tournament-infos").innerText = tournament.nbPlaces+" places";
-					else if (tournament.nbPlaces==0) {
-						document.getElementById("tournament-infos").innerText = "Les inscriptions sont fermées!";
-						document.getElementById("join-button").style.display="none";
-					} else {
-						document.getElementById("tournament-infos").innerText = "Ce tournoi est terminé.";
-						document.getElementById("leave-button").style.display="none";
-					}
-				}
-			}).catch(function(){
-				alert("Impossible d'afficher ce tournoi");
-				window.location.href='.';
-			});*/
 			document.getElementById("join-button").addEventListener("click", function(e) {
-				/*sendRequest("POST", "jointournament.php", "id="+tournamentId+"&add=1").then(function(response) {
-					if (response=="not logged") {
-						window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
-					} else if (response=="already in tournament") {
-						alert("Vous êtes déjà inscrit!");
-						location.reload();
-					} else {
-						var newTab=JSON.parse(response);
-						displayTournament(document.getElementById("tournament"), newTab.fighters);
-					}
-				});*/
 				affGraphTournament(tournamentId, "join");
 			});
 			document.getElementById("leave-button").addEventListener("click", function(e) {
-				/*sendRequest("POST", "jointournament.php", "id="+tournamentId+"&del=1").then(function(response) {
-					if (response=="not logged") {
-						window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
-					} else if (response=="not in tournament") {
-						alert("Vous n'êtes pas encore inscrit!");
-						location.reload();
-					} else {
-						var newTab=JSON.parse(response);
-						displayTournament(document.getElementById("tournament"), newTab.fighters);
-					}
-				});*/
 				affGraphTournament(tournamentId, "leave");
 			});
 		</script>
