@@ -29,15 +29,12 @@ $fighters = parseFighters($tournament['fighters']);
 
 if (tournamentIncludesPlayer($fighters, $user['id'])) {
 	if (isset($_REQUEST['del'])) {
-		tournamentDelPlayer($fighters, $user['id'], $tournament['id'], $tournament['nbPlaces']); 
+		tournamentDelPlayer($fighters, $user['id'], $tournament['id'], $tournament['nbPlaces']);
 	} else {
 		exit('already in tournament');
 	}
 } else {
 	if (isset($_REQUEST['add'])) {
-		echo '/';
-		var_dump($fighters);
-		echo '/\n';
 		tournamentAddPlayer($fighters, $user['id'], $tournament['id'], $tournament['nbPlaces']);
 	}
 	if (isset($_REQUEST['del'])) {
@@ -45,8 +42,9 @@ if (tournamentIncludesPlayer($fighters, $user['id'])) {
 	}
 }
 
-
 $tournament['fighters']=prettyTable4Tournament($fighters);
+
+$tournament['names']=namesFighters(recupFighters(parseFighters($tournament['fighters'])[0]));
 
 echo json_encode($tournament);
 

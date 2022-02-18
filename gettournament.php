@@ -18,6 +18,8 @@ $tournament = $result->fetch_assoc();
 
 $tournament['fighters']=prettyTable4Tournament(parseFighters($tournament['fighters']));
 
+$tournament['names']=namesFighters(recupFighters(parseFighters($tournament['fighters'])[0]));
+
 echo json_encode($tournament);
 
 ?>

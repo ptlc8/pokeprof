@@ -31,7 +31,8 @@
 		<script>
 			var params = new URLSearchParams(window.location.search);
 			var tournamentId=params.get("id");
-			queryTournament(tournamentId).then(function(tournament) {
+            affGraphTournament(tournamentId);
+			/*queryTournament(tournamentId).then(function(tournament) {
 				displayTournament(document.getElementById("tournament"), tournament.fighters);
 				document.getElementById("tournament-name").innerText = tournament.name;
 				sendRequest("POST", "jointournament.php", "id="+tournamentId).then(function(response) {
@@ -57,9 +58,9 @@
 			}).catch(function(){
 				alert("Impossible d'afficher ce tournoi");
 				window.location.href='.';
-			});
+			});*/
 			document.getElementById("join-button").addEventListener("click", function(e) {
-				sendRequest("POST", "jointournament.php", "id="+tournamentId+"&add=1").then(function(response) {
+				/*sendRequest("POST", "jointournament.php", "id="+tournamentId+"&add=1").then(function(response) {
 					if (response=="not logged") {
 						window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
 					} else if (response=="already in tournament") {
@@ -69,11 +70,11 @@
 						var newTab=JSON.parse(response);
 						displayTournament(document.getElementById("tournament"), newTab.fighters);
 					}
-				});
-				affGraphTournament(tournamentId);
+				});*/
+				affGraphTournament(tournamentId, "join");
 			});
 			document.getElementById("leave-button").addEventListener("click", function(e) {
-				sendRequest("POST", "jointournament.php", "id="+tournamentId+"&del=1").then(function(response) {
+				/*sendRequest("POST", "jointournament.php", "id="+tournamentId+"&del=1").then(function(response) {
 					if (response=="not logged") {
 						window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
 					} else if (response=="not in tournament") {
@@ -83,8 +84,8 @@
 						var newTab=JSON.parse(response);
 						displayTournament(document.getElementById("tournament"), newTab.fighters);
 					}
-				});
-				affGraphTournament(tournamentId);
+				});*/
+				affGraphTournament(tournamentId, "leave");
 			});
 		</script>
 	</body>

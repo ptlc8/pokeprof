@@ -1,8 +1,8 @@
 <?php
   
 function recupFighters($tree) {
-	a=0;
-	$fighters=[[$tree[0][0],0]];
+	$a=0;
+	$fighters=[];
 	//on s'intéresse seulement au tableau principal
 	foreach ($tree as $branch) {
 		foreach ($branch as $node) {
@@ -87,7 +87,9 @@ function prettyTable4Tournament ($trees3) {
 		return(stringifyFighters($trees3, $fighters));
 	}
 	//modif avec appel récursif
-	recurPrettyTable ($Tree, $a, ceil(log($a,2)), 0);
+    if ($a>0) {
+	   recurPrettyTable ($Tree, $a, ceil(log($a,2)), 0);
+    }
 	$trees3[0]=$Tree;
 	$textFinal=stringifyFighters($trees3, $fighters);
 	return($textFinal);
@@ -97,7 +99,13 @@ function prettyTable4Tournament ($trees3) {
 //Join
 
 function tournamentIncludesPlayer($fighters, $playerId) {
-	return in_array($playerId, $fighters[0][0]);
+    foreach ($fighters[0] as $branch) {
+        $bool=in_array($playerId, $branch);
+        if ($bool) {
+            return $bool;
+        }
+    }
+    return (false);
 }
 
 function tournamentAddPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null) {
@@ -125,12 +133,15 @@ function tournamentDelPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null)
 	} else {
 		$index[1]=false;
 	}
-	if (($index[0]!==false)||($index[0]!==false)) {
+	if (($index[0]!==false)||($index[1]!==false)) {
 		for ($i=0; $i<count($index); $i++) {
 			if ($index[$i]!==false) {
 				$temp=array_slice($fighters[0][$i], 0, $index[$i], true);
 				$fighters[0][$i]=array_slice($fighters[0][$i], $index[$i]+1);
 				$fighters[0][$i]=array_merge($temp, $fighters[0][$i]);
+                if (sizeof($fighters[0][$i])<=0) {
+                    $fighters[0][$i][0]='';
+                }
 				$nbDel++;
 			}
 		}
@@ -157,53 +168,98 @@ function stringifyFighters($trees3, $fighters) {
 	$textFinal="";
 	$a=0;
 	for ($i=0; $i<count($trees3); $i++) {
-		for ($j=0; $j<count($trees3[$i]); $j++) {
-			for ($k=0; $k<=max(array_keys($trees3[$i][$j])); $k++) {
-				if ($k==0) {
-					if (isset($trees3[$i][$j][$k])) {
-						if ($trees3[$i][$j][$k]=='_') {
-							if ($fighters==null) {
-								throw new Exception("La liste des combattants n'est pas définie alors qu'elle est nécessaire.");	
-							}
-							if (isset($fighters[$a][0])) {
-								$textFinal=$textFinal.$fighters[$a][0];
-							} else {
-								$textFinal=$textFinal.$fighters[$a];
-							}
-							$a++;
-						} else {
-							$textFinal=$textFinal.$trees3[$i][$j][$k];
-						}
-					}
-				} else {
-					if (isset($trees3[$i][$j][$k])) {
-						if ($trees3[$i][$j][$k]=='_') {
-							if ($fighters==null) {
-								throw new Exception("La liste des combattants n'est pas définie alors qu'elle est nécessaire.");	
-							}
-							if (isset($fighters[$a][0])) {
-								$textFinal=$textFinal.'.'.$fighters[$a][0];
-							} else {
-								$textFinal=$textFinal.'.'.$fighters[$a];
-							}
-							$a++;
-						} else {
-							$textFinal=$textFinal.'.'.$trees3[$i][$j][$k];
-						}
-					} else {
-						$textFinal=$textFinal.'.';	
-					}
-				}
-			}
-			if ($j<count($trees3[$i])-1) {
-				$textFinal=$textFinal.',';
-			}
-		}
+        if ((isset($trees3[$i]))&&($trees3[$i]!=[])) {
+            for ($j=0; $j<count($trees3[$i]); $j++) {
+                if ((isset($trees3[$i][$j]))&&($trees3[$i][$j]!=[])) {
+                    for ($k=0; $k<=max(array_keys($trees3[$i][$j])); $k++) {
+                        if ($k==0) {
+                            if (isset($trees3[$i][$j][$k])) {
+				                if ($trees3[$i][$j][$k]=='_') {
+				                    if ($fighters==null) {
+                                        throw new Exception("La liste des combattants n'est pas définie alors qu'elle est nécessaire.");	
+                                    }
+                                    if ((is_array($fighters[$a]))&&(isset($fighters[$a][0]))) {
+                                        $textFinal=$textFinal.$fighters[$a][0];
+				                    } else {
+                                        $textFinal=$textFinal.$fighters[$a];
+				                    }
+				                    $a++;
+				                } else {
+                                    $textFinal=$textFinal.$trees3[$i][$j][$k];
+				                }
+					       }
+                        } else {
+					       if (isset($trees3[$i][$j][$k])) {
+                                if ($trees3[$i][$j][$k]=='_') {
+				                    if ($fighters==null) {
+                                        throw new Exception("La liste des combattants n'est pas définie alors qu'elle est nécessaire.");	
+                                    }
+                                    if ((is_array($fighters[$a]))&&(isset($fighters[$a][0]))) {
+                                        $textFinal=$textFinal.'.'.$fighters[$a][0];
+                                    } else {
+                                        $textFinal=$textFinal.'.'.$fighters[$a];
+                                    }
+                                    $a++;
+                                } else {
+                                    $textFinal=$textFinal.'.'.$trees3[$i][$j][$k];
+                                }
+                           } else {
+                               $textFinal=$textFinal.'.';	
+                           }
+                        }
+                    }
+                }
+                if ($j<count($trees3[$i])-1) {
+                    $textFinal=$textFinal.',';
+                }
+            }
+        }
 		if ($i<count($trees3)-1) {
 			$textFinal=$textFinal.';';
 		}
 	}
 	return($textFinal);
 }
-  
+
+function namesFighters ($fightersId) {
+    $names=array();
+    if (($fightersId!=null)&&(isset($fightersId[0]))) {
+        $request="SELECT id, name FROM USERS WHERE id IN (";
+        if (is_array($fightersId[0])) {
+            $request=$request."'".$fightersId[0][0]."'";
+        } else {
+            $request=$request."'".$fightersId[0]."'";
+        }
+        for ($i=1; $i<count($fightersId); $i++) {
+            if (is_array($fightersId[$i])) {
+                $request=$request.", '".$fightersId[$i][0]."'";
+            } else {
+                $request=$request.", '".$fightersId[$i]."'";
+            }
+        }
+        $request=$request.");";
+        $result=sendRequest($request)->fetch_all();
+        foreach ($result as $line) {
+            $names[$line[0]]=$line[1];
+        }
+        if (count($names)<count($fightersId)) {
+            foreach ($fightersId as $id) {
+                if (is_array($id)) {
+                    if (!in_array($id[0], array_keys($names))) {
+                        $names[$id[0]]=$id[0];
+                    }
+                } else {
+                    if (!in_array($id, array_keys($names))) {
+                        $names[$id]=$id;
+                    }   
+                }
+            }
+        }   
+    }
+    $names['']='';
+    $names[' ']=' ';
+    $names['_']='ERREUR: name="_"';
+    return ($names);
+}
+
 ?>
