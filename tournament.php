@@ -36,9 +36,12 @@
             <h3>Administration du tournoi</h3>
             
             <div id="actionTournament">
-                Démarrer tournoi, modifier nombre de places, supprimer tournoi, cloturer tournoi
+                
             </div>
-            <div id="players">A remplir avec du js (action sur les joueurs: suppr, si tournoi pas démarré)</div>
+            <div id="tournament-players">
+                A remplir avec du js (action sur les joueurs: suppr, si tournoi pas démarré)
+                <table id="list-players"></table>
+            </div>
                 
         </div>
         

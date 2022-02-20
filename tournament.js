@@ -106,6 +106,7 @@ function queryTournament(id) {
 
 function affGraphTournament(tournamentId, action="") {
 	queryTournament(tournamentId).then(function(tournament) {
+		adminBord2(tournament);
 		document.getElementById("tournament-name").innerText = tournament.name;
 		if (action=="join") {
 			sendRequest("POST", "jointournament.php", "id="+tournamentId+"&add=1").then(function(response) {
@@ -119,6 +120,7 @@ function affGraphTournament(tournamentId, action="") {
 					displayTournament2(document.getElementById("tournament"), newTab.fighters, newTab.names);
 					document.getElementById("join-button").style.display="none";
 					document.getElementById("leave-button").style.display="inline-block";
+					adminBord2(newTab);
 				}
 			});
 			tournament.nbPlaces--;
@@ -134,18 +136,22 @@ function affGraphTournament(tournamentId, action="") {
 					displayTournament2(document.getElementById("tournament"), newTab.fighters, newTab.names);
 					document.getElementById("leave-button").style.display="none";
 					document.getElementById("join-button").style.display="inline-block";
+					adminBord2(newTab);
 				}
 			});
 			tournament.nbPlaces++;
 		} else {
 			sendRequest("POST", "jointournament.php", "id="+tournamentId).then(function(response) {
-				displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
-				if (response=="already in tournament") {
+				if ((response=="already in tournament")) {
+					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
 					document.getElementById("join-button").style.display="none";
 					document.getElementById("leave-button").style.display="inline-block";
 				} else {
+					var newTab=JSON.parse(response);
+					displayTournament2(document.getElementById("tournament"), newTab.fighters, newTab.names);
 					document.getElementById("leave-button").style.display="none";
 					document.getElementById("join-button").style.display="inline-block";
+					adminBord2(newTab);
 				}
 			});
 		}
@@ -164,4 +170,64 @@ function affGraphTournament(tournamentId, action="") {
 		alert("Impossible d'afficher ce tournoi");
 		window.location.href='.';
 	});
+}
+
+function adminBord (tournamentId) {
+	let tournamentAction=document.getElementById("actionTournament");
+	let tournamentPlayers=document.getElementById("players");
+	if ((tournamentAction)&&(tournamentPlayers)) {
+		queryTournament(tournamentId).then(function(tournament) {
+			let tabPlayers=document.getElementById("list-players");
+			tabPlayers.innerHTML="";
+			for (let index of Object.keys(tournament.names)) {
+				if ((index!=' ')&&(index!='')&&(index!="_")) {
+					let playerLine = createElement("tr", {className:"tournament-players"}, [
+						createElement("th", {className:"tournament-players-name"}, tournament.names[index])
+					]);
+					if ((tournament.nbPlaces!=null)&&(tournament.nbPlaces>=0)) {
+						playerLine.appendChild(
+							createElement("td", {className: "button"}, "Désinscrire")
+						).onclick= function() {
+							sendRequest("POST", "jointournament.php", "id="+tournamentId+"&player="+index);
+							adminBord(tournamentId);
+							affGraphTournament(tournamentId);
+						}
+					}
+					tabPlayers.appendChild(playerLine);
+				}
+			}
+			//tournamentPlayers.appendChild(tabPlayers);
+			tournamentAction.innerHTML="Démarrer tournoi, modifier nombre de places, supprimer tournoi, cloturer tournoi";
+		}).catch(function(){
+			alert("Impossible d'afficher le tableau de bord");
+		});
+	}
+}
+
+function adminBord2 (tournament) {
+	let tournamentAction=document.getElementById("actionTournament");
+	let tournamentPlayers=document.getElementById("tournament-players");
+	if ((tournamentAction)&&(tournamentPlayers)) {
+			let tabPlayers=document.getElementById("list-players");
+			tabPlayers.innerHTML="";
+			for (let index of Object.keys(tournament.names)) {
+				if ((index!=' ')&&(index!='')&&(index!="_")) {
+					let playerLine = createElement("tr", {className:"tournament-players"}, [
+						createElement("th", {className:"tournament-players-name"}, tournament.names[index])
+					]);
+					if ((tournament.nbPlaces!=null)&&(tournament.nbPlaces>=0)) {
+						playerLine.appendChild(
+							createElement("td", {className: "button"}, "Désinscrire")
+						).onclick= function() {
+							sendRequest("POST", "jointournament.php", "id="+tournamentId+"&player="+index);
+							adminBord(tournamentId);
+							affGraphTournament(tournamentId);
+						}
+					}
+					tabPlayers.appendChild(playerLine);
+				}
+			}
+			//tournamentPlayers.appendChild(tabPlayers);
+			tournamentAction.innerHTML="Démarrer tournoi, modifier nombre de places, supprimer tournoi, cloturer tournoi";
+	}
 }

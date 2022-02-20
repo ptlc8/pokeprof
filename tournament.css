@@ -58,3 +58,13 @@ body {
 	height: 1px;
 	background-color: black;
 }
+
+#managementBord {
+	display: inline-block;
+	margin: 1em;
+}
+
+#tournament-players table {
+	width: 100%;
+	min-width: auto;
+}
