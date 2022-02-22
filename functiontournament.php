@@ -119,8 +119,10 @@ function tournamentAddPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null)
 		sendRequest("UPDATE TOURNAMENT SET fighters='", prettyTable4Tournament($fighters, null), "' WHERE id='", $idDB, "'");
 		if ($nbPlaces!=null) {
 			sendRequest("UPDATE TOURNAMENT SET nbPlaces=", $nbPlaces-1, " WHERE id='", $idDB, "'");
+            return($nbPlaces-1);
 		}
 	}
+    return($nbPlaces);
 }
 
 function tournamentDelPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null) {
@@ -149,9 +151,11 @@ function tournamentDelPlayer(& $fighters, $playerId, $idDB=null, $nbPlaces=null)
 			sendRequest("UPDATE TOURNAMENT SET fighters='", stringifyFighters($fighters, null), "' WHERE id='", $idDB, "'");
 			if ($nbPlaces!=null) {
 				sendRequest("UPDATE TOURNAMENT SET nbPlaces=", $nbPlaces+$nbDel, " WHERE id='", $idDB, "'");
-			}
+                return($nbPlaces+$nbDel);
+            }
 		}
 	}
+    return($nbPlaces);
 }
 
 function parseFighters($fighters) {

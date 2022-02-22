@@ -104,8 +104,23 @@ function queryTournament(id) {
 	});
 }
 
+function affPlacesNButtons(nbPlaces) {
+	if (nbPlaces!=null) {
+		if (nbPlaces>0)
+			document.getElementById("tournament-infos").innerText = nbPlaces+" places";
+		else if (nbPlaces==0) {
+			document.getElementById("tournament-infos").innerText = "Les inscriptions sont fermées!";
+			document.getElementById("join-button").style.display="none";
+		} else {
+			document.getElementById("tournament-infos").innerText = "Ce tournoi est terminé.";
+			document.getElementById("join-button").style.display="none";
+		}
+	}
+}
+
 function affGraphTournament(tournamentId, action="") {
 	queryTournament(tournamentId).then(function(tournament) {
+		affPlacesNButtons(tournament.nbPlaces);
 		adminBord2(tournament);
 		document.getElementById("tournament-name").innerText = tournament.name;
 		if (action=="join") {
@@ -115,15 +130,18 @@ function affGraphTournament(tournamentId, action="") {
 				} else if (response=="already in tournament") {
 					alert("Vous êtes déjà inscrit!");
 					location.reload();
+				} else if (response.includes("invalid")) {
+					alert(response);
+					window.location.href='.';
 				} else {
 					var newTab=JSON.parse(response);
 					displayTournament2(document.getElementById("tournament"), newTab.fighters, newTab.names);
 					document.getElementById("join-button").style.display="none";
 					document.getElementById("leave-button").style.display="inline-block";
 					adminBord2(newTab);
+					affPlacesNButtons(newTab.nbPlaces);
 				}
 			});
-			tournament.nbPlaces--;
 		} else if (action=="leave") {
 			sendRequest("POST", "jointournament.php", "id="+tournamentId+"&del=1").then(function(response) {
 				if (response=="not logged") {
@@ -131,40 +149,36 @@ function affGraphTournament(tournamentId, action="") {
 				} else if (response=="not in tournament") {
 					alert("Vous n'êtes pas encore inscrit!");
 					location.reload();
+				} else if (response.includes("invalid")) {
+					alert(response);
+					window.location.href='.';
 				} else {
 					var newTab=JSON.parse(response);
 					displayTournament2(document.getElementById("tournament"), newTab.fighters, newTab.names);
 					document.getElementById("leave-button").style.display="none";
 					document.getElementById("join-button").style.display="inline-block";
 					adminBord2(newTab);
+					affPlacesNButtons(newTab.nbPlaces);
 				}
 			});
-			tournament.nbPlaces++;
 		} else {
 			sendRequest("POST", "jointournament.php", "id="+tournamentId).then(function(response) {
 				if ((response=="already in tournament")) {
 					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
 					document.getElementById("join-button").style.display="none";
 					document.getElementById("leave-button").style.display="inline-block";
+				} else if (response.includes("invalid")) {
+					alert(response);
+					window.location.href='.';
 				} else {
 					var newTab=JSON.parse(response);
 					displayTournament2(document.getElementById("tournament"), newTab.fighters, newTab.names);
 					document.getElementById("leave-button").style.display="none";
 					document.getElementById("join-button").style.display="inline-block";
 					adminBord2(newTab);
+					affPlacesNButtons(newTab.nbPlaces);
 				}
 			});
-		}
-		if (tournament.nbPlaces!=null) {
-			if (tournament.nbPlaces>0)
-				document.getElementById("tournament-infos").innerText = tournament.nbPlaces+" places";
-			else if (tournament.nbPlaces==0) {
-				document.getElementById("tournament-infos").innerText = "Les inscriptions sont fermées!";
-				document.getElementById("join-button").style.display="none";
-			} else {
-				document.getElementById("tournament-infos").innerText = "Ce tournoi est terminé.";
-				document.getElementById("join-button").style.display="none";
-			}
 		}
 	}).catch(function(){
 		alert("Impossible d'afficher ce tournoi");
@@ -222,12 +236,12 @@ function adminBord2 (tournament) {
 							sendRequest("POST", "jointournament.php", "id="+tournamentId+"&player="+index);
 							adminBord(tournamentId);
 							affGraphTournament(tournamentId);
-						}
+						};
 					}
 					tabPlayers.appendChild(playerLine);
 				}
 			}
 			//tournamentPlayers.appendChild(tabPlayers);
-			tournamentAction.innerHTML="Démarrer tournoi, modifier nombre de places, supprimer tournoi, cloturer tournoi";
+			//tournamentAction.innerHTML="Démarrer tournoi, modifier nombre de places, supprimer tournoi, cloturer tournoi <br /><br />Etat du tournoi: ";
 	}
 }

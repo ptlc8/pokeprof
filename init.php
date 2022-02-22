@@ -49,6 +49,10 @@ function login($echoDetails=false, $force=false) {
     //
     $infoslist = sendRequest("SELECT infos FROM CARDSUSERS WHERE id = '", $user['id'], "'");
     $infoslist= $infoslist -> fetch_assoc();
+    if ($infoslist===null) {
+        $user['id']=-1000; //cet id n'existe pas
+        return($user);
+    }
     $infoslist= $infoslist['infos'];
     if(isset($infoslist) &&  $infoslist!=false &&  $infoslist!=""){
         $infoslist=explode(';',$infoslist);

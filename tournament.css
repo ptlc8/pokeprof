@@ -59,9 +59,38 @@ body {
 	background-color: black;
 }
 
+.tournament-form {
+	border: solid grey 0.1em;
+	padding: 0.5em;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.tournament-form-div {
+	margin: 0.1em;
+}
+
 #managementBord {
 	display: inline-block;
 	margin: 1em;
+	padding: 1em;
+	border: solid grey 0.1em;
+}
+
+#tournament-limit:checked + #tournament-places {
+	display: inline;
+}
+
+#tournament-places {
+	display: none;
+}
+
+#tournament-draft:checked + #tournament-drafts {
+	display: inline;
+}
+
+#tournament-drafts {
+	display: none;
 }
 
 #tournament-players table {
