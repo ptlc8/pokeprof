@@ -104,7 +104,7 @@
 							+'&cost='+encodeURIComponent(form.invo.value)
 							+'&type='+encodeURIComponent(form.cardtype.value)
 							+(form.cardtype.value=='prof'?'&hp='+encodeURIComponent(form.hp.value):'')
-							+(form.proftype.value=='prof'?'&proftype='+encodeURIComponent(form.proftype.value):'')
+							+(form.cardtype.value=='prof'?'&proftype='+encodeURIComponent(form.proftype.value):'')
 							+'&color='+encodeURIComponent(form.color.value)
 							+'&atk1name='+encodeURIComponent(form.atk1Name.value)
 							+'&atk1desc='+encodeURIComponent(form.atk1Desc.value)
