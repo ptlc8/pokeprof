@@ -44,7 +44,7 @@ else
 
 // enregistrement le l'image de la carte dans les assets
 $cardId = sendRequest(" SELECT MAX(id) AS id FROM CARDS")->fetch_assoc()['id'];
-imagepng($image, "assets/cards/".$cardId.".png");
+imagepng($image, "../../assets/cards/".$cardId.".png");
 
 // pour le tag créateur de cartes
 $tags = json_decode($cardsUser['tags']);
