@@ -58,7 +58,7 @@ sendRequest($request." WHERE id ='", $_REQUEST['id'], "'");
 
 // on efface la carte du cache
 set_error_handler(function() { /* ignore errors */ });
-$cachefilename = 'cached/card'.$_REQUEST['id'].'.php';
+$cachefilename = '../../cached/card'.$_REQUEST['id'].'.json';
 unlink($cachefilename);
 restore_error_handler();
 
