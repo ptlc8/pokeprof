@@ -12,7 +12,7 @@
 		<?php
 		
 		include("init.php");
-		$user = login(false,true);
+		$user = login(true,false);
 		
 		?>
 		
@@ -30,7 +30,7 @@
 		<div id="tournament"></div>
         
         <?php
-        if (in_array($user["id"], array("0", "19", "59", "-72", "73"))) {
+        if (($user!=null)&&(sendRequest("SELECT admin FROM CARDSUSERS WHERE id='".$user['id']."'")->fetch_assoc()['admin'])) {
         ?>
         <div id="managementBord">
             <h3>Administration du tournoi</h3>

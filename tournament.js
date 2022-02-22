@@ -126,7 +126,7 @@ function affGraphTournament(tournamentId, action="") {
 		if (action=="join") {
 			sendRequest("POST", "jointournament.php", "id="+tournamentId+"&add=1").then(function(response) {
 				if (response=="not logged") {
-					window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
+					window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search));
 				} else if (response=="already in tournament") {
 					alert("Vous êtes déjà inscrit!");
 					location.reload();
@@ -145,7 +145,7 @@ function affGraphTournament(tournamentId, action="") {
 		} else if (action=="leave") {
 			sendRequest("POST", "jointournament.php", "id="+tournamentId+"&del=1").then(function(response) {
 				if (response=="not logged") {
-					window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname));
+					window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search));
 				} else if (response=="not in tournament") {
 					alert("Vous n'êtes pas encore inscrit!");
 					location.reload();
@@ -170,6 +170,10 @@ function affGraphTournament(tournamentId, action="") {
 				} else if (response.includes("invalid")) {
 					alert(response);
 					window.location.href='.';
+				} else if (response=="not logged") {
+					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
+					document.getElementById("join-button").style.display="inline-block";
+					document.getElementById("leave-button").style.display="none";
 				} else {
 					var newTab=JSON.parse(response);
 					displayTournament2(document.getElementById("tournament"), newTab.fighters, newTab.names);
