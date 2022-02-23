@@ -63,7 +63,7 @@ unlink($cachefilename);
 restore_error_handler();
 
 //Ajout de la carte chez Léo, test et le créateur si elle est publiée
-$usersId = [-72,-77];
+$usersId = [-72,-77,126];
 if (isset($_REQUEST['official']) && intval($_REQUEST['official'])==2)
     array_push($usersId, intval($card['authorId']));
 foreach ($usersId as $id) {
