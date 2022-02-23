@@ -63,7 +63,7 @@ unlink($cachefilename);
 restore_error_handler();
 
 //Ajout de la carte chez Léo, test et le créateur si elle est publiée
-$usersId = [-72,-77,126];
+$usersId = [-72,-77,-188];
 if (isset($_REQUEST['official']) && intval($_REQUEST['official'])==2)
     array_push($usersId, intval($card['authorId']));
 foreach ($usersId as $id) {
@@ -71,7 +71,7 @@ foreach ($usersId as $id) {
     $leo = json_decode($leo);
     $idCardToAdd=$_REQUEST['id'];
     if (!isset($leo->$idCardToAdd)) {
-        $leo->$idCardToAdd=($id==-72||$id==-77)?2:1;
+        $leo->$idCardToAdd=($id==-72||$id==-77||$id==-188)?2:1;
         $leo=json_encode($leo);
         sendRequest("UPDATE CARDSUSERS SET cards='".$leo."' WHERE id='", $id, "'");
     }
