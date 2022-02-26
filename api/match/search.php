@@ -29,11 +29,19 @@ if (count(array_filter(json_decode($cardsUser['deck'])[$cardsUser['choosenDeck']
 }
 
 // recherche d'adversaire
-$result = isset($_REQUEST['bot'])
-    ? sendRequest("SELECT * FROM `CARDSUSERS` WHERE id = -807") // le bot
-    : sendRequest("SELECT * FROM `CARDSUSERS` WHERE TIMESTAMPDIFF(SECOND, lastSearchDate, NOW()) <= 5 AND id != ", $cardsUser['id']);
-if ($result->num_rows === 0) {
-	// actualistion de la recherche
+if (isset($_REQUEST['bot'])) { // si le joueur veut affronter le bot
+	$result = sendRequest("SELECT * FROM `CARDSUSERS` WHERE id = -807");
+} else if (isset($_REQUEST['player'])) { // si le joueur veut affronter un joueur précis
+	$playerId = intval($_REQUEST['player']);
+	if ($playerId == intval($cardsUser['id']))
+		exit("itsyou");
+	$result = sendRequest("SELECT * FROM `CARDSUSERS` WHERE TIMESTAMPDIFF(SECOND, lastSearchDate, NOW()) <= 5 AND id = ", $playerId);
+	if ($result->num_rows === 0) {
+		//sendRequest("UPDATE `CARDSUSERS` SET `lastSearchDate` = NOW() WHERE `CARDSUSERS`.`id` = '", $cardsUser['id'], "'");
+		exit("unavailableopponent");
+	}
+} else { // sinon on retourne les adversaire en recherche
+    $result = sendRequest("SELECT * FROM `CARDSUSERS` WHERE TIMESTAMPDIFF(SECOND, lastSearchDate, NOW()) <= 5 AND id != ", $cardsUser['id']);
 	sendRequest("UPDATE `CARDSUSERS` SET `lastSearchDate` = NOW() WHERE `CARDSUSERS`.`id` = '", $cardsUser['id'], "'");
 	$connecteds = sendRequest("SELECT COUNT(*) AS connecteds FROM CARDSUSERS WHERE TIMEDIFF(NOW(),lastConnection) < '00:03'")->fetch_assoc()['connecteds'];
 	$playings = sendRequest("SELECT COUNT(DISTINCT CARDSUSERS.id) AS playings FROM CARDSUSERS JOIN MATCHES ON (opponent1=CARDSUSERS.id OR opponent2=CARDSUSERS.id) WHERE NOW() < ADDTIME(lastConnection,'00:03') AND MATCHES.end = 0")->fetch_assoc()['playings'];
