@@ -294,6 +294,9 @@ body, html {
 	display: block;
 	font-size: 1.2em;
 }
+#select-attack .effects .time {
+	float: right;
+}
 @media (orientation:portrait) {
 	#select-attack-card {
 		width: 75%;

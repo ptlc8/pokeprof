@@ -795,6 +795,7 @@ if (isset($_REQUEST['error'])) {
 				for (let id in EFFECTS)
 					if (card[id]>0)
 						effectsDiv.appendChild(createElement("div", {}, [
+							createElement("span", {className:"time"}, card[id]+" tour"+(card[id]>1?"s":"")),
 							createElement("span", {className:"name"}, EFFECTS[id].emote+" "+EFFECTS[id].name),
 							createElement("span", {}, EFFECTS[id].description)
 						]));
