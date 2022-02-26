@@ -32,7 +32,7 @@ function login($echoDetails=false, $force=false) {
     if (!isset($_SESSION['username'], $_SESSION['password']) || ($userRequest = sendRequest("SELECT * FROM USERS WHERE `name` = '", $_SESSION['username'], "' and `password` = '", $_SESSION['password'], "'"))->num_rows === 0) {
         if ($echoDetails) {
         	if ($force) header('Location: connect.php?go='.urlencode($_SERVER['REQUEST_URI']));
-        	else echo('<span id="login" class="button" onclick="window.location.href = (\'connect.php?go=\'+encodeURIComponent(window.location.pathname))">Se connecter</span>');
+        	else echo('<span id="login" class="button" onclick="window.location.href = (\'connect.php?go=\'+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search))">Se connecter</span>');
         } else if ($force)
             exit("not logged");
     	return null;
