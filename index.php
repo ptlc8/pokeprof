@@ -383,7 +383,7 @@
 		        newalert({text:"Installer Poképrof sous forme d'application", href:"javascript:promptInstallWebApp();"},{close:true,more:true,text:"Ne plus afficher",oc: () => {sendinfo('webapp=0')} });
 		    });
 		<?php } ?>
-			newalert({text:"On prépare la saison 1 ! :)\nDe nouvelles cartes et fonctionnalités arrivent",href:'#',target:""},{close:true});
+			newalert({text:"C'est la saison 1 ! :)\nDe nouvelles cartes et fonctionnalités sont là",href:'#',target:""},{close:true});
 		</script>
 		<script>
 			function createPopup(properties={}, inner=[]) {
