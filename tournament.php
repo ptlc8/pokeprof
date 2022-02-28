@@ -30,7 +30,7 @@
 		<div id="tournament"></div>
         
         <?php
-        if (($user!=null)&&(sendRequest("SELECT admin FROM CARDSUSERS WHERE id='".$user['id']."'")->fetch_assoc()['admin'])) {
+        if (($user!=null)&&(sendRequest("SELECT admin FROM CARDSUSERS WHERE id='".$user['id']."'")->fetch_assoc()['admin']==1)) {
         ?>
         <div id="managementBord">
             <h3>Administration du tournoi</h3>
@@ -56,15 +56,16 @@
                         <label for="tournament-draft">Repêchages :</label>
                         <input type="checkbox" id="tournament-draft" />
                         <div id="tournament-drafts">
-                            <input names="drafts" type="number" min="1"/>
+                            <label for="tournament-drafts-number">Nombre de repéchés :</label>
+                            <input id="tournament-drafts-number" names="drafts" type="number" min="1"/>
                         </div>
                     </div>
-                        
+                    
+                    <button class="button" action="">Appliquer les modifications</button>
                 </form>
             </div>
             
             <div id="tournament-players">
-                A remplir avec du js (action sur les joueurs: suppr, si tournoi pas démarré)
                 <table id="list-players"></table>
             </div>
                 

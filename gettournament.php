@@ -2,6 +2,7 @@
 
 include("init.php");
 include("functiontournament.php");
+$user=login(false,false);
 
 if (isset($_REQUEST['id'])) {
 	$tournamentId=$_REQUEST['id'];
@@ -19,6 +20,12 @@ $tournament = $result->fetch_assoc();
 $tournament['fighters']=prettyTable4Tournament(parseFighters($tournament['fighters']));
 
 $tournament['names']=namesFighters(recupFighters(parseFighters($tournament['fighters'])[0]));
+
+if (in_array($user['name'], $tournament['names'])) {
+    $tournament['include']=true;
+} else {
+    $tournament['include']=false;
+}
 
 echo json_encode($tournament);
 

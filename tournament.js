@@ -226,26 +226,67 @@ function adminBord2 (tournament) {
 	let tournamentAction=document.getElementById("actionTournament");
 	let tournamentPlayers=document.getElementById("tournament-players");
 	if ((tournamentAction)&&(tournamentPlayers)) {
-			let tabPlayers=document.getElementById("list-players");
-			tabPlayers.innerHTML="";
-			for (let index of Object.keys(tournament.names)) {
-				if ((index!=' ')&&(index!='')&&(index!="_")) {
-					let playerLine = createElement("tr", {className:"tournament-players"}, [
-						createElement("th", {className:"tournament-players-name"}, tournament.names[index])
-					]);
-					if ((tournament.nbPlaces!=null)&&(tournament.nbPlaces>=0)) {
-						playerLine.appendChild(
-							createElement("td", {className: "button"}, "Désinscrire")
-						).onclick= function() {
-							sendRequest("POST", "jointournament.php", "id="+tournamentId+"&player="+index);
-							adminBord(tournamentId);
-							affGraphTournament(tournamentId);
-						};
-					}
-					tabPlayers.appendChild(playerLine);
+		let tabPlayers=document.getElementById("list-players");
+		tabPlayers.innerHTML="";
+		for (let index of Object.keys(tournament.names)) {
+			if ((index!=' ')&&(index!='')&&(index!="_")) {
+				let playerLine = createElement("tr", {className:"tournament-players"}, [
+					createElement("th", {className:"tournament-players-name"}, tournament.names[index])
+				]);
+				if ((tournament.nbPlaces!=null)&&(tournament.nbPlaces>=0)) {
+					playerLine.appendChild(
+						createElement("td", {className: "button"}, "Désinscrire")
+					).onclick= function() {
+						sendRequest("POST", "jointournament.php", "id="+tournamentId+"&player="+index);
+						adminBord(tournamentId);
+						affGraphTournament(tournamentId);
+					};
 				}
+				tabPlayers.appendChild(playerLine);
 			}
-			//tournamentPlayers.appendChild(tabPlayers);
-			//tournamentAction.innerHTML="Démarrer tournoi, modifier nombre de places, supprimer tournoi, cloturer tournoi <br /><br />Etat du tournoi: ";
+		}
+		//tournamentPlayers.appendChild(tabPlayers);
+		//tournamentAction.innerHTML="Démarrer tournoi, modifier nombre de places, supprimer tournoi, cloturer tournoi <br /><br />Etat du tournoi: ";
+	}
+	let selectStatus=document.getElementById("tournament-status");
+	let boxLimit=document.getElementById("tournament-limit");
+	let boxDrafts=document.getElementById("tournament-draft");
+	if ((selectStatus)&&(boxLimit)&&(boxDrafts)) {
+		let places=document.getElementById("tournament-places");
+		places.value=Object.keys(tournament.names).length-3;
+		if (tournament.nbPlaces<0) {
+			selectStatus.value="ended";
+			boxLimit.parentNode.style.display="none";
+			boxDrafts.parentNode.style.display="none";
+		} else {
+			let drafts=document.getElementById("tournament-drafts-number");
+			drafts.value=0;
+			let nbTotDrafted=0;
+			var trees=tournament.fighters.split(";");
+			for (let i=1; i<trees.length; i++) {
+				let nbDrafted=0;
+				for (let branch of trees[i].split(",")) {
+					nbDrafted+=branch.split(".").length;
+				}
+				nbTotDrafted+=Math.floor(nbDrafted/2)+(nbDrafted%2);
+			}
+			drafts.value=nbTotDrafted;
+			if (drafts.value>0) {
+				boxDrafts.checked=true;
+			} else {
+				boxDrafts.checked=false;
+			}
+			if (tournament.nbPlaces==0) {
+				selectStatus.value="started";
+				boxLimit.parentNode.style.display="none";
+			} else if (tournament.nbPlaces==null) {
+				selectStatus.value="inscriptions";
+				boxLimit.checked=false;
+			} else {
+				selectStatus.value="inscriptions";
+				boxLimit.checked=true;
+				places.value=tournament.nbPlaces;
+			}
+		}
 	}
 }
