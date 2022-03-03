@@ -745,10 +745,9 @@ class Match {
 	    if ($damage<0) {
 	        $damage=0;
 		}
-		if (!$ignoredef && ($victim instanceof Player)) // RÈGLES DES DÉFENSEURS, ENFIIIIIN !!!
-			foreach ($victim->fighters as $def)
-				if (!$def->eg && !$def->mi && !$def->slp!=0 && !$def->prl!=0)
-					throw new Exception('defensors');
+		if (!$ignoredef && ($victim instanceof Player)) // règles des défenseurs
+			if (count($victim->fighters)>0)
+				throw new Exception('defensors');
 		array_push($history, new Action('attack', array('damage'=>$damage, 'target'=>$this->getFighterIndex($victim), 'agent'=>$this->getFighterIndex($attacker))));
 		if (isset($victim->shield)) {
 			if ($victim->shield <= $damage) {

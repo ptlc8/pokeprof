@@ -51,20 +51,20 @@
         <span style="color:#00b050">Une carte invoquée ne peut attaquer qu’au tour suivant son invocation</span><br/>
         Pour attaquer, sélectionnez <b>la carte</b>, puis <b>l’attaque</b> que vous voulez employer, puis éventuellement ce que vous voulez attaquer.<br/>
         Lorsque vous souhaitez attaquer, deux cibles sont possibles : <b>les PV du joueur adverse</b>, ou <b>les cartes qui défendent</b> ce même joueur.<br/>
-        CEPENDANT, <span style="color:#ff0000">il est impossible d’attaquer les PV du joueur adverse tant que celui-ci a encore des cartes combattants actives.</span><br/>
-        Pour qu’une carte combattant soit considérée comme inactive, il faut soit <b>faire tomber ses PV à zéro ou en deçà</b>, soit <b>la rendre <i>incapacitante</i></b>.
+        CEPENDANT, <span style="color:#ff0000">il est impossible d’attaquer les PV du joueur adverse tant que celui-ci a encore des cartes combattants.</span><br/>
+        Pour éliminer une carte combattant, il faut <b>faire tomber ses PV à zéro ou en deçà</b>.
         <h3 class="extender" onclick="extendsNext(this)">Comment rendre une carte incapacitante ?</h3>
         <div>
             Certaines attaques de vos cartes ont des <b>effets</b> sur les cartes adverses. Ou même sur vos propres cartes.<br/>
             Cela peut-être un <u>bonus de dégâts sur un certain <font color="#0070c0">t</font><font color="#ff0000">y</font><font color="#DDDD00">p</font><font color="#92d050">e</font> de carte</u>, ou un <u>effet incapacitant</u> (<i>quelle surprise… !</i>).<br/>
             Parmi les <b>effets incapacitants</b>, il y a :
             <ul>
-                <li>Le <u>sommeil</u> : endort votre carte et l’<b>empêche d’attaquer et de défendre</b> jusqu’à ce qu’elle se réveille. Symbolisé par des petits <font color="#00b0f0">z<sup>z</sup><sub>z</sub></font> : 💤.</li>
-                <li>L’<u>apeurement</u> : votre carte CHOK É DÉCU <b>ne pourra pas attaquer, seulement défendre</b>. Symbolisé par un <font color="#92d050">smiley CHOK É DÉCU</font> : 😱.</li>
+                <li>Le <u>sommeil</u> : endort votre carte et l’<b>empêche d’attaquer</b> jusqu’à ce qu’elle se réveille. Symbolisé par des petits <font color="#00b0f0">z<sup>z</sup><sub>z</sub></font> : 💤.</li>
+                <li>L’<u>apeurement</u> : votre carte CHOK É DÉCU <b>ne pourra pas attaquer</b>. Symbolisé par un <font color="#92d050">smiley CHOK É DÉCU</font> : 😱.</li>
                 <li>
                     La <u>paralysie</u> : <i>dans Pokémon quand ton Pokémon est paralysé parfois il peut attaquer parce que Magie de Noël et parfois il n’attaque pas parce que paralysie blaireau.<br/>
                     Le truc, c’est que les cartes de Poképrofs représentent des humains.</i><br/>
-                    Et un humain paralysé ça <b>n’attaque pas et ça ne défend pas</b>.
+                    Et un humain paralysé ça <b>n’attaque pas</b>.
                     <i>La vie réelle c’est quand même chiant…</i><br/>
                     La paralysie finit par disparaître à un moment. Représentée par un panneau de stationnement <font color="#ff0000">interdit</font> 🚫, ce qui est ironique.
                     <i>RIGOLEUH.</i>
