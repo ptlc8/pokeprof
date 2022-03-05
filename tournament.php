@@ -36,10 +36,17 @@
             <h3>Administration du tournoi</h3>
             
             <div id="actionTournament">
-                <form id="tournament-form1" class="tournament-form" method="POST">
+                <form id="tournament-form1" class="tournament-form" method="POST" action="modiftournament.php">
+                    
+                    
+                    <?php
+                        echo '<input type="hidden" name="idTournament" value='.$_REQUEST['id'].'>';
+                    ?>
+                           
+                           
                     <div class="tournament-form-div">
                         <label for="tournament-status">Etat du tournoi : </label>
-                        <select name="status" id="tournament-status" form="tournament-form1">
+                        <select name="now" id="tournament-status" form="tournament-form1">
                             <option value="inscriptions">Inscriptions ouvertes</option>
                             <option value="started">Tournoi lancé</option>
                             <option value="ended">Tournoi terminé</option>
@@ -48,16 +55,25 @@
                     
                     <div class="tournament-form-div">
                         <label for="tournament-limit">Limiter le nombre de places : </label>
-                        <input type="checkbox" id="tournament-limit" />
-                        <input id="tournament-places" names="nb_places" type="number" min="-1"/>
+                        <input type="checkbox" id="tournament-limit" name="limitBool" />
+                        <input id="tournament-places" name="nb_places" type="number" min="0"/>
                     </div>
                     
                     <div class="tournament-form-div">
                         <label for="tournament-draft">Repêchages :</label>
-                        <input type="checkbox" id="tournament-draft" />
+                        <input type="checkbox" id="tournament-draft" name="draftBool" />
                         <div id="tournament-drafts">
+                            <label for="tournament-drafts-type">Type de repêchage : </label>
+                            <select name="status" id="tournament-drafts-type" form="tournament-form1">
+                                <option value="manual">Manuel</option>
+                                <option value="half">Demi-finale</option>
+                                <option value="quarter">Quart-de-finale</option>
+                                <option value="eight">Huitième-de-finale</option>
+                                <option value="all">Tous repéchés</option>
+                            </select>
+                            
                             <label for="tournament-drafts-number">Nombre de repéchés :</label>
-                            <input id="tournament-drafts-number" names="drafts" type="number" min="1"/>
+                            <input id="tournament-drafts-number" name="drafts" type="number" min="1"/>
                         </div>
                     </div>
                     

@@ -21,7 +21,7 @@ $tournament['fighters']=prettyTable4Tournament(parseFighters($tournament['fighte
 
 $tournament['names']=namesFighters(recupFighters(parseFighters($tournament['fighters'])[0]));
 
-if (in_array($user['name'], $tournament['names'])) {
+if ((isset($user['name']))&&(in_array($user['name'], $tournament['names']))) {
     $tournament['include']=true;
 } else {
     $tournament['include']=false;

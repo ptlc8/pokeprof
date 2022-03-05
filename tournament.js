@@ -119,11 +119,50 @@ function affPlacesNButtons(nbPlaces) {
 }
 
 function affGraphTournament(tournamentId, action="") {
+	if (action=="join") {
+		sendRequest("POST", "jointournament.php", "id="+tournamentId+"&add=1").then(function(response) {
+			if (response=="not logged") {
+				window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search));
+			} else if (response=="already in tournament") {
+				alert("Vous êtes déjà inscrit!");
+				location.reload();
+			} else if (response.includes("invalid")) {
+				alert(response);
+				window.location.href='.';
+			} else {
+				var newTab=JSON.parse(response);
+				displayTournament2(document.getElementById("tournament"), newTab.fighters, newTab.names);
+				document.getElementById("join-button").style.display="none";
+				document.getElementById("leave-button").style.display="inline-block";
+				adminBord2(newTab);
+				affPlacesNButtons(newTab.nbPlaces);
+			}
+		});
+	} else if (action=="leave") {
+		sendRequest("POST", "jointournament.php", "id="+tournamentId+"&del=1").then(function(response) {
+			if (response=="not logged") {
+				window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search));
+			} else if (response=="not in tournament") {
+				alert("Vous n'êtes pas encore inscrit!");
+				location.reload();
+			} else if (response.includes("invalid")) {
+				alert(response);
+				window.location.href='.';
+			} else {
+				var newTab=JSON.parse(response);
+				displayTournament2(document.getElementById("tournament"), newTab.fighters, newTab.names);
+				document.getElementById("leave-button").style.display="none";
+				document.getElementById("join-button").style.display="inline-block";
+				adminBord2(newTab);
+				affPlacesNButtons(newTab.nbPlaces);
+			}
+		});
+	} else {
 	queryTournament(tournamentId).then(function(tournament) {
 		affPlacesNButtons(tournament.nbPlaces);
 		adminBord2(tournament);
 		document.getElementById("tournament-name").innerText = tournament.name;
-		if (action=="join") {
+		/*if (action=="join") {
 			sendRequest("POST", "jointournament.php", "id="+tournamentId+"&add=1").then(function(response) {
 				if (response=="not logged") {
 					window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search));
@@ -161,18 +200,59 @@ function affGraphTournament(tournamentId, action="") {
 					affPlacesNButtons(newTab.nbPlaces);
 				}
 			});
-		} else {
-			sendRequest("POST", "jointournament.php", "id="+tournamentId).then(function(response) {
+		} else {*/
+			if ((typeof tournament)=="string") {
+				if (tournament=="not logged") {
+					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
+					document.getElementById("join-button").style.display="inline-block";
+					document.getElementById("leave-button").style.display="none";
+				} else if (response=="ended tournament") {
+					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
+					document.getElementById("join-button").style.display="none";
+					document.getElementById("leave-button").style.display="none";
+				} else {
+					alert(tournament);
+					window.location.href='.';
+				}
+			} else if ((typeof tournament)=="object") {
+				if ((tournament.include==true)) {
+					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
+					document.getElementById("join-button").style.display="none";
+					if ((tournament.nbPlaces!=null)&&(tournament.nbPlaces>0)) {
+						document.getElementById("leave-button").style.display="inline-block";
+					} else {
+						document.getElementById("leave-button").style.display="none";
+					}
+				} else {
+					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
+					document.getElementById("leave-button").style.display="none";
+					document.getElementById("join-button").style.display="inline-block";
+					adminBord2(tournament);
+					affPlacesNButtons(tournament.nbPlaces);
+				}
+			} else {
+				alert("Une données n'a pas le bon type! Ouvre vite la console de la page!");
+				console.log(tournament);
+			}
+			/*sendRequest("POST", "jointournament.php", "id="+tournamentId).then(function(response) {
 				if ((response=="already in tournament")) {
 					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
 					document.getElementById("join-button").style.display="none";
-					document.getElementById("leave-button").style.display="inline-block";
+					if ((tournament.nbPlaces!=null)&&(tournament.nbPlaces>0)) {
+						document.getElementById("leave-button").style.display="inline-block";
+					} else {
+						document.getElementById("leave-button").style.display="none";
+					}
 				} else if (response.includes("invalid")) {
 					alert(response);
 					window.location.href='.';
 				} else if (response=="not logged") {
 					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
 					document.getElementById("join-button").style.display="inline-block";
+					document.getElementById("leave-button").style.display="none";
+				} else if (response=="ended tournament") {
+					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
+					document.getElementById("join-button").style.display="none";
 					document.getElementById("leave-button").style.display="none";
 				} else {
 					var newTab=JSON.parse(response);
@@ -183,11 +263,12 @@ function affGraphTournament(tournamentId, action="") {
 					affPlacesNButtons(newTab.nbPlaces);
 				}
 			});
-		}
+		}*/
 	}).catch(function(){
 		alert("Impossible d'afficher ce tournoi");
 		window.location.href='.';
 	});
+	}
 }
 
 function adminBord (tournamentId) {
@@ -228,12 +309,13 @@ function adminBord2 (tournament) {
 	if ((tournamentAction)&&(tournamentPlayers)) {
 		let tabPlayers=document.getElementById("list-players");
 		tabPlayers.innerHTML="";
+		var opponents=0;
 		for (let index of Object.keys(tournament.names)) {
 			if ((index!=' ')&&(index!='')&&(index!="_")) {
 				let playerLine = createElement("tr", {className:"tournament-players"}, [
 					createElement("th", {className:"tournament-players-name"}, tournament.names[index])
 				]);
-				if ((tournament.nbPlaces!=null)&&(tournament.nbPlaces>=0)) {
+				if ((tournament.nbPlaces==null)||(tournament.nbPlaces>=0)) {
 					playerLine.appendChild(
 						createElement("td", {className: "button"}, "Désinscrire")
 					).onclick= function() {
@@ -243,6 +325,7 @@ function adminBord2 (tournament) {
 					};
 				}
 				tabPlayers.appendChild(playerLine);
+				opponents=opponents+1;
 			}
 		}
 		//tournamentPlayers.appendChild(tabPlayers);
@@ -260,18 +343,56 @@ function adminBord2 (tournament) {
 			boxDrafts.parentNode.style.display="none";
 		} else {
 			let drafts=document.getElementById("tournament-drafts-number");
-			drafts.value=0;
-			let nbTotDrafted=0;
-			var trees=tournament.fighters.split(";");
-			for (let i=1; i<trees.length; i++) {
-				let nbDrafted=0;
-				for (let branch of trees[i].split(",")) {
-					nbDrafted+=branch.split(".").length;
-				}
-				nbTotDrafted+=Math.floor(nbDrafted/2)+(nbDrafted%2);
+			let typeDraft=document.getElementById("tournament-drafts-type");
+			drafts.value=tournament.draft;
+			if (opponents-2<0) {
+				opponents=0;
+			} else {
+				opponents-=2;
 			}
-			drafts.value=nbTotDrafted;
-			if (drafts.value>0) {
+			if (tournament.draft==null) {
+				typeDraft.value="all";
+				drafts.value=opponents;
+				drafts.min=opponents;
+				drafts.max=opponents;
+			} else if (tournament.draft==-2) {
+				typeDraft.value="half";
+				drafts.min=2;
+				drafts.max=2;
+				drafts.value=2;
+			} else if (tournament.draft==-4) {
+				typeDraft.value="quarter";
+				if (opponents>=6) {
+					drafts.min=6;
+					drafts.max=6;
+					drafts.value=6;
+				} else {
+					drafts.value=opponents;
+					drafts.min=opponents;
+					drafts.max=opponents;
+				}
+			} else if (tournament.draft==-8) {
+				typeDraft.value="eight";
+				if (opponents>=14) {
+					drafts.value=14;
+					drafts.min=14;
+					drafts.max=14;
+				} else {
+					drafts.value=opponents;
+					drafts.min=opponents;
+					drafts.max=opponents;
+				}
+			} else if (tournament.draft>0) {
+				typeDraft.value="manual";
+				drafts.min=0;
+				drafts.max=opponents;
+			} else {
+				drafts.value=0;
+				typeDraft.value="manual";
+				drafts.min=0;
+				drafts.max=opponents;
+			}
+			if (drafts.value!=0) {
 				boxDrafts.checked=true;
 			} else {
 				boxDrafts.checked=false;
