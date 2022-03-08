@@ -158,49 +158,10 @@ function affGraphTournament(tournamentId, action="") {
 			}
 		});
 	} else {
-	queryTournament(tournamentId).then(function(tournament) {
-		affPlacesNButtons(tournament.nbPlaces);
-		adminBord2(tournament);
-		document.getElementById("tournament-name").innerText = tournament.name;
-		/*if (action=="join") {
-			sendRequest("POST", "jointournament.php", "id="+tournamentId+"&add=1").then(function(response) {
-				if (response=="not logged") {
-					window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search));
-				} else if (response=="already in tournament") {
-					alert("Vous êtes déjà inscrit!");
-					location.reload();
-				} else if (response.includes("invalid")) {
-					alert(response);
-					window.location.href='.';
-				} else {
-					var newTab=JSON.parse(response);
-					displayTournament2(document.getElementById("tournament"), newTab.fighters, newTab.names);
-					document.getElementById("join-button").style.display="none";
-					document.getElementById("leave-button").style.display="inline-block";
-					adminBord2(newTab);
-					affPlacesNButtons(newTab.nbPlaces);
-				}
-			});
-		} else if (action=="leave") {
-			sendRequest("POST", "jointournament.php", "id="+tournamentId+"&del=1").then(function(response) {
-				if (response=="not logged") {
-					window.location.replace("connect.php?go="+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search));
-				} else if (response=="not in tournament") {
-					alert("Vous n'êtes pas encore inscrit!");
-					location.reload();
-				} else if (response.includes("invalid")) {
-					alert(response);
-					window.location.href='.';
-				} else {
-					var newTab=JSON.parse(response);
-					displayTournament2(document.getElementById("tournament"), newTab.fighters, newTab.names);
-					document.getElementById("leave-button").style.display="none";
-					document.getElementById("join-button").style.display="inline-block";
-					adminBord2(newTab);
-					affPlacesNButtons(newTab.nbPlaces);
-				}
-			});
-		} else {*/
+		queryTournament(tournamentId).then(function(tournament) {
+			affPlacesNButtons(tournament.nbPlaces);
+			adminBord2(tournament);
+			document.getElementById("tournament-name").innerText = tournament.name;
 			if ((typeof tournament)=="string") {
 				if (tournament=="not logged") {
 					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
@@ -234,40 +195,10 @@ function affGraphTournament(tournamentId, action="") {
 				alert("Une données n'a pas le bon type! Ouvre vite la console de la page!");
 				console.log(tournament);
 			}
-			/*sendRequest("POST", "jointournament.php", "id="+tournamentId).then(function(response) {
-				if ((response=="already in tournament")) {
-					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
-					document.getElementById("join-button").style.display="none";
-					if ((tournament.nbPlaces!=null)&&(tournament.nbPlaces>0)) {
-						document.getElementById("leave-button").style.display="inline-block";
-					} else {
-						document.getElementById("leave-button").style.display="none";
-					}
-				} else if (response.includes("invalid")) {
-					alert(response);
-					window.location.href='.';
-				} else if (response=="not logged") {
-					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
-					document.getElementById("join-button").style.display="inline-block";
-					document.getElementById("leave-button").style.display="none";
-				} else if (response=="ended tournament") {
-					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
-					document.getElementById("join-button").style.display="none";
-					document.getElementById("leave-button").style.display="none";
-				} else {
-					var newTab=JSON.parse(response);
-					displayTournament2(document.getElementById("tournament"), newTab.fighters, newTab.names);
-					document.getElementById("leave-button").style.display="none";
-					document.getElementById("join-button").style.display="inline-block";
-					adminBord2(newTab);
-					affPlacesNButtons(newTab.nbPlaces);
-				}
-			});
-		}*/
-	}).catch(function(){
-		alert("Impossible d'afficher ce tournoi");
-		window.location.href='.';
-	});
+		}).catch(function(){
+			alert("Impossible d'afficher ce tournoi");
+			window.location.href='.';
+		});
 	}
 }
 

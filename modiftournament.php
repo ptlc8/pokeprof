@@ -37,6 +37,11 @@ if ((isset($_REQUEST))&&($_REQUEST!=null)) {
             sendRequest("UPDATE TOURNAMENT SET nbPlaces=", $_REQUEST['nb_places'], " WHERE id='", $_REQUEST['idTournament'], "'");
         }
     } else if ($_REQUEST["now"]=="started") {
+        $tree = sendRequest("SELECT fighters FROM TOURNAMENT WHERE id = '", $_REQUEST['idTournament'], "'")->fetch_assoc()['fighters'];
+        $tree=prettyTable4Tournament(parseFighters($tree));
+        //afficher les VS
+        sendRequest("UPDATE TOURNAMENT SET fighters='", $tree,"' WHERE id='", $_REQUEST['idTournament'], "'");
+        
         sendRequest("UPDATE TOURNAMENT SET nbPlaces=0 WHERE id='", $_REQUEST['idTournament'], "'");
     } else if ($_REQUEST["now"]=="ended") {
         sendRequest("UPDATE TOURNAMENT SET nbPlaces=-1 WHERE id='", $_REQUEST['idTournament'], "'");
