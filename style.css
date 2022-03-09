@@ -430,7 +430,7 @@ img.emote, canvas.emote {
     padding-top: 5%;
     height: 35%;
 }
-.search-popup .bot-button, .search-popup .back-button, .search-popup .spectate-button {
+.search-popup .bot-button, .search-popup .back-button, .search-popup .spectate-button, .search-popup .player-button {
     display: block;
 	margin: 1em auto;
 	padding: .5em 1em;
@@ -447,6 +447,9 @@ img.emote, canvas.emote {
 }
 .search-popup .spectate-button {
     background-color: lightblue;
+}
+.search-popup .player-button {
+	background-color: darkseagreen;
 }
 
 /* shop par Kévin */

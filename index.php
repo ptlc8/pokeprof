@@ -407,8 +407,8 @@
 				return p;
 			}
 			
-			function search(bot=false) {
-				sendRequest("POST", "api/match/search.php", bot?'bot':'').then(function(response) {
+			function search(opponent=undefined) {
+				sendRequest("POST", "api/match/search.php", opponent===undefined?"":("opponent="+opponent)).then(function(response) {
 					if (response=='founded' || response=='playing') {
 						window.location.replace('play.php');
 					} else if (response=='nodeck') {
@@ -418,6 +418,15 @@
 					    let infos = response.split(" ");
 					    document.getElementById("search-infos").innerText = infos[1]+" joueurs en ligne (dont "+infos[2]+" en match)";
 						document.getElementById("spectate-button").style.display = parseInt(infos[2])>0?"":"none";
+						let playersMatchButtonsDiv = document.getElementById("players-match-buttons");
+						playersMatchButtonsDiv.innerHTML = "";
+						for (let i = 3; i+1 < infos.length; i += 2) {
+							playersMatchButtonsDiv.appendChild(createElement("button", {className:"player-button"}, "Affronter "+infos[i], {
+								click: function(){
+									search(infos[i+1]);
+								}
+							}));
+						}
 					}
 				});
 			}
@@ -478,8 +487,9 @@
 						createElement("span", {className:"loading"}, "🔍"),
 						createElement("br"),
 						createElement("button", {className:"bot-button"}, "Affronter l'ordinateur", {click:function(){
-							search(true);
+							search("bot");
 						}}),
+						createElement("div", {id:"players-match-buttons"}, []),
 						createElement("button", {className:"spectate-button",id:"spectate-button",style:{display:"none"}}, "Regarder un match", {click:function(){
 							spectateLastMatch();
 						}}),
