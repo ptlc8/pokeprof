@@ -76,13 +76,43 @@ function prettyTable4Tournament ($trees3) {
 	}*/
 	$j=0;
 	$a=0;
+    $b=0;
 	foreach ($fighters as $fighter) {
 		if ($fighter[1]>1) {
 			$j=1;	
 		} else {
 			$a++;
 		}
+        $b++;
 	}
+    if (isset($trees3[1])) {
+        $draft=recupFighters($trees3[1]);
+        foreach ($draft as $drafted) {
+           if (($drafted[1]>1)&&($drafted[0]=='-')) {
+               for ($i=0; $i<$drafted[1]; $i++) {
+                   $fighters[$b][0]='-';
+                   $b++;
+               }
+           } else {
+               $fighters[$b][0]=$drafted[0];
+               $b++;
+           } 
+        }
+    }
+    if (isset($trees3[2])) {
+        $draft=recupFighters($trees3[2]);
+        foreach ($draft as $drafted) {
+           if (($drafted[1]>1)&&($drafted[0]=='-')) {
+               for ($i=0; $i<$drafted[1]; $i++) {
+                   $fighters[$b][0]='-';
+                   $b++;
+               }
+           } else {
+               $fighters[$b][0]=$drafted[0];
+               $b++;
+           } 
+        }
+    }
 	if ($j!=0) { //le tournoi a commencé
 		return(stringifyFighters($trees3, $fighters));
 	}
@@ -95,7 +125,7 @@ function prettyTable4Tournament ($trees3) {
 	return($textFinal);
 }
 
-/*function prettyDraft4Tournament ($trees3, $draftType) {
+function prettyDraft4Tournament ($trees3, $draftType) {
 	$Tree=array();
 	if (($trees3==null)||(!isset($trees3))) {
 		return(null);	
@@ -115,64 +145,103 @@ function prettyTable4Tournament ($trees3) {
 	$fighters=recupFighters($trees3[0]);
 	$j=0;
 	$a=0;
+	$b=0;
 	foreach ($fighters as $fighter) {
 		if ($fighter[1]>1) {
 			$j=1;	
 		} else {
 			$a++;
 		}
+        $b++;
 	}
+    if (isset($trees3[1])) {
+        $draft=recupFighters($trees3[1]);
+        foreach ($draft as $drafted) {
+           if (($drafted[1]>1)&&($drafted[0]=='-')) {
+               for ($i=0; $i<$drafted[1]; $i++) {
+                   $fighters[$b][0]='-';
+                   $b++;
+               }
+           } else {
+               $fighters[$b][0]=$drafted[0];
+               $b++;
+           } 
+        }
+    }
+    if (isset($trees3[2])) {
+        $draft=recupFighters($trees3[2]);
+        foreach ($draft as $drafted) {
+           if (($drafted[1]>1)&&($drafted[0]=='-')) {
+               for ($i=0; $i<$drafted[1]; $i++) {
+                   $fighters[$b][0]='-';
+                   $b++;
+               }
+           } else {
+               $fighters[$b][0]=$drafted[0];
+               $b++;
+           } 
+        }
+    }
 	if ($j!=0) { //le tournoi a commencé
         //mettre à jour les combattants ?
 		return(stringifyFighters($trees3, $fighters));
 	}
+    $trees3[1]=array();
+    $trees3[2]=array();
 	//dessiner les repêchages
-    if (($a>4)&&($draftType!=0)) { //moins de 5 joueurs, pas de repêchage
+    if ($a>4) { //moins de 5 joueurs, pas de repêchage
         $drafted=0;
         if ($draftType==null) {
-            $drafted=$a;
+            $drafted=$a-2;
         } else if ($draftType==-2) {
-            if ($a>3) {
-                $drafted=2;
-            }
+            $drafted=2;
         } else if ($draftType==-4) {
-            if ($a>=6) {
+            if ($a>=8) {
                 $drafted=6;
-            } else if {
-                $drafted=
+            } else {
+                $drafted=$a-2;
             }
         } else if ($draftType==-8) {
-            
-        } else if ($draftType>0) {
-            $drafted=$draftType;
-        }
-            //on repêche tout le monde sauf les deux premiers
-            if ($a<6) { //cas particulier
-                $trees3[1][0]=['_','_'];
-                $trees3[1][1]=[' ','_'];
-                $trees3[1][2]=[' '];
+            if ($a>=16) {
+                $drafted=14;
             } else {
-                $trees3[1][0]=['_','_'];
-                $trees3[2][0]=['_','_'];
-                $nbBoucl=floor(($a-4)/2);
-                for ($i=1; $i<$nbBoucl; $i++) {
-                    $trees3[1][$i]=['_',' '];
-                    $trees3[2][$i]=['_',' '];
-                }
-                if ($a%2==1) {
-                    $trees3[1][$nbBoucl]=['_',' '];
-                    $trees3[1][$nbBoucl+1]=[' '];
-                } else {
-                    $trees3[1][$nbBoucl]=[' '];
-                }
-                $trees3[2][$nbBoucl]=[' '];
+                $drafted=$a-2;
             }
+        } else if ($draftType>0) {
+            if ($a-2>=$draftType) {
+                $drafted=$draftType;
+            } else {
+                $drafted=$a-2;
+            }
+        }
+        //on repêche tout le monde sauf les deux premiers
+        if ($drafted==2) { //cas particulier
+            $trees3[1][0]=['-','-'];
+            $trees3[1][1]=[' '];
+        } else if ($drafted==3) { //cas particulier
+            $trees3[1][0]=['-','-'];
+            $trees3[1][1]=[' ','-'];
+            $trees3[1][2]=[' '];
+        } else if ($drafted>0) {
+            $trees3[1][0]=['-','-'];
+            $trees3[2][0]=['-','-'];
+            $nbBoucl=floor(($drafted-2)/2);
+            for ($i=1; $i<$nbBoucl; $i++) {
+                $trees3[1][$i]=[' ','-'];
+                $trees3[2][$i]=[' ','-'];
+            }
+            if ($drafted%2==1) {
+                $trees3[1][$nbBoucl]=[' ','-'];
+                $trees3[1][$nbBoucl+1]=[' '];
+            } else {
+                $trees3[1][$nbBoucl]=[' '];
+            }
+            $trees3[2][$nbBoucl]=[' '];
+        }
     }
-    
-	$trees3[0]=$Tree;
 	$textFinal=stringifyFighters($trees3, $fighters);
 	return($textFinal);
-}*/
+}
 
 
 //Join
@@ -340,6 +409,7 @@ function namesFighters ($fightersId) {
         }   
     }
     $names['']='';
+    $names['-']='-';
     $names[' ']=' ';
     $names['_']='ERREUR: name="_"';
     return ($names);

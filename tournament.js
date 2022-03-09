@@ -210,7 +210,7 @@ function adminBord (tournamentId) {
 			let tabPlayers=document.getElementById("list-players");
 			tabPlayers.innerHTML="";
 			for (let index of Object.keys(tournament.names)) {
-				if ((index!=' ')&&(index!='')&&(index!="_")) {
+				if ((index!=' ')&&(index!='')&&(index!="_")&&(index!="-")) {
 					let playerLine = createElement("tr", {className:"tournament-players"}, [
 						createElement("th", {className:"tournament-players-name"}, tournament.names[index])
 					]);
@@ -242,7 +242,7 @@ function adminBord2 (tournament) {
 		tabPlayers.innerHTML="";
 		var opponents=0;
 		for (let index of Object.keys(tournament.names)) {
-			if ((index!=' ')&&(index!='')&&(index!="_")) {
+			if ((index!=' ')&&(index!='')&&(index!="_")&&(index!="-")) {
 				let playerLine = createElement("tr", {className:"tournament-players"}, [
 					createElement("th", {className:"tournament-players-name"}, tournament.names[index])
 				]);
@@ -267,7 +267,7 @@ function adminBord2 (tournament) {
 	let boxDrafts=document.getElementById("tournament-draft");
 	if ((selectStatus)&&(boxLimit)&&(boxDrafts)) {
 		let places=document.getElementById("tournament-places");
-		places.value=Object.keys(tournament.names).length-3;
+		places.value=Object.keys(tournament.names).length-4;
 		if (tournament.nbPlaces<0) {
 			selectStatus.value="ended";
 			boxLimit.parentNode.style.display="none";
@@ -315,12 +315,12 @@ function adminBord2 (tournament) {
 				}
 			} else if (tournament.draft>0) {
 				typeDraft.value="manual";
-				drafts.min=0;
+				drafts.min=2;
 				drafts.max=opponents;
 			} else {
-				drafts.value=0;
+				drafts.value=2;
 				typeDraft.value="manual";
-				drafts.min=0;
+				drafts.min=2;
 				drafts.max=opponents;
 			}
 			if (drafts.value!=0) {

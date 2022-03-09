@@ -12,19 +12,25 @@ if ((isset($_REQUEST))&&($_REQUEST!=null)) {
         sendRequest("UPDATE TOURNAMENT SET nbPlaces=NULL WHERE id='", $_REQUEST['idTournament'], "'");
     }
     
+    $draftType='0';
     if (isset($_REQUEST['draftBool'])) {
         if ($_REQUEST['status']=="manual") {
-            sendRequest("UPDATE TOURNAMENT SET draft=", $_REQUEST['drafts']," WHERE id='", $_REQUEST['idTournament'], "'");
+            $draftType=$_REQUEST['drafts'];
         } else if ($_REQUEST['status']=="half") {
-            sendRequest("UPDATE TOURNAMENT SET draft=-2 WHERE id='", $_REQUEST['idTournament'], "'");
+            $draftType=-2;
         } else if ($_REQUEST['status']=="quarter") {
-            sendRequest("UPDATE TOURNAMENT SET draft=-4 WHERE id='", $_REQUEST['idTournament'], "'");
+            $draftType=-4;
         } else if ($_REQUEST['status']=="eight") {
-            sendRequest("UPDATE TOURNAMENT SET draft=-8 WHERE id='", $_REQUEST['idTournament'], "'");
+            $draftType=-8;
         } else if ($_REQUEST['status']=="all") {
-            sendRequest("UPDATE TOURNAMENT SET draft=null WHERE id='", $_REQUEST['idTournament'], "'");
+            $draftType=null;
         } else {
             $erreur=1;
+        }
+        if ($draftType!=null) {
+            sendRequest("UPDATE TOURNAMENT SET draft=", $draftType," WHERE id='", $_REQUEST['idTournament'], "'");
+        } else {
+            sendRequest("UPDATE TOURNAMENT SET draft=NULL WHERE id='", $_REQUEST['idTournament'], "'");
         }
     } else {
         sendRequest("UPDATE TOURNAMENT SET draft=0 WHERE id='", $_REQUEST['idTournament'], "'");
@@ -38,8 +44,9 @@ if ((isset($_REQUEST))&&($_REQUEST!=null)) {
         }
     } else if ($_REQUEST["now"]=="started") {
         $tree = sendRequest("SELECT fighters FROM TOURNAMENT WHERE id = '", $_REQUEST['idTournament'], "'")->fetch_assoc()['fighters'];
-        $tree=prettyTable4Tournament(parseFighters($tree));
+        $tree=parseFighters(prettyTable4Tournament(parseFighters($tree)));
         //afficher les VS
+        $tree=prettyDraft4Tournament($tree, $draftType);
         sendRequest("UPDATE TOURNAMENT SET fighters='", $tree,"' WHERE id='", $_REQUEST['idTournament'], "'");
         
         sendRequest("UPDATE TOURNAMENT SET nbPlaces=0 WHERE id='", $_REQUEST['idTournament'], "'");
