@@ -95,6 +95,85 @@ function prettyTable4Tournament ($trees3) {
 	return($textFinal);
 }
 
+/*function prettyDraft4Tournament ($trees3, $draftType) {
+	$Tree=array();
+	if (($trees3==null)||(!isset($trees3))) {
+		return(null);	
+	}
+	$trees=array();
+	$trees2=array();
+	//on vérifie si le tournoi a commencé. 2 méthodes:
+	//- regarde les doublons dans le tableau
+	//- existance des repêchages
+	//on choisit la première pour récupérer les participants au passage
+	$i=0;
+	$a=1;
+	if (!isset($trees3[0][0][0])) {
+		$trees2[0]=$trees3;
+		$trees3=$trees2;
+	}
+	$fighters=recupFighters($trees3[0]);
+	$j=0;
+	$a=0;
+	foreach ($fighters as $fighter) {
+		if ($fighter[1]>1) {
+			$j=1;	
+		} else {
+			$a++;
+		}
+	}
+	if ($j!=0) { //le tournoi a commencé
+        //mettre à jour les combattants ?
+		return(stringifyFighters($trees3, $fighters));
+	}
+	//dessiner les repêchages
+    if (($a>4)&&($draftType!=0)) { //moins de 5 joueurs, pas de repêchage
+        $drafted=0;
+        if ($draftType==null) {
+            $drafted=$a;
+        } else if ($draftType==-2) {
+            if ($a>3) {
+                $drafted=2;
+            }
+        } else if ($draftType==-4) {
+            if ($a>=6) {
+                $drafted=6;
+            } else if {
+                $drafted=
+            }
+        } else if ($draftType==-8) {
+            
+        } else if ($draftType>0) {
+            $drafted=$draftType;
+        }
+            //on repêche tout le monde sauf les deux premiers
+            if ($a<6) { //cas particulier
+                $trees3[1][0]=['_','_'];
+                $trees3[1][1]=[' ','_'];
+                $trees3[1][2]=[' '];
+            } else {
+                $trees3[1][0]=['_','_'];
+                $trees3[2][0]=['_','_'];
+                $nbBoucl=floor(($a-4)/2);
+                for ($i=1; $i<$nbBoucl; $i++) {
+                    $trees3[1][$i]=['_',' '];
+                    $trees3[2][$i]=['_',' '];
+                }
+                if ($a%2==1) {
+                    $trees3[1][$nbBoucl]=['_',' '];
+                    $trees3[1][$nbBoucl+1]=[' '];
+                } else {
+                    $trees3[1][$nbBoucl]=[' '];
+                }
+                $trees3[2][$nbBoucl]=[' '];
+            }
+    }
+    
+	$trees3[0]=$Tree;
+	$textFinal=stringifyFighters($trees3, $fighters);
+	return($textFinal);
+}*/
+
 
 //Join
 
