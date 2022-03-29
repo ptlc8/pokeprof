@@ -90,7 +90,8 @@ CREATE TABLE `TOURNAMENT` (
   `name` tinytext COLLATE utf8_unicode_ci NOT NULL COMMENT 'nom du tournoi',
   `fighters` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ('') COMMENT 'tous les participants',
   `nbPlaces` int(11) DEFAULT NULL,
-  `rewards` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ('') COMMENT 'récompenses (boosters, cartes...)'
+  `rewards` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ('') COMMENT 'récompenses (boosters, cartes...)',
+  `draft` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 ALTER TABLE `BOOSTERS`
