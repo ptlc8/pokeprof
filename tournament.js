@@ -48,6 +48,7 @@ function displayTournament2(tournamentDiv, tournament, names) {
 	if (names!=null) {
 		tournamentDiv.innerHTML = "";
 		tournamentDiv.classList.add("tournament");
+		let nTree=0;
 		for (let bracket of tournament.split(";")) {
 			var turns = bracket.split(",");
 			for (let t = 0; t < turns.length; t++) {
@@ -88,7 +89,73 @@ function displayTournament2(tournamentDiv, tournament, names) {
 						]));
 				}	
 			}
+			nTree++;
 		}
+	}
+}
+
+function displayTournamentAdmin(tournamentDiv, tournament, names) {
+	if (names!=null) {
+		tournamentDiv.innerHTML = "";
+		tournamentDiv.classList.add("tournament");
+		let nTree=0;
+		for (let bracket of tournament.split(";")) {
+			var turns = bracket.split(",");
+			for (let t = 0; t < turns.length; t++) {
+				let turn = turns[t];
+				let turnDiv = createElement("div", {className:"tournament-turn"});
+				tournamentDiv.appendChild(turnDiv);
+				var fighters = turn.split(".");
+				var fightersNumber = Math.pow(2,turns.length-t-1);
+				for (let i = 0; i < fightersNumber; i+=2) {
+					console.log(PutAPlayer (tournament, names, fighters[i], nTree, t, i));
+					if (i >= fighters.length || !fighters[i])
+						turnDiv.appendChild(createElement("div", {className:"tournament-match"}, [
+							createElement("div", {className:"tournament-fighters"})
+						]));
+					else if (fighters[i+1])
+						turnDiv.appendChild(createElement("div", {className:"tournament-match"}, [
+							createElement("div", {className:"tournament-fighters"}, [
+								createElement("div",{className:"tournament-fighter-space"}),
+								createElement("span",{className:"tournament-fighter"},names[fighters[i]]),
+								//PutAPlayer (tournament, names, fighters[i], nTree, t, i),
+								createElement("div",{className:"tournament-fighter-interspace"}),
+								createElement("span",{className:"tournament-fighter"},names[fighters[i+1]])
+							]),
+							createElement("div", {className:"tournament-lines"}),
+							createElement("div", {className:"tournament-line"})
+						]));
+					else if (turn==turns[turns.length-1]) {
+						turnDiv.appendChild(createElement("div", {className:"tournament-match"}, [
+							createElement("div", {className:"tournament-fighters"}, [
+								createElement("span",{className:"tournament-alone-fighter"},names[fighters[i]]),
+								PutAPlayer (tournament, names, fighters[i], nbTree, t, i)
+							])
+						]));
+					} else {
+						turnDiv.appendChild(createElement("div", {className:"tournament-match"}, [
+							createElement("div", {className:"tournament-fighters"}, [
+								createElement("span",{className:"tournament-alone-fighter"},names[fighters[i]]),
+								PutAPlayer (tournament, names, fighters[i], nTree, t, i)
+							]),
+							createElement("div", {className:"tournament-line"}),
+							createElement("div", {className:"tournament-line"}),
+						]));
+					}
+					document.getElementById("tournament-form1").appendChild(PutAPlayer (tournament, names, fighters[i], nTree, t, i));
+				}	
+			}
+			nTree++;
+		}
+	}
+}
+
+function displayTournament3(tournamentDiv, tournament, names) {
+	if (document.getElementById("actionTournament")) {
+		displayTournamentAdmin(tournamentDiv, tournament, names);
+		//displayTournament2(tournamentDiv, tournament, names);
+	} else {
+		displayTournament2(tournamentDiv, tournament, names);
 	}
 }
 
@@ -131,7 +198,7 @@ function affGraphTournament(tournamentId, action="") {
 				window.location.href='.';
 			} else {
 				var newTab=JSON.parse(response);
-				displayTournament2(document.getElementById("tournament"), newTab.fighters, newTab.names);
+				displayTournament3(document.getElementById("tournament"), newTab.fighters, newTab.names);
 				document.getElementById("join-button").style.display="none";
 				document.getElementById("leave-button").style.display="inline-block";
 				adminBord2(newTab);
@@ -150,7 +217,7 @@ function affGraphTournament(tournamentId, action="") {
 				window.location.href='.';
 			} else {
 				var newTab=JSON.parse(response);
-				displayTournament2(document.getElementById("tournament"), newTab.fighters, newTab.names);
+				displayTournament3(document.getElementById("tournament"), newTab.fighters, newTab.names);
 				document.getElementById("leave-button").style.display="none";
 				document.getElementById("join-button").style.display="inline-block";
 				adminBord2(newTab);
@@ -164,11 +231,11 @@ function affGraphTournament(tournamentId, action="") {
 			document.getElementById("tournament-name").innerText = tournament.name;
 			if ((typeof tournament)=="string") {
 				if (tournament=="not logged") {
-					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
+					displayTournament3(document.getElementById("tournament"), tournament.fighters, tournament.names);
 					document.getElementById("join-button").style.display="inline-block";
 					document.getElementById("leave-button").style.display="none";
 				} else if (response=="ended tournament") {
-					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
+					displayTournament3(document.getElementById("tournament"), tournament.fighters, tournament.names);
 					document.getElementById("join-button").style.display="none";
 					document.getElementById("leave-button").style.display="none";
 				} else {
@@ -177,7 +244,7 @@ function affGraphTournament(tournamentId, action="") {
 				}
 			} else if ((typeof tournament)=="object") {
 				if ((tournament.include==true)) {
-					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
+					displayTournament3(document.getElementById("tournament"), tournament.fighters, tournament.names);
 					document.getElementById("join-button").style.display="none";
 					if ((tournament.nbPlaces!=null)&&(tournament.nbPlaces>0)) {
 						document.getElementById("leave-button").style.display="inline-block";
@@ -185,7 +252,7 @@ function affGraphTournament(tournamentId, action="") {
 						document.getElementById("leave-button").style.display="none";
 					}
 				} else {
-					displayTournament2(document.getElementById("tournament"), tournament.fighters, tournament.names);
+					displayTournament3(document.getElementById("tournament"), tournament.fighters, tournament.names);
 					document.getElementById("leave-button").style.display="none";
 					document.getElementById("join-button").style.display="inline-block";
 					adminBord2(tournament);
@@ -196,8 +263,8 @@ function affGraphTournament(tournamentId, action="") {
 				console.log(tournament);
 			}
 		}).catch(function(){
-			alert("Impossible d'afficher ce tournoi");
-			window.location.href='.';
+			//alert("Impossible d'afficher ce tournoi");
+			//window.location.href='.';
 		});
 	}
 }
@@ -341,4 +408,22 @@ function adminBord2 (tournament) {
 			}
 		}
 	}
+}
+
+function PutAPlayer (tournament, names, val, tree, turn, place) {
+	var list=createElement("select");
+	list.value=val;
+	for (let idName in names) {
+		if ((idName!='')&&(idName!='-')&&(idName!='_')) {
+			list.appendChild(createElement("option", {value: idName}, names[idName])).onclick=function() {
+				alert("Ajout de "+names[idName]+" au repêchages");
+				//sendRequest("POST", "modiftournament.php", "id="+tournamentId+"&player="+idName+"&tree="+tree+"&turn="+turn+"&place="+place);
+			};
+		}
+	}
+	//for (let span of document.getElementsByTagName("span").getElementsByClassName("tournament-fighter")) {
+	//	span.appendChild(list);
+	//}
+	return(list);
+	//return(createElement("span",{className:"tournament-fighter"},"allo"));
 }
