@@ -148,7 +148,7 @@ function prettyDraft4Tournament ($trees3, $draftType) {
 	$b=0;
 	foreach ($fighters as $fighter) {
 		if ($fighter[1]>1) {
-			$j=1;	
+			$j=1;
 		} else {
 			$a++;
 		}

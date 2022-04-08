@@ -95,6 +95,7 @@
 			var params = new URLSearchParams(window.location.search);
 			var tournamentId=params.get("id");
             affGraphTournament(tournamentId);
+            setInterval(()=>affGraphTournament(tournamentId),60000);
 			document.getElementById("join-button").addEventListener("click", function(e) {
 				affGraphTournament(tournamentId, "join");
 			});

@@ -108,7 +108,6 @@ function displayTournamentAdmin(tournamentDiv, tournament, names) {
 				var fighters = turn.split(".");
 				var fightersNumber = Math.pow(2,turns.length-t-1);
 				for (let i = 0; i < fightersNumber; i+=2) {
-					console.log(PutAPlayer (tournament, names, fighters[i], nTree, t, i));
 					if (i >= fighters.length || !fighters[i])
 						turnDiv.appendChild(createElement("div", {className:"tournament-match"}, [
 							createElement("div", {className:"tournament-fighters"})
@@ -117,10 +116,9 @@ function displayTournamentAdmin(tournamentDiv, tournament, names) {
 						turnDiv.appendChild(createElement("div", {className:"tournament-match"}, [
 							createElement("div", {className:"tournament-fighters"}, [
 								createElement("div",{className:"tournament-fighter-space"}),
-								createElement("span",{className:"tournament-fighter"},names[fighters[i]]),
-								//PutAPlayer (tournament, names, fighters[i], nTree, t, i),
+								createElement("span",{className:"tournament-fighter"},[PutAPlayer (tournament, names, fighters[i], nTree, t, i, "")]),
 								createElement("div",{className:"tournament-fighter-interspace"}),
-								createElement("span",{className:"tournament-fighter"},names[fighters[i+1]])
+								createElement("span",{className:"tournament-fighter"}, [PutAPlayer (tournament, names, fighters[i+1], nTree, t, i+1, "")])
 							]),
 							createElement("div", {className:"tournament-lines"}),
 							createElement("div", {className:"tournament-line"})
@@ -128,21 +126,18 @@ function displayTournamentAdmin(tournamentDiv, tournament, names) {
 					else if (turn==turns[turns.length-1]) {
 						turnDiv.appendChild(createElement("div", {className:"tournament-match"}, [
 							createElement("div", {className:"tournament-fighters"}, [
-								createElement("span",{className:"tournament-alone-fighter"},names[fighters[i]]),
-								PutAPlayer (tournament, names, fighters[i], nbTree, t, i)
+								createElement("span",{className:"tournament-alone-fighter"}, [PutAPlayer (tournament, names, fighters[i], nTree, t, i, "")])
 							])
 						]));
 					} else {
 						turnDiv.appendChild(createElement("div", {className:"tournament-match"}, [
 							createElement("div", {className:"tournament-fighters"}, [
-								createElement("span",{className:"tournament-alone-fighter"},names[fighters[i]]),
-								PutAPlayer (tournament, names, fighters[i], nTree, t, i)
+								createElement("span",{className:"tournament-alone-fighter"}, [PutAPlayer (tournament, names, fighters[i], nTree, t, i, "")])
 							]),
 							createElement("div", {className:"tournament-line"}),
 							createElement("div", {className:"tournament-line"}),
 						]));
 					}
-					document.getElementById("tournament-form1").appendChild(PutAPlayer (tournament, names, fighters[i], nTree, t, i));
 				}	
 			}
 			nTree++;
@@ -150,8 +145,8 @@ function displayTournamentAdmin(tournamentDiv, tournament, names) {
 	}
 }
 
-function displayTournament3(tournamentDiv, tournament, names) {
-	if (document.getElementById("actionTournament")) {
+function displayTournament3(tournamentDiv, tournament, names, statu) {
+	if (document.getElementById("actionTournament")&&(statu!=null)&&(statu==0)) {
 		displayTournamentAdmin(tournamentDiv, tournament, names);
 		//displayTournament2(tournamentDiv, tournament, names);
 	} else {
@@ -198,7 +193,7 @@ function affGraphTournament(tournamentId, action="") {
 				window.location.href='.';
 			} else {
 				var newTab=JSON.parse(response);
-				displayTournament3(document.getElementById("tournament"), newTab.fighters, newTab.names);
+				displayTournament3(document.getElementById("tournament"), newTab.fighters, newTab.names, newTab.nbPlaces);
 				document.getElementById("join-button").style.display="none";
 				document.getElementById("leave-button").style.display="inline-block";
 				adminBord2(newTab);
@@ -217,7 +212,7 @@ function affGraphTournament(tournamentId, action="") {
 				window.location.href='.';
 			} else {
 				var newTab=JSON.parse(response);
-				displayTournament3(document.getElementById("tournament"), newTab.fighters, newTab.names);
+				displayTournament3(document.getElementById("tournament"), newTab.fighters, newTab.names, newTab.nbPlaces);
 				document.getElementById("leave-button").style.display="none";
 				document.getElementById("join-button").style.display="inline-block";
 				adminBord2(newTab);
@@ -231,11 +226,11 @@ function affGraphTournament(tournamentId, action="") {
 			document.getElementById("tournament-name").innerText = tournament.name;
 			if ((typeof tournament)=="string") {
 				if (tournament=="not logged") {
-					displayTournament3(document.getElementById("tournament"), tournament.fighters, tournament.names);
+					displayTournament3(document.getElementById("tournament"), tournament.fighters, tournament.names, tournament.nbPlaces);
 					document.getElementById("join-button").style.display="inline-block";
 					document.getElementById("leave-button").style.display="none";
 				} else if (response=="ended tournament") {
-					displayTournament3(document.getElementById("tournament"), tournament.fighters, tournament.names);
+					displayTournament3(document.getElementById("tournament"), tournament.fighters, tournament.names, tournament.nbPlaces);
 					document.getElementById("join-button").style.display="none";
 					document.getElementById("leave-button").style.display="none";
 				} else {
@@ -244,7 +239,7 @@ function affGraphTournament(tournamentId, action="") {
 				}
 			} else if ((typeof tournament)=="object") {
 				if ((tournament.include==true)) {
-					displayTournament3(document.getElementById("tournament"), tournament.fighters, tournament.names);
+					displayTournament3(document.getElementById("tournament"), tournament.fighters, tournament.names, tournament.nbPlaces);
 					document.getElementById("join-button").style.display="none";
 					if ((tournament.nbPlaces!=null)&&(tournament.nbPlaces>0)) {
 						document.getElementById("leave-button").style.display="inline-block";
@@ -252,7 +247,7 @@ function affGraphTournament(tournamentId, action="") {
 						document.getElementById("leave-button").style.display="none";
 					}
 				} else {
-					displayTournament3(document.getElementById("tournament"), tournament.fighters, tournament.names);
+					displayTournament3(document.getElementById("tournament"), tournament.fighters, tournament.names, tournament.nbPlaces);
 					document.getElementById("leave-button").style.display="none";
 					document.getElementById("join-button").style.display="inline-block";
 					adminBord2(tournament);
@@ -262,10 +257,11 @@ function affGraphTournament(tournamentId, action="") {
 				alert("Une données n'a pas le bon type! Ouvre vite la console de la page!");
 				console.log(tournament);
 			}
-		}).catch(function(){
+		});
+		/*.catch(function(){
 			//alert("Impossible d'afficher ce tournoi");
 			//window.location.href='.';
-		});
+		});*/
 	}
 }
 
@@ -385,9 +381,9 @@ function adminBord2 (tournament) {
 				drafts.min=2;
 				drafts.max=opponents;
 			} else {
-				drafts.value=2;
+				drafts.value=0;
 				typeDraft.value="manual";
-				drafts.min=2;
+				drafts.min=0;
 				drafts.max=opponents;
 			}
 			if (drafts.value!=0) {
@@ -410,17 +406,20 @@ function adminBord2 (tournament) {
 	}
 }
 
-function PutAPlayer (tournament, names, val, tree, turn, place) {
+function PutAPlayer (tournament, names, val, tree, turn, place, classSelect) {
 	var list=createElement("select");
-	list.value=val;
+	if (classSelect!="") {
+		list.className=classSelect;
+	}
 	for (let idName in names) {
 		if ((idName!='')&&(idName!='-')&&(idName!='_')) {
 			list.appendChild(createElement("option", {value: idName}, names[idName])).onclick=function() {
-				alert("Ajout de "+names[idName]+" au repêchages");
-				//sendRequest("POST", "modiftournament.php", "id="+tournamentId+"&player="+idName+"&tree="+tree+"&turn="+turn+"&place="+place);
+				//alert("Ajout de "+names[idName]+" au repêchages");
+				sendRequest("POST", "modiftournament.php", "idTournament="+tournamentId+"&player="+idName+"&tree="+tree+"&turn="+turn+"&place="+place);
 			};
 		}
 	}
+	list.value=val;
 	//for (let span of document.getElementsByTagName("span").getElementsByClassName("tournament-fighter")) {
 	//	span.appendChild(list);
 	//}

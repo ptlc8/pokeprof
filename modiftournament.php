@@ -5,7 +5,13 @@ include("functiontournament.php");
 
 $erreur=0;
 
-if ((isset($_REQUEST))&&($_REQUEST!=null)) {
+
+if ((isset($_REQUEST))&&($_REQUEST!=null)&&(isset($_REQUEST['tree']))) {
+    $tree = sendRequest("SELECT fighters FROM TOURNAMENT WHERE id = '", $_REQUEST['idTournament'], "'")->fetch_assoc()['fighters'];
+    $tree=parseFighters(prettyTable4Tournament(parseFighters($tree)));
+    $tree[$_REQUEST['tree']][$_REQUEST['turn']][$_REQUEST['place']]=$_REQUEST['player'];
+    sendRequest("UPDATE TOURNAMENT SET fighters='", stringifyFighters($tree,null),"' WHERE id='", $_REQUEST['idTournament'], "'");
+} else if ((isset($_REQUEST))&&($_REQUEST!=null)&&(!isset($_REQUEST['tree']))) {
     if (isset($_REQUEST['limitBool'])) {
         sendRequest("UPDATE TOURNAMENT SET nbPlaces=", $_REQUEST['nb_places'], " WHERE id='", $_REQUEST['idTournament'], "'");
     } else {
@@ -37,7 +43,7 @@ if ((isset($_REQUEST))&&($_REQUEST!=null)) {
     }
     
     if ($_REQUEST["now"]=="inscriptions") {
-        if ($_REQUEST['nb_places']<=0) {
+        if (($_REQUEST['nb_places']<=0)||(!isset($_REQUEST['limitBool']))) {
             sendRequest("UPDATE TOURNAMENT SET nbPlaces=NULL WHERE id='", $_REQUEST['idTournament'], "'");
         } else {
             sendRequest("UPDATE TOURNAMENT SET nbPlaces=", $_REQUEST['nb_places'], " WHERE id='", $_REQUEST['idTournament'], "'");
