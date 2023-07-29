@@ -7,7 +7,7 @@ $user = login(false, true);
 // connexion au compte cards
 $result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
 if ($result->num_rows === 0) {
-	exit('Veuillez d\'abord aller à la page suivante : '.$_SERVER['SERVER_NAME'].'/cards');
+	exit('Veuillez d\'abord aller à la page d\'accueil');
 }
 $cardsUser = $result->fetch_assoc();
 
@@ -44,7 +44,7 @@ if (isset($_REQUEST['opponent'])) { // si le joueur veut affronter un joueur pr�
 		}
 	}
 } else { // sinon on retourne les adversaire en recherche
-    $result = sendRequest("SELECT * FROM `CARDSUSERS` JOIN USERS ON CARDSUSERS.id=USERS.id WHERE TIMESTAMPDIFF(SECOND, lastSearchDate, NOW()) <= 5 AND CARDSUSERS.id != ", $cardsUser['id']);
+    $result = sendRequest("SELECT * FROM `CARDSUSERS` WHERE TIMESTAMPDIFF(SECOND, lastSearchDate, NOW()) <= 5 AND CARDSUSERS.id != ", $cardsUser['id']);
 	$opponents = '';
 	while (($opponent = $result->fetch_assoc()) != null)
 		$opponents .= ' '.$opponent['name'].' '.$opponent['id'];

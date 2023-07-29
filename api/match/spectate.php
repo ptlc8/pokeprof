@@ -14,7 +14,7 @@ $action = $_REQUEST['action'];
 $matchId = $_REQUEST['match'];
 
 // vérification de l'existence du match et récupération
-$result = sendRequest("SELECT MATCHES.*, U1.name AS opponent1Name, CU1.trophies as opponent1Trophies, U2.name AS opponent2Name, CU2.trophies as opponent2Trophies FROM `MATCHES` JOIN USERS U1 ON U1.id=opponent1 JOIN CARDSUSERS CU1 ON CU1.id=U1.id JOIN USERS U2 ON U2.id=opponent2 JOIN CARDSUSERS CU2 ON CU2.id=U2.id WHERE MATCHES.id = '".$matchId."'");
+$result = sendRequest("SELECT MATCHES.*, CU1.name AS opponent1Name, CU1.trophies as opponent1Trophies, CU2.name AS opponent2Name, CU2.trophies as opponent2Trophies FROM `MATCHES` JOIN CARDSUSERS CU1 ON CU1.id = opponent1 JOIN CARDSUSERS CU2 ON CU2.id = opponent2 WHERE MATCHES.id = '".$matchId."'");
 if ($result->num_rows === 0)
 	exit("not");
 $resultMatch = $result->fetch_assoc();

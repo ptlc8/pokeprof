@@ -637,7 +637,7 @@ async function printCardAbout(cardId) {
     shareButton.innerText = 'Partager';
     shareButton.onclick = function(e) {
         e.stopPropagation();
-        let url = window.location.protocol+"//"+window.location.host+"/cards/gallery#"+cardId;
+        let url = window.location.origin+window.location.pathname.split(/[^\/]*$/)[0]+"gallery.php#"+cardId;
         if (navigator.share)
             return navigator.share({url:url});
         if (navigator.clipboard)
@@ -651,7 +651,7 @@ async function printCardAbout(cardId) {
             document.execCommand('copy');
             document.body.removeChild(input);
         }
-        alert("L'url a bien été copiée !");
+        setTimeout(() => alert("L'url a bien été copiée !"), 100);
     };
     infos.appendChild(br);
     infos.appendChild(shareButton);

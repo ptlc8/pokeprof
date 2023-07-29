@@ -19,7 +19,7 @@ if (!isset($_REQUEST['action']))
 $action = $_REQUEST['action'];
 
 // vérification de la présence dans un match et récupération
-$result = sendRequest("SELECT MATCHES.*, USERS.name AS opponentName, CARDSUSERS.trophies as opponentTrophies, USERS.id AS opponentId FROM `MATCHES` JOIN USERS ON (USERS.id = opponent1 OR USERS.id = opponent2) JOIN CARDSUSERS ON (CARDSUSERS.id = USERS.id) AND USERS.id != '".$cardsUser['id']."' WHERE opponent1 = '".$cardsUser['id']."' OR opponent2 = '".$cardsUser['id']."' ORDER BY MATCHES.id DESC");
+$result = sendRequest("SELECT MATCHES.*, CARDSUSERS.name AS opponentName, CARDSUSERS.trophies as opponentTrophies, CARDSUSERS.id AS opponentId FROM `MATCHES` JOIN CARDSUSERS ON (CARDSUSERS.id = opponent1 OR CARDSUSERS.id = opponent2) AND CARDSUSERS.id != '".$cardsUser['id']."' WHERE opponent1 = '".$cardsUser['id']."' OR opponent2 = '".$cardsUser['id']."' ORDER BY MATCHES.id DESC");
 if ($result->num_rows === 0)
 	exit("not");
 $resultMatch = $result->fetch_assoc();
@@ -116,8 +116,8 @@ foreach ($match->history as $action) {
 			$end = true;
 			$winnerId = $resultMatch['opponent'.($action->winner+1)];
 			$loserId = $resultMatch['opponent'.(($action->winner==0?1:0)+1)];
-			$winner = sendRequest("SELECT CARDSUSERS.*, USERS.name FROM CARDSUSERS JOIN USERS ON USERS.id = CARDSUSERS.id WHERE CARDSUSERS.id = '", $winnerId, "'")->fetch_assoc();
-			$loser = sendRequest("SELECT CARDSUSERS.*, USERS.name FROM CARDSUSERS JOIN USERS ON USERS.id = CARDSUSERS.id WHERE CARDSUSERS.id = '", $loserId, "'")->fetch_assoc();
+			$winner = sendRequest("SELECT CARDSUSERS.* FROM CARDSUSERS WHERE CARDSUSERS.id = '", $winnerId, "'")->fetch_assoc();
+			$loser = sendRequest("SELECT CARDSUSERS.* FROM CARDSUSERS WHERE CARDSUSERS.id = '", $loserId, "'")->fetch_assoc();
 			sendRequest("UPDATE `CARDSUSERS` SET `rewardLevel` = '", intval($winner['rewardLevel'])+$action->winnerReward, "', `trophies` = '", intval($winner['trophies'])+$action->gain, "' WHERE `CARDSUSERS`.`id` = '", $winnerId, "'");
 			sendRequest("UPDATE `CARDSUSERS` SET `rewardLevel` = '", intval($loser['rewardLevel'])+$action->loserReward, "', `trophies` = '", max(0, intval($loser['trophies'])-$action->lost), "' WHERE `CARDSUSERS`.`id` = '", $loserId, "'");
 			if ($winnerId>=-1 && $loserId>=-1) {

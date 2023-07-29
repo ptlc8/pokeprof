@@ -5,7 +5,7 @@ include('../init.php');
 $user = login(false, true);
 $cardsUserRequest = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
 if ($cardsUserRequest->num_rows==0)
-    exit('Veuillez d\'abord aller à la page '.$_SERVER['HOST_NAME'].'/cards');
+    exit('Veuillez d\'abord aller à la page d\'accueil');
 $cardsUser = $cardsUserRequest->fetch_assoc();
 
 if (!isset($_REQUEST['name']) || $_REQUEST['name']=='') exit('La carte a besoin d\'un nom');

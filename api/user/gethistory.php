@@ -5,7 +5,7 @@ include("../init.php");
 $user = login(false, true);
 
 // récupération de l'historique
-$history = sendRequest("SELECT CARDSMATCHESHISTORY.*, USERS.name as opponentName FROM CARDSMATCHESHISTORY JOIN USERS ON (USERS.id=opponentId1 AND opponentId2='",$user['id'],"' OR USERS.id=opponentId2 AND opponentId1='",$user['id'],"') WHERE USERS.id != '", $user['id'], "' ORDER BY date DESC LIMIT 8")->fetch_all(MYSQLI_ASSOC);
+$history = sendRequest("SELECT CARDSMATCHESHISTORY.*, CARDSUSERS.name as opponentName FROM CARDSMATCHESHISTORY JOIN CARDSUSERS ON (CARDSUSERS.id=opponentId1 AND opponentId2='",$user['id'],"' OR CARDSUSERS.id=opponentId2 AND opponentId1='",$user['id'],"') WHERE CARDSUSERS.id != '", $user['id'], "' ORDER BY date DESC LIMIT 8")->fetch_all(MYSQLI_ASSOC);
 foreach($history as $i=>$match) {
     $history[$i]['deck1'] = json_decode($history[$i]['deck1']);
     $history[$i]['deck2'] = json_decode($history[$i]['deck2']);

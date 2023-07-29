@@ -52,7 +52,7 @@
 		// récupération des cartes et du deck du joueur
 		$result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
 		if ($result->num_rows === 0) {
-			sendRequest("INSERT INTO `CARDSUSERS` (`id`, `rewardLevel`) VALUES ('", $user['id'], "', '45')");
+			sendRequest("INSERT INTO `CARDSUSERS` (`id`, `name`, `rewardLevel`) VALUES ('", $user['id'], "', '", $user['name'], "', '45')");
 			$result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
 			$_REQUEST['tuto'] = 'tuto';
 		}
@@ -103,7 +103,7 @@
 		<table id="podium">
 			<tr><td colspan="2">Top 10 🥇🥈🥉</td></tr>
 			<?php
-				$result = sendRequest("SELECT trophies, USERS.name, USERS.id FROM CARDSUSERS JOIN USERS ON USERS.id = CARDSUSERS.id ORDER BY trophies DESC, id DESC LIMIT 10");
+				$result = sendRequest("SELECT trophies, name, id FROM CARDSUSERS ORDER BY trophies DESC, id DESC LIMIT 10");
 				while ($player = $result->fetch_assoc())
 					echo '<tr><td><a href="#user='.$player['id'].'">'.htmlspecialchars($player['name']).'</a></td><td>'.$player['trophies'].' 🏆</td></tr>';
 			?>

@@ -84,7 +84,7 @@ if (defined('POKEPROF_WEBHOOK_CARD_EDIT') && POKEPROF_WEBHOOK_CARD_EDIT!=null) {
 		$official = isset($_REQUEST['official']) ? intval($_REQUEST['official']) : 1;
 		$cardInfos = json_decode($card['infos']);
 		if ($official==2) {
-		    $content = '__✨ **Ajout** de la carte **'.$card['name'].'** ('.$card['id'].') de '.(sendRequest("SELECT name FROM USERS WHERE id = '".$card['authorId']."'")->fetch_assoc()['name']).'__';
+		    $content = '__✨ **Ajout** de la carte **'.$card['name'].'** ('.$card['id'].') de '.(sendRequest("SELECT name FROM CARDSUSERS WHERE id = '".$card['authorId']."'")->fetch_assoc()['name']).'__';
 		    $content .= "\n".'Disponible dans le booster **'.(sendRequest("SELECT name FROM BOOSTERS WHERE id = '", $_REQUEST['boosterId']??$card['boosterId'], "'")->fetch_assoc()['name']).'**';
 		    if ($_REQUEST['prestigeable'] ?? $card['prestigeable']) $content .= "\n".'Disponible en version prestige/fullart';
 		} else {

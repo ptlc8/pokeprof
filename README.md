@@ -19,6 +19,9 @@ define('POKEPROF_DB_NAME', 'pokeprof');
 define('POKEPROF_WEBHOOK_CARD_CREATE', null);
 define('POKEPROF_WEBHOOK_CARD_EDIT', null);
 define('POKEPROF_WEBHOOK_ERROR', null);
+define('POKEPROF_CONNECT_URL', 'http://localhost/connect.php?app=pokeprof&params=');
+define('POKEPROF_AVATAR_URL', 'http://localhost/avatar.php?id=');
+define('POKEPROF_USER_URL', 'http://localhost/api/user.php?token=');
 ?>
 ```
  - exécuter dans la base de données le script SQL [init.sql](init.sql)

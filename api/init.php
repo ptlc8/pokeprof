@@ -29,19 +29,18 @@ function sendRequest(...$requestFrags) {
 // connexion à un compte
 function login($echoDetails=false, $force=false) {
     session_start();
-    if (!isset($_SESSION['username'], $_SESSION['password']) || ($userRequest = sendRequest("SELECT * FROM USERS WHERE `name` = '", $_SESSION['username'], "' and `password` = '", $_SESSION['password'], "'"))->num_rows === 0) {
+    if (!isset($_SESSION['pokeprof_token']) || ($user = getUser($_SESSION['pokeprof_token'])) == null) {
         if ($echoDetails) {
-        	if ($force) header('Location: connect.php?go='.urlencode($_SERVER['REQUEST_URI']));
+            if ($force) header('Location: connect.php?go='.urlencode($_SERVER['REQUEST_URI']));
         	else echo('<span id="login" class="button" onclick="window.location.href = (\'connect.php?go=\'+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search))">Se connecter</span>');
         } else if ($force)
-            exit("not logged");
+        exit("not logged");
     	return null;
     } else {
-    	$user = $userRequest->fetch_assoc();
-    	sendRequest("UPDATE CARDSUSERS SET lastConnection = NOW() WHERE id = '", $user['id'], "'");
+        sendRequest("UPDATE CARDSUSERS SET lastConnection = NOW() WHERE id = '", $user['id'], "'");
     	if ($echoDetails) {
     	    echo('<span id="logged">Vous êtes connecté en tant que '.htmlspecialchars($user['name']).'</span>');
-    	    echo('<a href="/disconnect.php?back" id="log-out">Se déconnecter</a>');
+    	    echo('<a href="disconnect.php?back" id="log-out">Se déconnecter</a>');
     	}
     }
 
@@ -61,6 +60,14 @@ function login($echoDetails=false, $force=false) {
         $userinfos=$infoslist2;
     }
     return $user;
+}
+
+// récupération des informations externes de l'utilisateur connecté
+function getUser($token) {
+    if (!isset($token)) return null;
+    $response = file_get_contents(POKEPROF_USER_URL.$token);
+    if ($response === false) return null;
+    return json_decode($response, true);
 }
 
 // envoi d'un message dans un salon Discord via un webhook

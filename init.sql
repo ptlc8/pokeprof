@@ -31,7 +31,7 @@ CREATE TABLE `CARDS` (
   `uses` int(11) NOT NULL DEFAULT 0 COMMENT 'nombre de match de la carte',
   `wins` int(11) NOT NULL DEFAULT 0 COMMENT 'nombre de victoire de la carte',
   `prestigeable` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'possibilité de l''obtenir en version prestige',
-  `lastEditDate` date NOT NULL DEFAULT '0000-00-00' COMMENT 'date du dernier patch de la carte'
+  `lastEditDate` date NOT NULL DEFAULT '0000-01-01' COMMENT 'date du dernier patch de la carte'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Toutes les cartes créées';
 
 CREATE TABLE `CARDSMATCHESHISTORY` (
@@ -48,13 +48,14 @@ CREATE TABLE `CARDSMATCHESHISTORY` (
 
 CREATE TABLE `CARDSUSERS` (
   `id` int(11) NOT NULL COMMENT 'id de l''utilisateur',
+  `name` tinytext COLLATE utf8_unicode_ci NOT NULL COMMENT 'nom de l''utilisateur',
   `admin` tinyint(1) NOT NULL DEFAULT 0,
   `cards` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ('{}') COMMENT 'toutes ses cartes',
   `deck` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ('[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]') COMMENT 'son deck',
   `choosenDeck` tinyint(4) NOT NULL DEFAULT 0,
   `trophies` int(11) NOT NULL DEFAULT 0,
-  `lastSearchDate` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'dernière recherche d''adversaire',
-  `lastFreeCard` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'dernière carte gratuite',
+  `lastSearchDate` datetime NOT NULL DEFAULT '0000-01-01 00:00:00' COMMENT 'dernière recherche d''adversaire',
+  `lastFreeCard` timestamp NOT NULL DEFAULT '2000-01-01 00:00:00' COMMENT 'dernière carte gratuite',
   `money` int(11) NOT NULL DEFAULT 10 COMMENT 'argent du joueur',
   `rewardLevel` int(11) NOT NULL DEFAULT 70 COMMENT 'niveau de récompenses',
   `infos` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT (''),
@@ -74,15 +75,6 @@ CREATE TABLE `MATCHES` (
   `opponent2` int(11) NOT NULL COMMENT 'id de l''aversaire 2',
   `infos` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT ('{}') COMMENT 'decks, mains, profs des deux adversaires',
   `end` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-CREATE TABLE `USERS` (
-  `id` int(11) NOT NULL COMMENT 'id de l''utilisateur',
-  `email` varchar(64) COLLATE utf8_unicode_ci NOT NULL COMMENT 'E-mail de l''utilisateur',
-  `name` tinytext COLLATE utf8_unicode_ci NOT NULL COMMENT 'nom de l''utilisateur',
-  `password` varchar(128) COLLATE utf8_unicode_ci NOT NULL COMMENT 'mot de passe de l''utilisateur',
-  `firstName` tinytext COLLATE utf8_unicode_ci NOT NULL COMMENT 'Prénom',
-  `lastName` tinytext COLLATE utf8_unicode_ci NOT NULL COMMENT 'Nom de famille'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 ALTER TABLE `BOOSTERS`
@@ -111,10 +103,6 @@ ALTER TABLE `MATCHES`
   ADD KEY `opponent1` (`opponent1`),
   ADD KEY `opponent2` (`opponent2`);
 
-ALTER TABLE `USERS`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
-
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
@@ -134,22 +122,16 @@ ALTER TABLE `FIGHTERSCARDSTYPES`
 ALTER TABLE `MATCHES`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id du match';
 
-ALTER TABLE `USERS`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de l''utilisateur';
-
 --
 -- Contraintes pour les tables déchargées
 --
 
 ALTER TABLE `CARDS`
-  ADD CONSTRAINT `cards_link_` FOREIGN KEY (`authorId`) REFERENCES `USERS` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `cards_link_` FOREIGN KEY (`authorId`) REFERENCES `CARDSUSERS` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `CARDSMATCHESHISTORY`
   ADD CONSTRAINT `opponentId1` FOREIGN KEY (`opponentId1`) REFERENCES `CARDSUSERS` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `opponentId2` FOREIGN KEY (`opponentId2`) REFERENCES `CARDSUSERS` (`id`) ON UPDATE CASCADE;
-
-ALTER TABLE `CARDSUSERS`
-  ADD CONSTRAINT `cardsusers_link_user` FOREIGN KEY (`id`) REFERENCES `USERS` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `MATCHES`
   ADD CONSTRAINT `matches_link_o1` FOREIGN KEY (`opponent1`) REFERENCES `CARDSUSERS` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -160,5 +142,4 @@ COMMIT;
 -- Création du compte Bot
 --
 
-INSERT INTO `USERS` (`id`, `email`, `name`, `password`, `firstName`, `lastName`) VALUES ('-807', 'bot@bot', 'Bot', 'bot', 'Le', 'bot');
-INSERT INTO `CARDSUSERS` (`id`) VALUES ('-807')
+INSERT INTO `CARDSUSERS` (`id`, `name`) VALUES ('-807', 'Bot');
