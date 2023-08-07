@@ -155,7 +155,7 @@
 		    	});
 		    }
 		    function chooseDeck(n) {
-		        sendRequest("POST", "api/user/choosedeck.php", "deck="+n);
+		        sendRequest("POST", "api/user/deck/choose.php", "deck="+n);
 		        choosenDeck = n;
 		        showDeck(n);
 		    }

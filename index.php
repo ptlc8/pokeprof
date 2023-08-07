@@ -654,7 +654,7 @@
 
 			function buyDeckSlot() {
 				let promise = new Promise((resolve, reject) =>{
-					displayLoading(sendRequest("POST", "api/user/adddeckslot.php")).then(function(response) {
+					displayLoading(sendRequest("POST", "api/user/deck/addslot.php")).then(function(response) {
 						if (response == "need money") {
 							aff("Tu manques de 💳");
 							resolve();
