@@ -25,5 +25,12 @@ define('POKEPROF_USER_URL', 'http://localhost/api/user.php?token=');
 ?>
 ```
  - exécuter dans la base de données le script SQL [init.sql](init.sql)
- - optionnel : faire en sorte que [onceaday.php](onceaday.php) s'exécute une fois par jour
+ - optionnel : faire en sorte que [onceaday.php](api/onceaday.php) s'exécute une fois par jour
  - lancer le serveur php
+
+
+## Administration
+
+Le jeu n'est pas autonome, il nécessite une intervention humaine pour être jouable. Notamment pour la modération des cartes et la création des scripts.
+
+Des explications sur la création des scripts sont disponibles dans [scripts.md](scripts.md).
