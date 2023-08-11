@@ -240,9 +240,11 @@ if (isset($_REQUEST['error'])) {
 							}
 							break;
 						case "setmana":
+							playSound("nextturn", "wav");
 							match.opponents[action.playerId].mana = action.mana;
 							break;
 						case "playfightercard":
+							playSound("cardPlace", "ogg", 4);
 							if (action.playerId == match.playerId) {
 								let card = player.hand.splice(action.index, 1)[0];
 								player.mana -= card.cost;
@@ -260,12 +262,14 @@ if (isset($_REQUEST['error'])) {
 							}
 							break;
 						case "summon": // et invoc
+							playSound("summon", "mp3", 3);
 							let opponent = match.opponents[action.teamId];
 							opponent.profs.push(action.card);
 							let cardDiv = createGamePlacedCard(action.card.id, {x:50, y:50, edit:action.card});
 							(action.teamId==match.playerId?playerFightersDivs:opponentFightersDivs).push(cardDiv);
 							break;
 						case "playplacecard":
+							playSound("cardPlace", "ogg", 4);
 							if (action.playerId == match.playerId) {
 								let card = player.hand.splice(action.index, 1)[0];
 								player.mana -= action.card.cost;
@@ -283,6 +287,7 @@ if (isset($_REQUEST['error'])) {
 							}
 							break;
 						case "eliminate":
+							playSound("cardSlide", "ogg", 8);
 							if (action.teamId == match.playerId) {
 								player.discard.push(player.profs.splice(action.index, 1)[0]);
 								let oldDiscard = playerDiscardDiv;
@@ -297,6 +302,7 @@ if (isset($_REQUEST['error'])) {
 							}
 							break;
 						case "draw":
+							playSound("cardTakeOutPackage", "ogg", 2);
 							if (action.playerId == match.playerId) {
 								match.opponents[action.playerId].deck--;
 								match.opponents[action.playerId].hand.push(action.card);
@@ -308,6 +314,7 @@ if (isset($_REQUEST['error'])) {
 							}
 							break;
 						case "playeffectcard":
+							playSound("cardPlace", "ogg", 4);
 							if (action.playerId == match.playerId) {
 								let card = player.hand.splice(action.index, 1)[0];
 								player.mana -= action.card.cost;
@@ -325,6 +332,7 @@ if (isset($_REQUEST['error'])) {
 							}
 							break;
 						case "attack": {
+							playSound("fightImpact", "mp3", 20);
 							let target = getCard(action.target);
 							let damage = action.damage;
 							if (target.shield) {
@@ -350,6 +358,7 @@ if (isset($_REQUEST['error'])) {
 							getCard(action.target).mi = false;
 							break;
 						case "heal":
+							playSound("heal", "wav");
 							let target = getCard(action.target);
 							target.hp = Math.min(target.hp+action.heal, target.hpmax||160);
 							agent = getCard(action.agent);
@@ -392,6 +401,7 @@ if (isset($_REQUEST['error'])) {
 						    }
 							break;
 						case "leaveplace":
+							playSound("cardSlide", "ogg", 8);
 							let placeCard = match.place.pop();
 							if (placeDiv) {
 							    let oldPlaceDiv = placeDiv;
@@ -405,9 +415,11 @@ if (isset($_REQUEST['error'])) {
 							match.opponents[action.playerId].mana = Math.max(0, match.opponents[action.playerId].mana-action.mana);
 							break;
 						case "givemana":
+							playSound("nextturn", "wav");
 							match.opponents[action.playerId].mana += action.mana;
 							break;
 						case "drop":
+							playSound("cardSlide", "ogg", 8);
 							if (action.playerId==match.playerId) {
 								player.discard.push(player.hand.splice(action.index,1)[0]);
 								if (playerDiscardDiv) playerDiscardDiv.parentElement.removeChild(playerDiscardDiv);
@@ -433,6 +445,7 @@ if (isset($_REQUEST['error'])) {
 							displayParticle("fist", {targetPos:getCardDiv(action.target),text:action.strength,textColor:"black"});
 							break;
 						case "convert": {
+							playSound("cardSlide", "ogg", 8);
 							let opponent = match.opponents[match.playerId==0?1:0];
 							if (action.playerId == match.playerId) {
 								player.profs.push(opponent.profs.splice(action.index,1)[0]);
@@ -447,6 +460,7 @@ if (isset($_REQUEST['error'])) {
 							match.ended = true;
 							break;
 						case "rescue":
+							playSound("cardTakeOutPackage", "ogg", 2);
 							let card = match.opponents[action.playerId].discard.splice(action.index, 1)[0];
 							card.t = 0;
 							card.eg = card.mi = false;
@@ -457,6 +471,7 @@ if (isset($_REQUEST['error'])) {
 							(action.playerId==match.playing?playerFightersDivs:opponentFightersDivs).push(createGamePlacedCard(card.id, {x:50, y:50, edit:card}));
 							break;
 						case "givecard": {
+							playSound("cardSlide", "ogg", 8);
 							if (action.playerId==match.playerId) player.hand.push(action.card);
 							else match.opponents[action.playerId].hand++;
 							let cardDiv = createGamePlacedCard(action.card.id, {x:50, y:50, edit:action.card});
@@ -464,6 +479,7 @@ if (isset($_REQUEST['error'])) {
 							await sleep(500);
 							break; }
 						case "retreat":
+							playSound("cardSlide", "ogg", 8);
 							if (action.playerId == match.playerId) {
 							    var fighter = player.profs.splice(action.index,1)[0];
 								fighter.t = 0;
@@ -939,6 +955,12 @@ if (isset($_REQUEST['error'])) {
 				cardDiv.style.top = prevTop;
 				cardDiv.style.left = prevLeft;
 				await sleep(200);
+			}
+
+			// Jouer un son
+			function playSound(name, ext="mp3", count=0) {
+				let audio = new Audio("assets/sounds/" + name + (count != 0 ? parseInt(Math.random() * count) + 1 : "") + "." + ext);
+				audio.play();
 			}
 			
 			// Décompiler un script de compétence de carte
