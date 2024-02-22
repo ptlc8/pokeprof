@@ -2,12 +2,15 @@
 
 Poképrof est un jeu de cartes en ligne, les utilisateurs peuvent créer des cartes, jouer avec etc
 
-La version Poképrof de l'EISTI (ex CY Tech) est actuellement à cette URL : [ambi.dev/cards](https://ambi.dev/cards). (BDD 10.5.12-MariaDB-cll-lve, PHP 7.2.34) La branche master y est auto-déployer à chaque push.
+![Capture d'écran de Brali en 2022](screenshot.jpg)
+
+La version Poképrof de l'EISTI (ex CY Tech) est actuellement à cette URL : [ambi.dev/pokeprof](https://ambi.dev/pokeprof). (BDD MariaDB, PHP 8.2)
+La branche master y est auto-déployer à chaque push.
 
 ## Lancer en local
 
 Il est possible de lancer le projet en local.
-Pour cela il faut faudra PHP et mysql.
+Pour cela il faut faudra PHP et MySQL (ou MariaDB).
  - cloner le projet
  - créer un fichier credentials.php dans le dossier api contenant identifiants de la base de données, sous cette forme :
 ```php
@@ -26,6 +29,7 @@ define('POKEPROF_USER_URL', 'http://localhost/api/user.php?token=');
 ```
  - exécuter dans la base de données le script SQL [init.sql](init.sql)
  - optionnel : faire en sorte que [onceaday.php](api/onceaday.php) s'exécute une fois par jour
+ - si besoin : `chown -R www-data:www-data cached`
  - lancer le serveur php
 
 
