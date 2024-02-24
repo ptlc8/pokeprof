@@ -1,0 +1,6 @@
+Require all granted
+Options FollowSymLinks
+
+RewriteEngine On
+RewriteRule ^api/user/?$ api/user/get.php [NC,L]
+RewriteRule ^api/(.*)/(\d+)$ api/$1/get.php?id=$2
