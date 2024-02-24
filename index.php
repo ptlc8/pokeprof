@@ -1,3 +1,17 @@
+<?php
+include('api/init.php');
+$user = login(true);
+
+// récupération des cartes et du deck du joueur
+$result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
+if ($result->num_rows === 0) {
+	sendRequest("INSERT INTO `CARDSUSERS` (`id`, `name`, `rewardLevel`) VALUES ('", $user['id'], "', '", $user['name'], "', '45')");
+	$result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
+	$_REQUEST['tuto'] = 'tuto';
+}
+$cardsUser = $result->fetch_assoc();
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -45,20 +59,8 @@
 	</head>
 	<body class="middle">
 		<div id="background"></div>
-		<?php
-		include('api/init.php');
-		$user = login(true, true);
-		
-		// récupération des cartes et du deck du joueur
-		$result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
-		if ($result->num_rows === 0) {
-			sendRequest("INSERT INTO `CARDSUSERS` (`id`, `name`, `rewardLevel`) VALUES ('", $user['id'], "', '", $user['name'], "', '45')");
-			$result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
-			$_REQUEST['tuto'] = 'tuto';
-		}
-		$cardsUser = $result->fetch_assoc();
-		
-		?>
+		<span id="logged">Vous êtes connecté en tant que <?= htmlspecialchars($user['name']) ?></span>
+    	<a href="disconnect.php?back" id="log-out">Se déconnecter</a>
 		<span id="title" class="title">PokéProf !</span>
 		<a href="deck.php<?= isset($_REQUEST['tuto'])?'?tuto':'' ?>" id="deck">
 			<div class="full-width"><span class="subtitle">Ton jeu de cartes</span></div>
@@ -176,15 +178,6 @@
 				};
 				f();
 			}
-			function post(url, content='', onResponse=()=>{}) {
-				var xhr = new XMLHttpRequest();
-				xhr.open("POST", url);
-				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				xhr.onreadystatechange = function() {
-					if (this.readyState === XMLHttpRequest.DONE && this.status === 200) onResponse(xhr.responseText);
-				};
-				xhr.send(content);
-			}
 			function setRewardLevel(l) {
 				var cells = document.querySelectorAll('#rewards-progress > div');
 				var rewards = document.querySelectorAll("#get-rewards > div");
@@ -280,7 +273,7 @@
 		}
 		
 		function sendinfo(info){
-			post('api/user/postinfo.php',info);
+			sendRequest('POST', 'api/user/postinfo.php', info);
 			//window.open('./postinfo.php?' + info, ' ',"height=1,width=1,alwaysLowered=yes,left=1920,top=1080");
 			//self.focus();
 			reload();

@@ -5,7 +5,10 @@ if (!isset($_REQUEST['deck']))
 
 // connexion 
 include('../../init.php');
-$user = login(false, true);
+$user = login();
+if ($user == null)
+    exit("not logged");
+
 $result = sendRequest("SELECT deck, choosenDeck FROM CARDSUSERS WHERE id = '", $user['id'], "'");
 if ($result->num_rows === 0)
 	exit('invalid account');

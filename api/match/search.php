@@ -2,7 +2,8 @@
 include('../init.php');
 
 // connexion à un compte
-$user = login(false, true);
+$user = login();
+if ($user == null) exit("not logged");
 
 // connexion au compte cards
 $result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
@@ -78,7 +79,7 @@ foreach(array($cardsUser,$opponentCardsUser) as $cU) {
 	    array_push($o->hand, array_pop($o->deck));
 	array_push($opponents, $o);
 }
-$match = new Match($opponents);
+$match = new Match_($opponents);
 $totalCartes = count($allcards);
 $nbCartes = min($totalCartes, count((array)json_decode($cardsUser['cards'])));
 $q = ($totalCartes/2 - abs($nbCartes-$totalCartes/2)) / 2; // int : coefficient de divergence du niveu du bot, une personne sans carte sera contre un bot de niveau 0 et une persone ayant toutes les cartes contre un bot de niveau max, il est divisé par 2 ainsi quelqu'un ayant la moitié des cartes aura un bot de niveau >25% et <75%

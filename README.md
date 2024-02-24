@@ -29,7 +29,7 @@ define('POKEPROF_USER_URL', 'http://localhost/api/user.php?token=');
 ```
  - exécuter dans la base de données le script SQL [init.sql](init.sql)
  - optionnel : faire en sorte que [onceaday.php](api/onceaday.php) s'exécute une fois par jour
- - si besoin : `chown -R www-data:www-data cached`
+ - si besoin : `chown -R www-data:www-data cached assets/cards `
  - lancer le serveur php
 
 

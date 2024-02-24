@@ -2,7 +2,8 @@
 include('../init.php');
 
 // connexion à un compte
-$user = login(false, true);
+$user = login();
+if ($user == null) exit("not logged");
 $cardsUserRequest = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
 if ($cardsUserRequest->num_rows==0)
     exit('Veuillez d\'abord aller à la page d\'accueil');

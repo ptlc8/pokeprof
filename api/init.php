@@ -27,21 +27,14 @@ function sendRequest(...$requestFrags) {
 
 
 // connexion à un compte
-function login($echoDetails=false, $force=false) {
+function login($redirect_to_login=false) {
     session_start();
     if (!isset($_SESSION['pokeprof_token']) || ($user = getUser($_SESSION['pokeprof_token'])) == null) {
-        if ($echoDetails) {
-            if ($force) header('Location: connect.php?go='.urlencode($_SERVER['REQUEST_URI']));
-        	else echo('<span id="login" class="button" onclick="window.location.href = (\'connect.php?go=\'+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search))">Se connecter</span>');
-        } else if ($force)
-        exit("not logged");
+        if ($redirect_to_login)
+            exit(header('Location: connect.php?go='.urlencode($_SERVER['REQUEST_URI'])));
     	return null;
     } else {
         sendRequest("UPDATE CARDSUSERS SET lastConnection = NOW() WHERE id = '", $user['id'], "'");
-    	if ($echoDetails) {
-    	    echo('<span id="logged">Vous êtes connecté en tant que '.htmlspecialchars($user['name']).'</span>');
-    	    echo('<a href="disconnect.php?back" id="log-out">Se déconnecter</a>');
-    	}
     }
 
     //

@@ -3,7 +3,9 @@
 include("../init.php"); // init bdd and sendRequest
 
 // connexion à un compte
-$user = login(false, true);
+$user = login();
+if ($user == null)
+    exit("not logged");
 
 //if (!in_array($user["id"], array("0", "19", "59", "72", "73"))) { // Kévin, Brayan, Timothée, Léo, Edwin
 if (sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "' AND admin=1")->num_rows <= 0) {
@@ -67,13 +69,14 @@ $usersId = [-72,-77,-188];
 if (isset($_REQUEST['official']) && intval($_REQUEST['official'])==2)
     array_push($usersId, intval($card['authorId']));
 foreach ($usersId as $id) {
-    $leo = sendRequest("SELECT cards FROM CARDSUSERS WHERE id = '", $id, "' ") -> fetch_assoc()['cards'];
-    $leo = json_decode($leo);
-    $idCardToAdd=$_REQUEST['id'];
-    if (!isset($leo->$idCardToAdd)) {
-        $leo->$idCardToAdd=($id==-72||$id==-77||$id==-188)?2:1;
-        $leo=json_encode($leo);
-        sendRequest("UPDATE CARDSUSERS SET cards='".$leo."' WHERE id='", $id, "'");
+    $leo = sendRequest("SELECT cards FROM CARDSUSERS WHERE id = '", $id, "' ") -> fetch_assoc();
+    if ($leo == null)
+        continue;
+    $leoCards = json_decode($leo['cards']);
+    $idCardToAdd = $_REQUEST['id'];
+    if (!isset($leoCards->$idCardToAdd)) {
+        $leoCards->$idCardToAdd = ($id==-72||$id==-77||$id==-188) ? 2 : 1;
+        sendRequest("UPDATE CARDSUSERS SET cards='" . json_encode($leoCards) . "' WHERE id='", $id, "'");
     }
 }
 

@@ -2,7 +2,9 @@
 include("../init.php");
 
 // connexion à un compte
-$user = login(false, true);
+$user = login();
+if ($user == null)
+    exit("not logged");
 
 // récupération du joueur
 $result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");

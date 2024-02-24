@@ -2,7 +2,8 @@
 
 include('../init.php');
 // connexion à un compte
-$user = login(false, true);
+$user = login();
+if ($user == null) exit("not logged");
 
 // récupération du joueur
 $result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
@@ -35,7 +36,7 @@ $opponentName = $resultMatch['opponentName'];
 $opponentTrophies = $resultMatch['opponentTrophies'];
 $end = $resultMatch['end']==1;
 include('match.php');
-$match = Match::fromStd(json_decode($resultMatch['infos']));
+$match = Match_::fromStd(json_decode($resultMatch['infos']));
 if ($resultMatch['opponentId'] == -807) $opponentName .= ' ('.BOT_LEVELS[$match->botDifficult].')'; // BOT_LEVELS est défini dans match.php
 
 // récupération du contexte (cibles+id+trophées)

@@ -1,4 +1,8 @@
-<?php session_start() ?>
+<?php
+include('api/init.php');
+
+$user = login(false);
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,12 +15,13 @@
 	</head>
 	<body>
 		<div id="blur-bg">
-    		<?php
-    		include('api/init.php');
-    		
-			$user = login(true, false);
-    		
-    		?>
+
+			<?php if ($user === null) { ?>
+				<span id="login" class="button" onclick="window.location.href = ('connect.php?go='+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search))">Se connecter</span>
+			<?php } else { ?>
+				<span id="logged">Vous êtes connecté en tant que <?= htmlspecialchars($user['name']) ?></span>
+				<a href="disconnect.php?back" id="log-out">Se déconnecter</a>
+			<?php } ?>
     		
     		<button id="gotomenu" onclick="window.location.href = './'";>Menu</button>
     		<span class="title">PokéProf: Les Règles !</span>

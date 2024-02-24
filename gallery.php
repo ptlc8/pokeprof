@@ -1,3 +1,7 @@
+<?php
+include('api/init.php');
+$user = login(false);
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -21,10 +25,12 @@
 	<body class="no-x-scroll">
 	    <div class="hollow"></div>
 		<span class="title">Galerie</span>
-		<?php
-		include('api/init.php');
-		$user = login(true, false);
-		?>
+		<?php if ($user == null) { ?>
+			<span id="login" class="button" onclick="window.location.href = ('connect.php?go='+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search))">Se connecter</span>
+		<?php } else { ?>
+			<span id="logged">Vous êtes connecté en tant que <?= htmlspecialchars($user['name']) ?></span>
+			<a href="disconnect.php?back" id="log-out">Se déconnecter</a>
+		<?php } ?>
 		<a href="."><div style="position:absolute; top:2em; left:1em">
 			<span class="button">Retourner au menu principal</span>
 		</div></a> <!--Modif de Léo-->

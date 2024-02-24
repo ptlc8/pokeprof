@@ -1,6 +1,7 @@
 <?php
 include('../init.php');
-$user = login(false, true);
+$user = login();
+if ($user == null) exit("not logged");
 
 // vérification du post
 if (!isset($_REQUEST['card'], $_REQUEST['amount'])) {

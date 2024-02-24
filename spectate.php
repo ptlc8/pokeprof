@@ -1,7 +1,7 @@
 <?php
 include('api/init.php');
 // connexion à un compte
-$user = login(true, false);
+$user = login(false);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -16,7 +16,12 @@ $user = login(true, false);
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 	<body>
-		<span id="logged">Vous êtes connecté en tant que <?=$user['name']?></span>
+		<?php if ($user == null) { ?>
+			<span id="login" class="button" onclick="window.location.href = ('connect.php?go='+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search))">Se connecter</span>
+		<?php } else { ?>
+			<span id="logged">Vous êtes connecté en tant que <?= htmlspecialchars($user['name']) ?></span>
+			<a href="disconnect.php?back" id="log-out">Se déconnecter</a>
+		<?php } ?>
 		<div id="game">
 			<!--<div id="veil" style="display: none;"></div>-->
 			<span id="end-turn" class="button">Finir le tour</span>

@@ -1,3 +1,14 @@
+<?php
+include('api/init.php');
+$user = login(true);
+
+// récupération des cartes et du deck du joueur ~
+$result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
+if ($result->num_rows === 0)
+	exit(header('Location: .'));
+$cardsUser = $result->fetch_assoc();
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -10,17 +21,8 @@
 		<link rel="icon" type="image/png" href="assets/icon.png" />
 	</head>
 	<body>
-		<?php
-		include('api/init.php');
-		$user = login(true,true);
-		
-		// récupération des cartes et du deck du joueur ~
-		$result = sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "'");
-		if ($result->num_rows === 0)
-			header('Location: .');
-		$cardsUser = $result->fetch_assoc();
-		
-		?>
+		<span id="logged">Vous êtes connecté en tant que <?= htmlspecialchars($user['name']) ?></span>
+    	<a href="disconnect.php?back" id="log-out">Se déconnecter</a>
 		<span class="title">|</span>
 		<a href=".<?=isset($_REQUEST['tuto'])?"?tuto2":""?>"><div style="position:absolute; top:4%; left:1%;">
 	        <span class="button">Retourner au menu principal</span>
@@ -192,23 +194,24 @@
 				}
 				if (resolveTuto) resolveTuto();
 				let id = movingId;
-				post("api/card/use.php", "deck="+choosenDeck+"&id="+movingId+"&index="+index, (response) => {
-					switch (response.split(" ")[0]) {
-					case 'success':
-					    decks[choosenDeck][index] = id;
-						setCardElementById(cardEl, id);
-						break;
-					case 'maxamountindeck':
-						aff("Cette carte est limitée à "+response.split(" ")[2]+" occurences par jeu de cartes");
-						break;
-					case 'notenoughofthis':
-					    let n = response.split(" ")[1];
-					    aff("Tu n'as que "+n+" exemplaire"+(n>1?"s":"")+" de cette carte");
-					    break;
-					default:
-						alert(response);
-					}
-				});
+				sendRequest("POST", "api/card/use.php", "deck="+choosenDeck+"&id="+movingId+"&index="+index)
+					.then(response => {
+						switch (response.split(" ")[0]) {
+						case 'success':
+							decks[choosenDeck][index] = id;
+							setCardElementById(cardEl, id);
+							break;
+						case 'maxamountindeck':
+							aff("Cette carte est limitée à "+response.split(" ")[2]+" occurences par jeu de cartes");
+							break;
+						case 'notenoughofthis':
+							let n = response.split(" ")[1];
+							aff("Tu n'as que "+n+" exemplaire"+(n>1?"s":"")+" de cette carte");
+							break;
+						default:
+							alert(response);
+						}
+					});
 				movingId = -1;
 				movingCard.parentElement.removeChild(movingCard);
 				for (let el of document.querySelectorAll('.deck-view .card-view'))
@@ -278,15 +281,6 @@
 			    await displayTuto("C'est très bien tout ça, je vous laisse compléter ce deck.\nQuand vous avez fini cliquez sur \"Retourner au menu principal\" en haut à gauche, je vous y attends", {button:"C'est parti !"});
 			}
 			<?=isset($_REQUEST['tuto'])?"tuto();":""?>
-			function post(url, content='', onResponse=()=>{}) {
-				var xhr = new XMLHttpRequest();
-				xhr.open("POST", url);
-				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				xhr.onreadystatechange = function() {
-					if (this.readyState === XMLHttpRequest.DONE && this.status === 200) onResponse(xhr.responseText);
-				};
-				xhr.send(content);
-			}
 			function aff(text, t=4000, where=document.body) {
 				let el = document.createElement('span');
 				el.innerText = text;

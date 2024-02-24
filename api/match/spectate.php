@@ -21,7 +21,7 @@ $resultMatch = $result->fetch_assoc();
 
 $end = $resultMatch['end']==1;
 include('match.php');
-$match = Match::fromStd(json_decode($resultMatch['infos']));
+$match = Match_::fromStd(json_decode($resultMatch['infos']));
 if ($resultMatch['opponent1'] == -807)
     $resultMatch['opponent1Name'] .= ' ('.BOT_LEVELS[$match->botDifficult].')';
 if ($resultMatch['opponent2'] == -807)

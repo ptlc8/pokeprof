@@ -1,14 +1,14 @@
 <?php
 include('api/init.php');
 // connexion à un compte
-$user = login(true, true);
+$user = login(true);
 // transfert d'erreur s'il y en a une
 if (isset($_REQUEST['error'])) {
 	if (defined('POKEPROF_WEBHOOK_ERROR') && POKEPROF_WEBHOOK_ERROR!=null) {
     	$content = '__Erreur JS (play.php) : **'.$_REQUEST['error'].'**__'."\n".'Ligne : '.(!isset($_REQUEST['line'])||$_REQUEST['line']==''?'???':$_REQUEST['line'])."\n".'Fichier : '.(!isset($_REQUEST['file'])||$_REQUEST['file']==''?'???':$_REQUEST['file'])."\n".'Stack : '.(!isset($_REQUEST['stack'])||$_REQUEST['stack']==''?'???':$_REQUEST['stack']);
     	sendToDiscord(POKEPROF_WEBHOOK_ERROR, $content);
 	}
-    header('Location: play.php');
+    exit(header('Location: play.php'));
 }
 ?>
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ if (isset($_REQUEST['error'])) {
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 	<body>
-		<span id="logged">Vous êtes connecté en tant que <?=$user['name']?></span>
+		<span id="logged">Vous êtes connecté en tant que <?= htmlspecialchars($user['name']) ?></span>
 		<div id="game">
 			<!--<div id="veil" style="display: none;"></div>-->
 			<span id="end-turn" class="button" onclick="endTurn()">Finir le tour</span>

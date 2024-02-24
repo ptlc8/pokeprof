@@ -505,35 +505,37 @@ class Player {
 
 class Action {
 	public $name;
+	public $parameters;
 	public function __construct($name, $parameters) {
-		foreach ($parameters as $parameter => $value)
-			$this->$parameter = $value;
 		$this->name = $name;
+		$this->parameters = $parameters;
 	}
 	public static function fromStd($std) {
 		return new self($std->name, $std);
 	}
 	public function toStd() {
 		$std = new stdClass();
-		foreach ($this as $parameter=>$value)
+		foreach ($this->parameters as $parameter=>$value)
 			$std->$parameter = $value;
+		$std->name = $this->name;
 		return $std;
 	}
 	public function toStdClient($playerId) {
 		$std = new stdClass();
-		foreach ($this as $parameter=>$value) {
-			if ($this->name=='draw' && $parameter=='card' && $this->playerId!=$playerId)
+		foreach ($this->parameters as $parameter=>$value) {
+			if ($this->name=='draw' && $parameter=='card' && $this->parameters->playerId!=$playerId)
 				continue;
-			if (($this->name=='seedraw'||$this->name=='seedrawhim') && $parameter=='cards' && $this->playerId!=$playerId)
+			if (($this->name=='seedraw'||$this->name=='seedrawhim') && $parameter=='cards' && $this->parameters->playerId!=$playerId)
 				$std->$parameter = count($value);
 			else
 				$std->$parameter = $value;
 		}
+		$std->name = $this->name;
 		return $std;
 	}
 }
 
-class Match {
+class Match_ {
 	public $playing = 0; // boolean : id du joueur qui joue
 	public $start = 0; // long : temps où le tour à commencer
 	public $end = 0; // long : temps où le tour se finit automatiquement

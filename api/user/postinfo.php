@@ -1,9 +1,13 @@
 <?php
     include('../init.php');
-    $user = login(false, true);
+    $user = login();
+    if ($user == null)
+        exit("not logged");
     
     $infoslist = sendRequest("SELECT infos FROM CARDSUSERS WHERE id = '", $user['id'], "'");
     $infoslist= $infoslist -> fetch_assoc();
+    if ($infoslist === null)
+        exit("Veuillez d'abord aller à la page d'accueil");
     $infoslist= $infoslist['infos'];
     
     $newinfos = $infoslist;

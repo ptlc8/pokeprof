@@ -1,11 +1,11 @@
 <?php
 include('../init.php');
-$user = login(false, true);
+$user = login();
+if ($user == null) exit("not logged");
 
 // vérification du post
 if (!isset($_REQUEST['id'], $_REQUEST['index'])) {
-	echo('need more args');
-	exit;
+	exit('need more args');
 }
 
 $cardId = ($_REQUEST['id']);

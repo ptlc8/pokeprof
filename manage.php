@@ -1,3 +1,35 @@
+<?php
+include("api/init.php"); // init bdd and sendRequest
+$user = login(true); // init $user and connect or redirect to login
+if (sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "' AND admin=1")->num_rows <= 0) {
+	exit(header('Location: .'));
+}
+$results = sendRequest("SELECT * FROM CARDS");
+$allcards = [];
+while (($result = $results->fetch_assoc()) != null) {
+	$card = json_decode($result['infos']);
+	$card->id = $result['id'];
+	$card->name = $result['name'];
+	$card->type = $result['type'];
+	$card->official = $result['official'];
+	$card->rarity = $result['rarity'];
+	$card->atk1->script = $result['script1'];
+	$card->atk2->script = $result['script2'];
+	$card->winrate = $result['uses']==0 ? -1 : intval($result['wins']*100/$result['uses']);
+	$card->uses = intval($result['uses']);
+	$card->boosterId = $result['boosterId'];
+	$card->prestigeable = $result['prestigeable']==1;
+	$allcards[$result['id']] = $card;
+}
+$results = sendRequest("SELECT * FROM BOOSTERS");
+$allboosters = [];
+while (($result = $results->fetch_assoc()) != null) {
+	$booster = new stdClass();
+	$booster->id = $result['id'];
+	$booster->name = $result['name'];
+	$allboosters[$result['id']] = $booster;
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -9,40 +41,8 @@
 		<link rel="icon" type="image/png" href="assets/icon.png" />
 	</head>
 	<body>
-		<?php
-		include("api/init.php"); // init bdd and sendRequest
-		$user = login(true, true); // init $user and connect
-		//if (!in_array($user["id"], array("0", "19", "59", "72", "73"))) { // Kévin, Brayan, Timothée, Léo, Edwin
-		if (sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "' AND admin=1")->num_rows <= 0) {
-			header('Location: .');
-			exit();
-		}
-		$results = sendRequest("SELECT * FROM CARDS");
-		$allcards = [];
-		while (($result = $results->fetch_assoc()) != null) {
-			$card = json_decode($result['infos']);
-			$card->id = $result['id'];
-			$card->name = $result['name'];
-			$card->type = $result['type'];
-			$card->official = $result['official'];
-			$card->rarity = $result['rarity'];
-			$card->atk1->script = $result['script1'];
-			$card->atk2->script = $result['script2'];
-			$card->winrate = $result['uses']==0 ? -1 : intval($result['wins']*100/$result['uses']);
-			$card->uses = intval($result['uses']);
-			$card->boosterId = $result['boosterId'];
-			$card->prestigeable = $result['prestigeable']==1;
-			$allcards[$result['id']] = $card;
-		}
-		$results = sendRequest("SELECT * FROM BOOSTERS");
-		$allboosters = [];
-		while (($result = $results->fetch_assoc()) != null) {
-		    $booster = new stdClass();
-		    $booster->id = $result['id'];
-		    $booster->name = $result['name'];
-		    $allboosters[$result['id']] = $booster;
-		}
-		?>
+		<span id="logged">Vous êtes connecté en tant que <?= htmlspecialchars($user['name']) ?></span>
+    	<a href="disconnect.php?back" id="log-out">Se déconnecter</a>
 		<table id="cards">
 		    <tr><b><th class="name">Toutes les cartes</th><th>R</th><th>W</th><th>O</th></b></tr>
 		    <tr><td>Chargement...</td></tr>

@@ -48,18 +48,6 @@ function sleep(ms) {
 
 /* Récupération des infos des cartes */
 const allcards = {};
-function post_(url, content='') { // deprecated
-	var promise = new Promise(async(resolve, reject) => {
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", url);
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.onreadystatechange = function() {
-			if (this.readyState === XMLHttpRequest.DONE && this.status === 200) resolve(xhr.responseText);
-		};
-		xhr.send(content);
-	});
-	return promise;
-}
 async function getCardInfos(cardId, edit={}) {
     cardId = parseInt(cardId);
 	var promise = new Promise(async(resolve, reject) => {

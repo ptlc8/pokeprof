@@ -1,3 +1,8 @@
+<?php
+include('api/init.php');
+$user = login(true);
+$color = dechex(random_int(0, 16777215));
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,11 +18,8 @@
 		<span class="title">Création</span>
 		<a href="gallery.php" class="button">Explorer la galerie</a>
 		<a href="." class="button">Retourner au menu principal</a>
-		<?php
-		include('api/init.php');
-		$user = login(true, true);
-		$color = dechex(random_int(0, 16777215));
-		?>
+		<span id="logged">Vous êtes connecté en tant que <?= htmlspecialchars($user['name']) ?></span>
+    	<a href="disconnect.php?back" id="log-out">Se déconnecter</a>
 		<div id="main">
 			<div id="view"></div>
 			<fieldset id="infos"><legend>Informations de la carte</legend><form onchange="refresh(this)">
@@ -100,7 +102,7 @@
 					}
 					var reader = new FileReader();
 					reader.onload = (e) => {
-						post_("api/card/create.php", 'name='+form.name.value
+						sendRequest('POST', 'api/card/create.php', 'name='+form.name.value
 							+'&cost='+encodeURIComponent(form.invo.value)
 							+'&type='+encodeURIComponent(form.cardtype.value)
 							+(form.cardtype.value=='prof'?'&hp='+encodeURIComponent(form.hp.value):'')
@@ -161,15 +163,6 @@
 						}
 					};
 					xhr.send();
-				}
-				function post(url, content='', onResponse=()=>{}) {
-					var xhr = new XMLHttpRequest();
-					xhr.open("POST", url);
-					xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-					xhr.onreadystatechange = function() {
-						if (this.readyState === XMLHttpRequest.DONE && this.status === 200) onResponse(xhr.responseText);
-					};
-					xhr.send(content);
 				}
 			</script>
 		</div>

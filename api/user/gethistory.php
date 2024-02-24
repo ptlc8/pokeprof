@@ -2,7 +2,9 @@
 include("../init.php");
 
 // connexion à un compte
-$user = login(false, true);
+$user = login();
+if ($user == null)
+    exit("not logged");
 
 // récupération de l'historique
 $history = sendRequest("SELECT CARDSMATCHESHISTORY.*, CARDSUSERS.name as opponentName FROM CARDSMATCHESHISTORY JOIN CARDSUSERS ON (CARDSUSERS.id=opponentId1 AND opponentId2='",$user['id'],"' OR CARDSUSERS.id=opponentId2 AND opponentId1='",$user['id'],"') WHERE CARDSUSERS.id != '", $user['id'], "' ORDER BY date DESC LIMIT 8")->fetch_all(MYSQLI_ASSOC);
