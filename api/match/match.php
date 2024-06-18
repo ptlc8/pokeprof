@@ -33,14 +33,14 @@ class Script {
 		$targets = 0;
 		foreach ($this->functions as $f)
 			$targets = max($targets, $f->needTargetOfYou());
-		$targets = max($targets, strpos($this->condition,"targetofyou")!==false?1:0, strpos($this->condition,"target2ofyou")!==false?2:0);
+		$targets = max($targets, strpos($this->condition,'targetofyou')!==false?1:0, strpos($this->condition,'target2ofyou')!==false?2:0);
 		return $targets;
 	}
 	public function needTargetOfHim() {
 		$targets = 0;
 		foreach ($this->functions as $f)
 			$targets = max($targets, $f->needTargetOfHim());
-		$targets = max($targets, strpos($this->condition,"targetofhim")!==false?1:0, strpos($this->condition,"target2ofhim")!==false?2:0, $this->condition=="target"?1:0, strpos($this->condition,"target[")!==false?1:0);
+		$targets = max($targets, strpos($this->condition,'targetofhim')!==false?1:0, strpos($this->condition,'target2ofhim')!==false?2:0, $this->condition=='target'?1:0, strpos($this->condition,'target[')!==false?1:0);
 		return $targets;
 	}
 }
@@ -64,13 +64,13 @@ class ScriptFunction {
 	public function needTargetOfYou() {
 		$targets = 0;
 		foreach (array_merge([$this->condition], $this->args) as $a)
-			$targets = max($targets, strpos($a,"targetofyou")!==false?1:0, strpos($a,"target2ofyou")!==false?2:0);
+			$targets = max($targets, strpos($a,'targetofyou')!==false?1:0, strpos($a,'target2ofyou')!==false?2:0);
 		return $targets;
 	}
 	public function needTargetOfHim() {
 		$targets = 0;
 		foreach (array_merge([$this->condition], $this->args) as $a)
-			$targets = max($targets, strpos($a,"targetofhim")!==false?1:0, strpos($a,"target2ofhim")!==false?2:0, $a=="target"?1:0, strpos($a,"target[")!==false?1:0);
+			$targets = max($targets, strpos($a,'targetofhim')!==false?1:0, strpos($a,'target2ofhim')!==false?2:0, $a=='target'?1:0, strpos($a,'target[')!==false?1:0);
 		return $targets;
 	}
 }
@@ -85,9 +85,9 @@ class Card {
 	public $h=false; // boolean : est-elle en version holographique ?
 	protected function __construct($id, $cost, $scripts) {
 		$this->id = intval($id);
-		$this->p = strpos($id, "p") !== false;
-		$this->s = strpos($id, "s") !== false;
-		$this->h = strpos($id, "h") !== false;
+		$this->p = strpos($id, 'p') !== false;
+		$this->s = strpos($id, 's') !== false;
+		$this->h = strpos($id, 'h') !== false;
 		$this->cost = $cost;
 		$this->scripts = $scripts;
 		$this->vars = new stdClass();
@@ -151,7 +151,7 @@ class FighterCard extends Card {
 		$scripts = [];
 		foreach ($std->scripts as $script)
 			array_push($scripts, new Script($script));
-		$new = new self($std->id, $std->cost, $std->hpmax, $std->types??[$std->proftype??""], $scripts);
+		$new = new self($std->id, $std->cost, $std->hpmax, $std->types??[$std->proftype??''], $scripts);
 		$new->vars = isset($std->vars) ? $std->vars : new stdClass();
 		$new->hp = $std->hp;
 		$new->t = isset($std->t) ? $std->t : 0;
@@ -503,32 +503,31 @@ class Player {
 	}
 }
 
-class Action {
+class Action extends stdClass {
 	public $name;
-	public $parameters;
-	public function __construct($name, $parameters) {
+	public function __construct($name, $data) {
 		$this->name = $name;
-		$this->parameters = $parameters;
+		foreach ($data as $key=>$value)
+			$this->$key = $value;
 	}
 	public static function fromStd($std) {
 		return new self($std->name, $std);
 	}
 	public function toStd() {
 		$std = new stdClass();
-		foreach ($this->parameters as $parameter=>$value)
-			$std->$parameter = $value;
-		$std->name = $this->name;
+		foreach ($this as $key=>$value)
+			$std->$key = $value;
 		return $std;
 	}
 	public function toStdClient($playerId) {
 		$std = new stdClass();
-		foreach ($this->parameters as $parameter=>$value) {
-			if ($this->name=='draw' && $parameter=='card' && $this->parameters->playerId!=$playerId)
+		foreach ($this as $key=>$value) {
+			if ($this->name=='draw' && $key=='card' && $this->playerId!=$playerId)
 				continue;
-			if (($this->name=='seedraw'||$this->name=='seedrawhim') && $parameter=='cards' && $this->parameters->playerId!=$playerId)
-				$std->$parameter = count($value);
+			if (($this->name=='seedraw'||$this->name=='seedrawhim') && $key=='cards' && $this->playerId!=$playerId)
+				$std->$key = count($value);
 			else
-				$std->$parameter = $value;
+				$std->$key = $value;
 		}
 		$std->name = $this->name;
 		return $std;
@@ -1529,7 +1528,7 @@ class Match_ {
 		            break;
 		        case 3 :
 		            foreach ($script->functions as $f) {
-		                if (($f->name=="affraid")||(($f->name=="sleep")&&($f->args[0]!="it"))||($f->name=="paralyse")) {
+		                if (($f->name=='affraid')||(($f->name=='sleep')&&($f->args[0]!='it'))||($f->name=='paralyse')) {
 		                    $choix=1;
 		                }
 		            }
@@ -1541,7 +1540,7 @@ class Match_ {
 		            break;
 		        case 4 :
 		            foreach ($script->functions as $f) {
-		                if (($f->name=="affraid")||(($f->name=="sleep")&&($f->args[0]!="it"))||($f->name=="paralyse")) {
+		                if (($f->name=='affraid')||(($f->name=='sleep')&&($f->args[0]!='it'))||($f->name=='paralyse')) {
 		                    $choix=1;
 		                }
 		            }
@@ -1553,7 +1552,7 @@ class Match_ {
 		            break;
 		        case 5 :
 		            foreach ($script->functions as $f) {
-		                if (($f->name=="affraid")||(($f->name=="sleep")&&($f->args[0]!="it"))||($f->name=="paralyse")) {
+		                if (($f->name=='affraid')||(($f->name=='sleep')&&($f->args[0]!='it'))||($f->name=='paralyse')) {
 		                    $choix=1;
 		                }
 		            }
