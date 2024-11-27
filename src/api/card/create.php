@@ -55,7 +55,7 @@ if (!in_array("@🧩 Créateur de cartes", $tags)) {
 }
 
 // envoi d'un message dans le salon Discord #cartes-créées
-if (defined('POKEPROF_WEBHOOK_CARD_CREATE') && POKEPROF_WEBHOOK_CARD_CREATE!=null) {
+if (defined('POKEPROF_WEBHOOK_CARD_CREATE') && !empty(POKEPROF_WEBHOOK_CARD_CREATE)) {
 	set_error_handler(function() { /* ignore errors */ });
 	$context  = stream_context_create(array(
 		'http' => array(

@@ -17,7 +17,7 @@ $user = login(false);
 		<div id="blur-bg">
 
 			<?php if ($user === null) { ?>
-				<span id="login" class="button" onclick="window.location.href = ('connect.php?go='+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search))">Se connecter</span>
+				<a id="login" href="connect.php?go=<?= urlencode($_SERVER['REQUEST_URI']) ?>">Se connecter</a>
 			<?php } else { ?>
 				<span id="logged">Vous êtes connecté en tant que <?= htmlspecialchars($user['name']) ?></span>
 				<a href="disconnect.php?back" id="log-out">Se déconnecter</a>

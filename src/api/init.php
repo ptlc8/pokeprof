@@ -3,7 +3,7 @@
 include('credentials.php');
 
 // initialisation BDD
-$mysqli = new mysqli(POKEPROF_DB_HOSTNAME, POKEPROF_DB_USER, POKEPROF_DB_PASSWORD, POKEPROF_DB_NAME);
+$mysqli = new mysqli(DB_HOSTNAME, DB_USER, DB_PASSWORD, DB_NAME);
 if ($mysqli->connect_errno) {
 	echo 'Erreur de connexion côté serveur, veuillez réessayer plus tard';
 	exit;
@@ -58,7 +58,10 @@ function login($redirect_to_login=false) {
 // récupération des informations externes de l'utilisateur connecté
 function getUser($token) {
     if (!isset($token)) return null;
-    $response = file_get_contents(POKEPROF_USER_URL.$token);
+    $context = null;
+    if (defined('PORTAL_OVERRIDE_HOST') && !empty(PORTAL_OVERRIDE_HOST))
+        $context = stream_context_create([ 'http' => [ 'header' => 'Host: '.PORTAL_OVERRIDE_HOST ] ]);
+    $response = file_get_contents(PORTAL_USER_URL.$token, false, $context);
     if ($response === false) return null;
     return json_decode($response, true);
 }

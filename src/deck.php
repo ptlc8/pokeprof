@@ -24,9 +24,8 @@ $cardsUser = $result->fetch_assoc();
 		<span id="logged">Vous êtes connecté en tant que <?= htmlspecialchars($user['name']) ?></span>
     	<a href="disconnect.php?back" id="log-out">Se déconnecter</a>
 		<span class="title">|</span>
-		<a href=".<?=isset($_REQUEST['tuto'])?"?tuto2":""?>"><div style="position:absolute; top:4%; left:1%;">
-	        <span class="button">Retourner au menu principal</span>
-	    </div></a> <!--Modif de Léo-->
+		<!--Modif de Léo-->
+		<a href=".<?=isset($_REQUEST['tuto'])?"?tuto2":""?>" id="home-button" class="button">Retourner au menu principal</a>
 		<div id="main">
 		    <div class="deck-view">
 		    	<span class="subtitle">Ton jeu de cartes : Deck <span id="deck-name"></span> (<span id="deck-cost"></span><img class="emote" src="assets/mana.svg" />)</span>

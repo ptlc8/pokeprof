@@ -38,19 +38,24 @@ html, body {
 	right: 1em;
 	font-size: 1.1em;
 }
-
 #log-out {
 	position: absolute;
 	top: 2em;
 	right: 1em;
+}
+#home-button {
+	position: absolute;
+	top: 1em;
+	left: 1em;
 }
 .button {
 	cursor: pointer;
 	background-color: tomato;
 	padding: .5em 1em;
 	border-radius: 0.2em;
+	color: inherit;
+	text-decoration: none;
 	box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
-	/*position: absolute; pas faire ça, ça casse d'autres boutons, 'faut créer une autre classe et combinées les deux pour ne pas avoir de conflit*/
 }
 .mainbutton {
 	cursor: pointer;

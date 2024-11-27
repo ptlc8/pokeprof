@@ -26,14 +26,13 @@ $user = login(false);
 	    <div class="hollow"></div>
 		<span class="title">Galerie</span>
 		<?php if ($user == null) { ?>
-			<span id="login" class="button" onclick="window.location.href = ('connect.php?go='+encodeURIComponent(window.location.pathname)+encodeURIComponent(window.location.search))">Se connecter</span>
+			<a id="login" class="button" href="connect.php?go=<?= urlencode($_SERVER['REQUEST_URI']) ?>">Se connecter</a>
 		<?php } else { ?>
 			<span id="logged">Vous êtes connecté en tant que <?= htmlspecialchars($user['name']) ?></span>
 			<a href="disconnect.php?back" id="log-out">Se déconnecter</a>
 		<?php } ?>
-		<a href="."><div style="position:absolute; top:2em; left:1em">
-			<span class="button">Retourner au menu principal</span>
-		</div></a> <!--Modif de Léo-->
+		<!--Modif de Léo-->
+		<a href="." id="home-button" class="button">Retourner au menu principal</a>
 		<div id="cards">
 			<div class="card-container" style="margin: 0.5% 0.2%;">
 				<a href="create.php"><canvas id="add-card" class="aff"></canvas></a>

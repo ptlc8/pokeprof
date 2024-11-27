@@ -1,6 +1,9 @@
-api/credentials.php
-assets/boosters/*
-assets/cards/*
-!assets/cards/undefined.png
-cached/*
+/src/api/credentials.php
+/src/assets/boosters/*
+/src/assets/cards/*
+!/src/assets/cards/undefined.png
+/src/cached/*
+
+/.env
+
 !.gitkeep

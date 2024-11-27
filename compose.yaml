@@ -1,0 +1,58 @@
+services:
+  web-server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.web-server
+    volumes:
+      - ${POKEPROF_ASSETS_PATH:-./src/assets}/cards:/usr/local/apache2/htdocs/assets/cards:ro
+      - ${POKEPROF_ASSETS_PATH:-./src/assets}/boosters:/usr/local/apache2/htdocs/assets/boosters:ro
+    ports:
+      - 80
+    depends_on:
+      - fast-cgi
+    restart: always
+    labels:
+      - webproxy.path=pokeprof
+  fast-cgi:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.fast-cgi
+    volumes:
+      - ${POKEPROF_ASSETS_PATH:-./src/assets}/cards:/var/www/html/assets/cards:rw
+      - ${POKEPROF_ASSETS_PATH:-./src/assets}/boosters:/var/www/html/assets/boosters:rw
+    tmpfs:
+      - /var/www/html/cached:mode=1777
+    expose:
+      - 9000
+    environment:
+      DB_HOSTNAME: database
+      DB_USER: user
+      DB_PASSWORD: secret
+      DB_NAME: pokeprof
+      PORTAL_CONNECT_URL: ${PORTAL_CONNECT_URL?}
+      PORTAL_AVATAR_URL: ${PORTAL_AVATAR_URL?}
+      PORTAL_USER_URL: ${PORTAL_USER_URL?}
+      PORTAL_OVERRIDE_HOST: ${PORTAL_OVERRIDE_HOST:-}
+      POKEPROF_WEBHOOK_CARD_CREATE: ${POKEPROF_WEBHOOK_CARD_CREATE:-}
+      POKEPROF_WEBHOOK_CARD_EDIT: ${POKEPROF_WEBHOOK_CARD_EDIT:-}
+      POKEPROF_WEBHOOK_ERROR: ${POKEPROF_WEBHOOK_ERROR:-}
+    depends_on:
+      - database
+    restart: always
+  database:
+    image: mariadb:${MARIADB_VERSION:-10.11}
+    expose:
+      - 3306
+    volumes:
+      - ./mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf:ro
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - database-data:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: super_secret
+      MARIADB_USER: user
+      MARIADB_PASSWORD: secret
+      MARIADB_DATABASE: pokeprof
+    restart: always
+volumes:
+  database-data:
+    driver: local

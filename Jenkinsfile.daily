@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+
+    triggers {
+        cron('H H * * *')
+    }
+
+    stages {
+        stage('Daily') {
+            steps {
+                sh 'docker compose run php -f api/onceaday.php'
+            }
+        }
+    }
+}

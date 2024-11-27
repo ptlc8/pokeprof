@@ -34,7 +34,7 @@ $user->cards = count($uniqueCards);
 $user->prestiges = count(array_filter($cards,function($id){return strpos($id,"p")!==false;},ARRAY_FILTER_USE_KEY));
 $user->shinies = count(array_filter($cards,function($id){return strpos($id,"s")!==false;},ARRAY_FILTER_USE_KEY));
 $user->holos = count(array_filter($cards,function($id){return strpos($id,"h")!==false;},ARRAY_FILTER_USE_KEY));
-$user->picture = POKEPROF_AVATAR_URL.$u['id'];
+$user->picture = PORTAL_AVATAR_URL.$u['id'];
 
 echo json_encode($user);
 ?>

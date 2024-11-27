@@ -12,11 +12,11 @@ session_start();
 $_SESSION['pokeprof_token'] = $_REQUEST['token'];
 
 if (isset($_REQUEST['go'])) {
-    echo("<script>window.location.replace(decodeURIComponent('".$_REQUEST['go']."'))</script>");
+    header('Location: '.urldecode($_REQUEST['go']));
 } else if (isset($_REQUEST['closeafter'])) {
     echo("<script>window.close();</script>");
 } else{
-    echo("<script>window.location.replace('.');</script>");
+    header('Location: .');
 }
 
 ?>

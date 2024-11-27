@@ -16,8 +16,8 @@ $color = dechex(random_int(0, 16777215));
 	</head>
 	<body>
 		<span class="title">Création</span>
-		<a href="gallery.php" class="button">Explorer la galerie</a>
-		<a href="." class="button">Retourner au menu principal</a>
+		<a href="gallery.php" id="gallery-button" class="button">Explorer la galerie</a>
+		<a href="." id="home-button" class="button">Retourner au menu principal</a>
 		<span id="logged">Vous êtes connecté en tant que <?= htmlspecialchars($user['name']) ?></span>
     	<a href="disconnect.php?back" id="log-out">Se déconnecter</a>
 		<div id="main">

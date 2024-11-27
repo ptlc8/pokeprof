@@ -1,5 +1,11 @@
 .title {
     display: block;
+	z-index: 0;
+}
+#gallery-button {
+	position: absolute;
+	top: 4em;
+	left: 1em;
 }
 #view, #infos {
 	float: left;

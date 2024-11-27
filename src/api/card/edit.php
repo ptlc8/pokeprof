@@ -81,7 +81,7 @@ foreach ($usersId as $id) {
 }
 
 // envoi d'un message dans le salon Discord #patch-notes
-if (defined('POKEPROF_WEBHOOK_CARD_EDIT') && POKEPROF_WEBHOOK_CARD_EDIT!=null) {
+if (defined('POKEPROF_WEBHOOK_CARD_EDIT') && !empty(POKEPROF_WEBHOOK_CARD_EDIT)) {
 	if (intval($card['official'])>0 || (isset($_REQUEST['official']) && intval($_REQUEST['official'])>0)) {
 		set_error_handler(function() { /* ignore errors */ });
 		$official = isset($_REQUEST['official']) ? intval($_REQUEST['official']) : 1;

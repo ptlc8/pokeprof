@@ -152,7 +152,7 @@ if ($end) {
         	save($match, $matchId);
         }
     } catch(Throwable $e) {
-		if (defined('POKEPROF_WEBHOOK_ERROR') && POKEPROF_WEBHOOK_ERROR!=null) {
+		if (defined('POKEPROF_WEBHOOK_ERROR') && !empty(POKEPROF_WEBHOOK_ERROR)) {
 			$content = '';
 			do {
 				$content .= '__**'.$e->getMessage().'**__ dans '.$e->getFile().' (ligne '.$e->getLine().')'.PHP_EOL.$e->getTraceAsString();
