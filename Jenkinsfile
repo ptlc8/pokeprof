@@ -11,15 +11,39 @@ pipeline {
         string(name: 'POKEPROF_WEBHOOK_ERROR', defaultValue: params.POKEPROF_WEBHOOK_ERROR ?: null, description: 'Webhook URL for errors')
     }
 
+    triggers {
+        cron('H H * * *')
+    }
+
     stages {
         stage('Build') {
+            when {
+                not {
+                    triggeredBy 'TimerTrigger'
+                }
+            }
             steps {
                 sh 'docker compose build'
             }
         }
+
         stage('Deploy') {
+            when {
+                not {
+                    triggeredBy 'TimerTrigger'
+                }
+            }
             steps {
                 sh 'docker compose up --remove-orphans -d'
+            }
+        }
+
+        stage('Daily') {
+            when {
+                triggeredBy 'TimerTrigger'
+            }
+            steps {
+                sh 'docker compose run --rm fast-cgi php -f api/onceaday.php'
             }
         }
     }
