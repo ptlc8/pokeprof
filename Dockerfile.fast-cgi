@@ -17,7 +17,7 @@ RUN apk add --no-cache libpng-dev libjpeg-turbo-dev libwebp-dev && \
 COPY src /var/www/html
 WORKDIR /var/www/html
 
-# Set up the database connection and hCaptcha secret
+# Set global parameters to environment variables value
 RUN echo "<?php \
     define('DB_HOSTNAME', getenv('DB_HOSTNAME')); \
     define('DB_USER', getenv('DB_USER')); \
