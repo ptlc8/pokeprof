@@ -130,10 +130,10 @@ body {
 #rewards #get-rewards > :not(.available) {
 	opacity: .6;
 }
-#rewards #get-rewards > .available img {
+#rewards #get-rewards > .available .reward {
     animation: clickme 1.5s infinite alternate ease;
 }
-#rewards #get-rewards > div > img {
+#rewards #get-rewards > div > .reward {
 	width: 3em;
 	margin-left: -1.5em;
 	cursor: pointer;

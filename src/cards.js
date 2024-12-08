@@ -242,6 +242,17 @@ async function getStrengthURL(color="") {
     return promise;
 }
 
+/* Création d'un element de booster */
+// boosterId peut être un id numerique, null, "booster" ou "parcel"
+function createBoosterElement(boosterId=null, properties={}, eventListeners={}) {
+	var boosterURL = boosterId == "parcel" ? "assets/parcel.webp"
+		: boosterId ? "assets/boosters/"+boosterId+".png"
+		: "assets/booster.webp";
+	return createElement("div", {...properties, className: "booster " + (properties.className??""), style: {...properties.style, backgroundImage: "url('"+boosterURL+"')"}}, [
+		createElement("img", {src: "assets/booster-overlay.webp"})
+	], eventListeners);
+}
+
 
 /* dessin des cartes sur canvas (déprécié) */
 async function drawCard(cvs, infos) {

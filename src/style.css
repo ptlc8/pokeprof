@@ -381,6 +381,20 @@ img.emote, canvas.emote {
 .card .amount { position: absolute; font-size: 5em; bottom: 6%; right: 5%; color: var(--text-color); font-weight: bold; }
 .card .amount::before { content: '×'; }
 
+/* Boosters */
+.booster {
+	background: url(assets/booster.webp) center / cover no-repeat;
+    mask: url(assets/booster-mask.png) center / cover no-repeat;
+	filter: brightness(1.25);
+	line-height: 0;
+	height: inherit;
+    width: max-content;
+}
+.booster img {
+	width: 100%;
+	max-height: 100%;
+}
+
 /* user-profile par Kévin */
 .user-profile .pp {
 	width: 50%;
@@ -465,16 +479,15 @@ img.emote, canvas.emote {
 .shop > div {
 	margin: 3%;
 }
-.shop .booster {
+.shop-booster {
 	display: inline-block;
 	width: 25%;
 }
-.shop .booster img {
+.shop-booster .booster {
 	width: 70%;
-	margin: 0 15%;
-	border-radius: 4px;
+	margin: 1em 15% 0;
 }
-.shop .booster button, .shop-card button, .shop .deckslot button {
+.shop-booster button, .shop-card button, .shop .deckslot button {
 	border: 2px black solid;
 	width: 50%;
 	padding: .25em;

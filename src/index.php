@@ -115,11 +115,15 @@ $cardsUser = $result->fetch_assoc();
 		<div id="rewards">
 			<div id="get-rewards">
 				<div>
-					<img class="reward" src="assets/booster.webp" onclick="openRewardBooster(1)" />
+					<div class="reward booster" onclick="openRewardBooster(1)">
+						<img src="assets/booster-overlay.webp">
+					</div>
 					<span>3 cartes !</span>
 				</div>
 				<div>
-					<img class="reward" src="assets/booster.webp" onclick="openRewardBooster(2)"/>
+					<div class="reward booster" onclick="openRewardBooster(2)">
+						<img src="assets/booster-overlay.webp">
+					</div>
 					<span>6 cartes !<br />Au moins 1 rare</span>
 				</div>
 				<div>
@@ -200,50 +204,49 @@ $cardsUser = $result->fetch_assoc();
 							resolve();
 						} else {
 							setRewardLevel(rewardLevel-=7*level);
-							openBooster(JSON.parse(response), level==3?"assets/parcel.webp":"assets/booster.webp").then(resolve);
+							openBooster(JSON.parse(response), level==3?"parcel":undefined).then(resolve);
 						}
 					});
 				});
 				return promise;
 			}
-			function openBooster(cards, boosterAssetUrl="assets/booster.webp") {
+			function openBooster(cards, boosterId=undefined) {
 			    return new Promise(function(resolve, reject) {
     			    cards.sort((a,b) => b.rarity-a.rarity);
     				veil.style.display = '';
     				let cardsDivs = [];
-    				let booster = createElement("img", {className: "placed-booster"}, [], {load:async function(){
-    				    this.style.top = '150%';
-    					document.body.appendChild(this);
-    					setTimeout(()=>this.style.top='', 100);
-    				    
-    					for (let card of cards) {
-    						let cardDiv = createElement("div");
-    						if (card.id=="money")
-    						    setTextCardElement(cardDiv, card.money+" 💳");
-    						else await setCardElementById(cardDiv, card.id);
-    						cardsDivs.push(cardDiv);
-    			 		}
-    				}, click:function(){
-    				    for (let i in cardsDivs) {
-    						let cardDiv = cardsDivs[i];
-    						cardDiv.className = "card placed-card booster-card";
-    						document.body.appendChild(cardDiv);
-    						cardDiv.addEventListener("click", function() {
-    							updatePlacedCard(this, {targetPos:document.getElementById("deck")});
-    							this.style.width = '0';
-    							this.style.fontSize = '0';
-    							setTimeout(() => document.body.removeChild(this), 500);
-    							if (cardsDivs.indexOf(cardDiv)==0) {
-    								resolve();
-    								veil.style.display = 'none';
-    							}
-    						});
+    				let booster = createBoosterElement(boosterId, {className: "placed-booster"}, {
+						click: function(){
+							for (let i in cardsDivs) {
+								let cardDiv = cardsDivs[i];
+								cardDiv.className = "card placed-card booster-card";
+								document.body.appendChild(cardDiv);
+								cardDiv.addEventListener("click", function() {
+									updatePlacedCard(this, {targetPos:document.getElementById("deck")});
+									this.style.width = '0';
+									this.style.fontSize = '0';
+									setTimeout(() => document.body.removeChild(this), 500);
+									if (cardsDivs.indexOf(cardDiv)==0) {
+										resolve();
+										veil.style.display = 'none';
+									}
+								});
+							}
+							booster.style.top = '150%';
+							setTimeout(()=>document.body.removeChild(booster), 500);
     					}
-    					booster.style.top = '150%';
-    					setTimeout(()=>document.body.removeChild(booster), 500);
-    				}});
-    				if (boosterAssetUrl!=null) booster.src = boosterAssetUrl;
-    				else booster.click();
+					});
+					booster.style.top = '150%';
+					document.body.appendChild(booster);
+					setTimeout(()=>booster.style.top='', 100);
+					
+					for (let card of cards) {
+						let cardDiv = createElement("div");
+						if (card.id=="money")
+							setTextCardElement(cardDiv, card.money+" 💳");
+						else setCardElementById(cardDiv, card.id);
+						cardsDivs.push(cardDiv);
+					}
 			    });
 			}
 			
@@ -524,8 +527,8 @@ $cardsUser = $result->fetch_assoc();
 							createElement("span", {className:"subtitle"}, "Boosters :"),
 							createElement("div", {},
 								shop.boosters.map(function(booster) {
-									return createElement("div", {className:"booster"}, [
-										createElement("img", {src:"assets/boosters/"+booster.id+".png"}),
+									return createElement("div", {className:"shop-booster"}, [
+										createBoosterElement(booster.id),
 										createElement("button", {}, "Détail", {click: function() {
 											createPopup({className:"booster-detail"}, [
 												createElement("span", {className:"subtitle"}, booster.name),
@@ -624,7 +627,7 @@ $cardsUser = $result->fetch_assoc();
 						    aff("Ce booster ne contient pas encore assez de cartes, crée-en !");
 						    resolve();
 						} else {
-							openBooster(JSON.parse(response), "assets/boosters/"+boosterId+".png").then(resolve);
+							openBooster(JSON.parse(response), boosterId).then(resolve);
 						}
 					});
 				});
