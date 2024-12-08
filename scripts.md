@@ -125,6 +125,31 @@ Liste des fonctions et leurs paramètres (il est toujours possible d'ajouter une
 - `removeshield` : retire *bouclier* défense des *cibles*, 2 arguments :
     - *cibles*, de type combattants
     - *bouclier*, de type nombre
+- `addstrength` : ajoute *force* force aux *cibles*, 2 arguments :
+    - *cibles*, de type combattants
+    - *force*, de type nombre
+- `summon` : créer une *quantité* de cartes d'id *id_de_carte* sur le terrain allié avec *pv* pv, *degats* dégâts et de *type* type, 5 arguments :
+    - *quantité*, de type nombre
+    - *id_de_carte*, de type nombre
+    - *type*, de type texte
+    - *pv*, de type nombre
+    - *degats*, de type nombre
+- `convert` : déplace les *cibles* dans votre camp, 1 argument :
+    - *cibles*, de type combattants
+- `disengage` : désengage les *cibles*, 1 argument :
+    - *cibles*, de type combattants
+- `invoc` : invoque une carte d'id *id_de_carte* sur le terrain d'un *joueur*, 2 arguments :
+    - *joueur*, de type joueur
+    - *id_de_carte*, de type nombre
+- `rescue` : ramène une carte de la défausse dans votre main, 1 argument :
+    - *emplacement*, `random` ou `last`
+- `givecard` : donne une carte d'id *id_de_carte* à un *joueur*, 2 arguments :
+    - *joueur*, de type joueur
+    - *id_de_carte*, de type nombre
+- `retreat` : retire les *cibles* du terrain, 1 argument :
+    - *cibles*, de type combattants
+- `makeprovoking` : rend les *cibles* provocantes, 1 argument :
+    - *cibles*, de type combattants
 
 
 ### Sélecteurs de combattants
