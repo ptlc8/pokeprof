@@ -1,8 +1,10 @@
+<?php
+include('api/init.php');
+?>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
-        <meta charset="UTF-8" />
-        <link rel="icon" type="image/png" href="assets/icon.png" />
+        <?php echo_head_tags("Visualiser une carte", ""); ?>
         <script src="cards.js"></script>
         <link rel="stylesheet" href="style.css" />
     </head>

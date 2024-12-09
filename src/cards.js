@@ -19,13 +19,13 @@ function sendRequest(method, url, body=undefined, headers={"Content-Type":"appli
     var promise = new (Promise||ES6Promise)(function(resolve, reject) {
         var xhr = new XMLHttpRequest();
         xhr.open(method, url);
-        for (h of Object.keys(headers))
+        for (let h of Object.keys(headers))
             xhr.setRequestHeader(h, headers[h]);
         xhr.onreadystatechange = function() {
             if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
                 resolve(this.response);
             }
-        }
+        };
         xhr.onerror = reject;
         xhr.send(body);
     });
@@ -33,12 +33,13 @@ function sendRequest(method, url, body=undefined, headers={"Content-Type":"appli
 }
 function createElement(tag, properties={}, inner=[], eventListeners={}) {
     let el = document.createElement(tag);
-    for (let p of Object.keys(properties)) if (p != "style") el[p] = properties[p];
+    for (let p of Object.keys(properties)) if (p!="style" && p!="dataset") el[p] = properties[p];
     if (properties.style) for (let p of Object.keys(properties.style)) el.style[p] = properties.style[p];
+    if (properties.dataset) for (let p of Object.keys(properties.dataset)) el.dataset[p] = properties.dataset[p];
     if (typeof inner == "object") for (let i of inner) el.appendChild(typeof i == "string" ? document.createTextNode(i) : i);
     else el.innerText = inner;
     for (let l of Object.keys(eventListeners)) el.addEventListener(l, eventListeners[l]);
-    return el
+    return el;
 }
 function sleep(ms) {
     return new (Promise||ES6Promise)(function(resolve, reject) {

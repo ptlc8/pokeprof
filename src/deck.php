@@ -12,13 +12,11 @@ $cardsUser = $result->fetch_assoc();
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
-		<meta charset="UTF-8" />
-		<title>Deck de cartes</title>
+		<?php echo_head_tags("Deck de cartes", ""); ?>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="style.css?2" />
-		<link rel="stylesheet" href="deck.css?<?=time()?>" />
-		<script src="cards.js?8410"></script>
-		<link rel="icon" type="image/png" href="assets/icon.png" />
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="deck.css" />
+		<script src="cards.js"></script>
 	</head>
 	<body>
 		<span id="logged">Vous êtes connecté en tant que <?= htmlspecialchars($user['name']) ?></span>

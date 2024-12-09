@@ -1,15 +1,15 @@
 {
-    "background_color":"#2100d3",
-    "description":"Le jeu de cartes de l'EISTI (ex-CY Tech)",
-    "display":"fullscreen",
-    "icons":[
+    "background_color": "#2100d3",
+    "description": "Poképrof est un jeu de cartes en ligne déjanté où vous incarnez les héros improbables de l'EISTI : profs, élèves, personnel administratif et bien plus. À coups de cartes et d’effets hilarants, dézinguez vos adversaires dans des batailles épiques au tour par tour. Stratégie, chaos et bonne humeur garantis !",
+    "display": "fullscreen",
+    "icons": [
         {
-            "src":"assets/icon.png",
-            "sizes":"192x192",
-            "type":"image/png"
+            "src": "assets/icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
         }
     ],
-    "name":"Poképrof",
-    "short_name":"Poképrof",
-    "start_url":"."
+    "name": "Poképrof - Le jeu de cartes déjanté de l'EISTI",
+    "short_name": "Poképrof",
+    "start_url": "."
 }

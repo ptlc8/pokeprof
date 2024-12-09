@@ -33,12 +33,10 @@ while (($result = $results->fetch_assoc()) != null) {
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
-		<meta charset="UTF-8" />
-		<title>Gestion des cartes</title>
+		<?php echo_head_tags("Gestion des cartes", ""); ?>
 		<link rel="stylesheet" href="style.css" />
 		<link rel="stylesheet" href="manage.css" />
 		<script src="cards.js"></script>
-		<link rel="icon" type="image/png" href="assets/icon.png" />
 	</head>
 	<body>
 		<span id="logged">Vous êtes connecté en tant que <?= htmlspecialchars($user['name']) ?></span>

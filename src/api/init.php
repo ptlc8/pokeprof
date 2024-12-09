@@ -8,7 +8,7 @@ if ($mysqli->connect_errno) {
 	echo 'Erreur de connexion côté serveur, veuillez réessayer plus tard';
 	exit;
 }
-	
+
 // fonction de requête BDD
 function sendRequest(...$requestFrags) {
 	$request = '';
@@ -79,5 +79,27 @@ function sendToDiscord($url, $content) {
     file_get_contents($url, false, $context);
     restore_error_handler();
 }
+
+// 
+function echo_head_tags($pageName, $description) { ?>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?= $pageName ?> - PokéProf !</title>
+    <link rel="icon" type="image/png" href="assets/icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <script src="include-service-worker.js"></script>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <meta name="language" content="fr" />
+    <meta name="sitename" content="Poképrof !" />
+    <meta name="keywords" content="jeu de cartes en ligne, poképrof, jeu stratégique EISTI, batailles cartes tour par tour, héros déjantés EISTI, profs, élèves, terrains, effets, jeu de cartes humoristique, deck-building en ligne, combat stratégique multijoueur, effets drôles, combats épiques, jeu de stratégie, jeu multijoueur fun, cartes et mana, univers EISTI, fun et stratégie, jeu avec professeurs, jeu étudiant, humour et stratégie" />
+    <meta name="description" content="<?= $description ?>" />
+    <meta name="robots" content="index, follow" />
+    <meta name="copyright" content="© <?= date('Y') ?> Ambi - Tous droits réservés" />
+    <meta name="author" content="Ambi" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="<?= $pageName ?> | PokéProf !" />
+    <meta property="og:description" content="<?= $description ?>" />
+    <meta property="og:image" content="assets/screenshot.jpg" />
+<?php }
 
 ?>
