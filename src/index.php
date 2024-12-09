@@ -15,15 +15,10 @@ $cardsUser = $result->fetch_assoc();
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>PokéProf !</title>
-		<link rel="stylesheet" href="style.css?<?php echo time() ?>" />
-		<link rel="stylesheet" href="index.css?<?php echo time() ?>" />
-		<script src="cards.js?<?php echo time() ?>"></script>
-		<link rel="icon" type="image/png" href="assets/icon.png" />
-		<link rel="manifest" href="manifest.webmanifest" />
-		<script src="include-service-worker.js"></script>
+		<?php echo_head_tags("Accueil", "Poképrof est un jeu de cartes en ligne déjanté où vous incarnez les héros improbables de l'EISTI : profs, élèves, personnel administratif et bien plus. À coups de cartes et d’effets hilarants, dézinguez vos adversaires dans des batailles épiques au tour par tour. Stratégie, chaos et bonne humeur garantis !"); ?>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="index.css" />
+		<script src="cards.js"></script>
 		<script>{// script pour la version mobile/portrait
 		    var classes = ["left","middle","right"];
 		    function onScroll(scroll) {

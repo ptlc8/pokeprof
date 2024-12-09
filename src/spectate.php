@@ -6,14 +6,10 @@ $user = login(false);
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
-		<meta charset="UTF-8" />
-		<title>Jouer | PokéProf</title>
-		<link rel="stylesheet" href="style.css?<?=time()?>" />
+		<?php echo_head_tags("Regarder un match", ""); ?>
+		<link rel="stylesheet" href="style.css" />
 		<link rel="stylesheet" href="play.css" />
-		<script src="/utils.js?2"></script>
-		<script src="cards.js?<?=time()?>"></script>
-		<link rel="icon" type="image/png" href="assets/icon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script src="cards.js"></script>
 	</head>
 	<body>
 		<?php if ($user == null) { ?>

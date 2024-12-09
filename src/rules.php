@@ -4,14 +4,12 @@ include('api/init.php');
 $user = login(false);
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 	<head>
-		<meta charset="UTF-8" />
-		<title>PokéProf: Les Règles !</title>
+		<?php echo_head_tags("Les Règles", "Découvrez les règles de Poképrof et apprenez à dézinguer vos adversaires ! Points de vie, cartes héroïques, effets surprenants : tout ce qu'il faut pour maîtriser ce jeu stratégique et hilarant inspiré de l’univers EISTI."); ?>
 		<link rel="stylesheet" href="style.css" />
 		<link rel="stylesheet" href="rules.css" />
 		<script src="cards.js"></script>
-		<link rel="icon" type="image/png" href="assets/icon.png" />
 	</head>
 	<body>
 		<div id="blur-bg">

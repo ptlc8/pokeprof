@@ -3,12 +3,11 @@ include('api/init.php');
 $user = login(false);
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 	<head>
-		<meta charset="UTF-8" />
-		<title>Galerie de cartes</title>
-		<link rel="stylesheet" href="style.css?<?php echo time() ?>" />
-		<link rel="stylesheet" href="gallery.css?<?php echo time() ?>" />
+		<?php echo_head_tags("Galerie de cartes", "Parcourez la Galerie de Cartes et découvrez les héros déjantés de l’EISTI ! Profs, élèves, effets et terrains : analysez leurs stats, préparez votre deck, et trouvez les cartes parfaites pour écraser vos adversaires. Stratégie et fun garantis !"); ?>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="gallery.css" />
 		<script src="cards.js"></script>
 		<script><!--tmp?-->
 			window.onload = () => {
@@ -19,8 +18,6 @@ $user = login(false);
 				}
 			}
 		</script>
-		<link rel="icon" type="image/png" href="assets/icon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body class="no-x-scroll">
 	    <div class="hollow"></div>

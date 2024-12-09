@@ -4,15 +4,12 @@ $user = login(true);
 $color = dechex(random_int(0, 16777215));
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 	<head>
-		<meta charset="UTF-8" />
-		<title>Création de carte</title>
+		<?php echo_head_tags("Création de carte", "Créez vos propres cartes dans Poképrof ! Donnez vie à vos héros, élèves ou terrains avec des pouvoirs uniques et des effets déjantés. Laissez libre cours à votre imagination et façonnez le jeu à votre image !"); ?>
 		<link rel="stylesheet" href="style.css" />
 		<link rel="stylesheet" href="create.css" />
-		<script src="cards.js?8"></script>
-		<link rel="icon" type="image/png" href="assets/icon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="cards.js"></script>
 	</head>
 	<body>
 		<span class="title">Création</span>
