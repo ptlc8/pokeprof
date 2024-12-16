@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>Jeu à imprimer</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="https://ambi.dev/pokeprof/style.css" />
+		<link rel="stylesheet" href="https://ambi.dev/pokeprof/gallery.css" />
+		<script src="https://ambi.dev/pokeprof/cards.js"></script>
+		<script>
+			backendUrl = "https://ambi.dev/pokeprof/";
+			function setPC(div, PCNumber, PCColor) {
+				div.querySelector(".inner").appendChild(
+					createElement("span", {className:"_ "+PCColor}, [
+						PCNumber + " ",
+						createElement("span", {}, PCColor)
+					])
+				);
+			}
+		</script>
+		<style>
+			html {
+				background-color: #444;
+			}
+			.card-container {
+				width: unset;
+			}
+			.card ._ {
+				position: absolute; right: 2%; bottom: 1%; font-size: 1.4em; color: var(--text-color);
+				text-shadow: .03em .03em 0 whitesmoke, -.03em .03em 0 whitesmoke, -.03em -.03em 0 whitesmoke, .03em -.03em 0 whitesmoke, .05em 0 0 whitesmoke, -.05em 0 0 whitesmoke, 0 -.05em 0 whitesmoke, 0 .05em 0 whitesmoke;
+			}
+			.card ._ span { font-size: 1.2em; }
+			.card { /* 126x176 */
+				width: calc(126px * 5 - 5px * 5) !important;
+				height: calc(176px * 5 - 5px * 5) !important;
+				padding: calc(5px * 5) !important;
+				font-size: calc(5px * 5) !important;
+				border-radius: 0;
+			}
+			.card .inner {
+				padding-bottom: 0;
+				height: 100%;
+				width: 100%;
+				margin: 0;
+			}
+			.card .mana, .card .life {
+				line-height: 2.3;
+			}
+			.card .title {
+				border: .1em solid lightgray;
+				width: calc(93% - .2em);
+			}
+			.card .♥ { color: #ff0000; }
+			.card .♦ { color: #ff8800; }
+			.card .♣ { color: #0088ff; }
+			.card .♠ { color: #000000; }
+			.card .★ { color: #00cc66; }
+		</style>
+	</head>
+	<body class="no-x-scroll">
+	    <div class="hollow"></div>
+		<span class="title">Jeu à imprimer</span>
+		<!--<a href="." id="home-button" class="button">Retourner au menu principal</a>-->
+		<div id="cards"></div>
+		<script>
+			const colors = ['♠', '♥', '♣', '♦', '★', '?'];
+			const types = ['Physique', 'Élève', 'Maths', 'Admin', 'Autres', 'Pas encore attribués'];
+			const B = 'back';
+			const numbers =
+				['A', 'R', 'D', 'V', '10', '9', '8', '7', '6', '5', '4', '3', '2'];
+			var PC = [
+				[ 161,  17,  16, 138, 126,  85, 255,   B,  64,  38,  33,  51, 102 ], // Physique
+				[ 237, 145,  86,  75,  30,  88, 147,  29, 235, 111, 148, 185, 104 ], // Élève // ski, alcoolique
+				[ 178,  37,  23,  26,  20, 201,  50,  72,  11,  71, 200,  47,  32 ], // Maths
+				[  22, 181,  73, 176,  21,   B,   B,   B,  24,  12, 198,  76,  65 ], // Admin
+				[   3, 216 ],
+				[  31 ]
+			];
+			var cardsDiv = document.getElementById('cards');
+			PC.forEach((cards, colorId) => {
+				let color = colors[colorId];
+				let type = types[colorId];
+				cardsDiv.appendChild(createElement('h2', {}, [type + ' ', createElement('big', {}, color)]));
+				cards.forEach(async (id, numberId) => {
+					let number = colorId < 4 ? numbers[numberId] : 'J';
+					let cardDiv;
+					cardsDiv.appendChild(createElement('div', {className: 'card-container'}, [
+						cardDiv = createElement('div', {className: 'card card' + id})
+					]));
+					await setCardElementById(cardDiv, id + (number == 'A' ? 'p' : ''));
+					setPC(cardDiv, number, color);
+					if (id == 51 || id == 73)
+						document.querySelector(`.card${id} .author`).textContent = 'Illus. Martin';
+					if (id == 71)
+						document.querySelector(`.card${id} .author`).textContent = 'Illus. Rojo';
+					if (id == 255 || id == 185)
+						document.querySelector(`.card${id} .author`).textContent = 'Illus. julio';
+					if (id == 21)
+						document.querySelector(`.card${id} .author`).textContent = 'Illus. Tim';
+					if (id == 104)
+						document.querySelector(`.card${id} .author`).textContent = 'Illus. Arthur';
+					if (id == 38 || id == 26)
+						document.querySelector(`.card${id} .author`).textContent = 'Illus. Balan';
+				});
+			});
+		</script>
+	</body>
+</html>

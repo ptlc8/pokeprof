@@ -1,0 +1,91 @@
+<mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-all padding="0px"></mj-all>
+      <mj-class name="preheader" color="#000000" font-size="11px" font-family="Ubuntu, Helvetica, Arial, sans-serif" padding="0px"></mj-class>
+    </mj-attributes>
+    <mj-style inline="inline">a { text-decoration: none; color: inherit; }</mj-style>
+  </mj-head>
+  <mj-body background-color="#e0f2ff">
+    <mj-section background-color="#2a5cab" padding="10px 0">
+      <mj-column width="33%">
+        <mj-image src="https://ambi.dev/pokeprof/assets/icon.png" alt="logo" width="50px" padding="10px 0"></mj-image>
+      </mj-column>
+      <mj-column width="66%">
+        <mj-text align="left" color="#ffffff" font-size="20px" font-family="Lato, Helvetica, Arial, sans-serif" padding="18px 6px">Le jeu de cartes déjanté de l'EISTI</mj-text>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#ffffff" padding-top="20px">
+      <mj-column width="100%">
+        <mj-text align="center" color="#FAB701" font-size="25px" font-family="Lato, Helvetica, Arial, sans-serif" padding="10px 25px"><strong>Salut eistien,
+          </strong></mj-text>
+        <mj-text align="center" color="#EC652D" font-size="18px" font-family="Lato, Helvetica, Arial, sans-serif" padding="10px 30px">
+          Cela fait quelques temps que l'aventure Poképrof s'est arrêtée.
+          <br />
+          Mais nous avons décidé d'imprimer pour nous une version jeu de 54 cartes.
+          <br />
+          Alors si toi aussi tu en veux un c'est possible pour 12€ TTC.
+          <br />
+          La commande sera faite au environ du 20 janvier et les payements devront être faits avant cette date.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#ffffff" padding="20px 0">
+    	<mj-column>
+        <mj-button align="center" background-color="#2a5cab" href="https://docs.google.com/forms/d/e/1FAIpQLSe1ddVKYW77jUS7s0Y5T7mQ1oRv0thtv166aS4dG2IBzFQguQ/viewform?usp=header">
+          Commander
+        </mj-button>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#ffffff" padding-top="20px">
+      <mj-column width="100%">
+        <mj-text align="center" color="#EC652D" font-size="18px" font-family="Lato, Helvetica, Arial, sans-serif" padding="10px 30px">
+          <strong>Jetez un coup d'œil à l'ensemble des cartes dans leur version imprimable !</strong></mj-text>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#ffffff" padding="20px 0">
+      <mj-column>
+        <mj-image src="https://ambi.dev/vrac/A pi.png" alt="Seigneur Boumiz" width="184px" padding="0 25px"></mj-image>
+        <mj-text align="center" color="#EC652D" font-size="20px" font-family="Lato, Helvetica, Arial, sans-serif" vertical-align="top" padding="20px 25px"><strong>Profs de physique</strong> <br />
+          <p style="font-size: 15px;color:#000000;font-weight:bold;">Pique ♠&#xA0;</p>
+        </mj-text>
+      </mj-column>
+      <mj-column>
+        <mj-image src="https://ambi.dev/vrac/A co.png" alt="Voleurs de portes" width="184px" padding="0 25px"></mj-image>
+        <mj-text align="center" color="#EC652D" font-size="20px" font-family="Lato, Helvetica, Arial, sans-serif" vertical-align="top" padding="20px 25px"><strong>Élèves</strong> <br />
+          <p style="font-size: 15px;color:#ff0000;font-weight:bold;">Cœur ♥&#xA0;</p>
+        </mj-text>
+      </mj-column>
+      <mj-column>
+        <mj-image src="https://ambi.dev/vrac/A tr.png" alt="Abo Gaming" width="184px" padding="0 25px"></mj-image>
+        <mj-text align="center" color="#EC652D" font-size="20px" font-family="Lato, Helvetica, Arial, sans-serif" vertical-align="top" padding="20px 25px"><strong>Profs de Maths</strong> <br />
+          <p style="font-size: 15px;color:#0088ff;font-weight:bold;">Trèfle ♣&#xA0;</p>
+        </mj-text>
+      </mj-column>
+      <mj-column>
+        <mj-image src="https://ambi.dev/vrac/V ca.png" alt="Nejib prieur" width="184px" padding="0 25px"></mj-image>
+        <mj-text align="center" color="#EC652D" font-size="20px" font-family="Lato, Helvetica, Arial, sans-serif" vertical-align="top" padding="20px 25px"><strong>Administration</strong> <br />
+          <p style="font-size: 15px;color:#ff8800;font-weight:bold;">Carreau ♦&#xA0;</p>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section  background-color="#ffffff" padding-bottom="20px">
+      <mj-column>
+        <mj-button align="center" background-color="#2a5cab" href="https://ambi.dev/vrac/print-pokeprof.html">
+          Voir toutes les cartes
+        </mj-button>
+      </mj-column>
+    </mj-section>
+    
+    <mj-section background-color="#FAB700" padding="10px">
+      <mj-column vertical-align="top" width="100%">
+        <mj-text align="center" color="#ffffff" font-size="20px" font-family="Lato, Helvetica, Arial, sans-serif" padding="10px 25px">Antoinement, <br /><br /> L'admin Poképrof</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
