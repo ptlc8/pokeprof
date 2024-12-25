@@ -4,7 +4,7 @@ $user = login(true); // init $user and connect or redirect to login
 if (sendRequest("SELECT * FROM CARDSUSERS WHERE id = '", $user['id'], "' AND admin=1")->num_rows <= 0) {
 	exit(header('Location: .'));
 }
-$results = sendRequest("SELECT * FROM CARDS");
+$results = sendRequest("SELECT CARDS.*, CARDSUSERS.name AS author FROM CARDS JOIN CARDSUSERS ON CARDS.authorId = CARDSUSERS.id");
 $allcards = [];
 while (($result = $results->fetch_assoc()) != null) {
 	$card = json_decode($result['infos']);
@@ -18,6 +18,7 @@ while (($result = $results->fetch_assoc()) != null) {
 	$card->winrate = $result['uses']==0 ? -1 : intval($result['wins']*100/$result['uses']);
 	$card->uses = intval($result['uses']);
 	$card->boosterId = $result['boosterId'];
+	$card->author = $result['author'];
 	$card->prestigeable = $result['prestigeable']==1;
 	$allcards[$result['id']] = $card;
 }

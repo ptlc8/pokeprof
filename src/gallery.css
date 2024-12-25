@@ -28,7 +28,7 @@
 	width: 100%;
 	cursor: pointer;
 }
-.card-container .author {
+.card-container > .author {
 	font-size: 1.3em;
 }
 

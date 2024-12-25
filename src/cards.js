@@ -138,6 +138,7 @@ async function setCardElement(div, infos, fullart=false, shiny=false, holo=false
         noText?"":createElement("span", {className:"title"}, infos.name),
         createElement("div", {className:"attacks"}, atks),
         noText?"":createElement("span", {className:"rarity", style:{color:infos.rarity==2?"#ff7f00":infos.rarity==3?"#c000c0":infos.rarity==4?"#40e0d0":"#808080"}}, infos.rarity==1?"commune":infos.rarity==2?"rare":infos.rarity==3?"épique":infos.rarity==4?"légendaire":""),
+		noText?"":createElement("span", {className:"author"}, "Illus. " + infos.author),
         createElement("div", {className:"mana", style:{backgroundImage:"url('assets/mana"+(lum<0.75?"-white":"")+".svg')"}}, infos.cost)
     ]));
     if (infos.type == 'prof') {

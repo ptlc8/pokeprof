@@ -37,7 +37,7 @@ $user = login(false);
 			</div>
 			<?php
 			// affichage des cartes
-			$result = sendRequest("SELECT CARDS.*, CARDSUSERS.name AS author FROM CARDS JOIN CARDSUSERS ON CARDSUSERS.id = CARDS.authorId".(isset($_REQUEST['all'])?"":" WHERE official > '0'")." ORDER BY ".(isset($_REQUEST['all'])?"":"CASE WHEN official >= 2 THEN 1 ELSE 2 END, rarity DESC, ")."id DESC");
+			$result = sendRequest("SELECT CARDS.*, CARDSUSERS.name AS author FROM CARDS JOIN CARDSUSERS ON CARDSUSERS.id = CARDS.authorId".(isset($_REQUEST['all'])?"":" WHERE official > '0'")." ORDER BY ".(isset($_REQUEST['all'])?"":"CASE WHEN official >= 2 THEN 1 ELSE 2 END, uses DESC, rarity DESC, ")."id DESC");
 			while ($card = $result->fetch_assoc()) {
 			    if (isset($_REQUEST['prestige']) && $card['prestigeable']!=1) continue;
 			    $cardIdForClient = $card['id'].(isset($_REQUEST['prestige'])?'p':'').(isset($_REQUEST['shiny'])?'s':'').(isset($_REQUEST['holo'])?'h':'');

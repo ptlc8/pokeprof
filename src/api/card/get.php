@@ -16,7 +16,7 @@ include('../init.php');
 ob_start();
 
 // envoi de la requête
-$result = sendRequest("SELECT * FROM CARDS WHERE id = '", $_REQUEST['card'], "'");
+$result = sendRequest("SELECT CARDS.*, BOOSTERS.name AS booster, CARDSUSERS.name AS author FROM CARDS LEFT JOIN BOOSTERS ON BOOSTERS.id = CARDS.boosterId JOIN CARDSUSERS ON CARDSUSERS.id = CARDS.authorId WHERE CARDS.id = '", $_REQUEST['card'], "'");
 if ($result->num_rows === 0) exit('card doesnt exist');
 
 // oraganisation des résultats
@@ -27,11 +27,8 @@ $cardInfos->name = $card['name'];
 $cardInfos->type = $card['type'];
 $cardInfos->rarity = intval($card['rarity']);
 $cardInfos->date = $card['date'];
-
-$booster = sendRequest("SELECT name FROM BOOSTERS WHERE id = '", intval($card['boosterId']), "'")->fetch_assoc();
-$cardInfos->booster = $booster ? $booster['name'] : "Aucun";
-
-//$cardInfos->image = "data:image/png;base64,".base64_encode($card['image']);
+$cardInfos->booster = $card['booster'] ?? 'Aucun';
+$cardInfos->author = $card['author'];
 
 // affichage du résultat en JSON
 echo(json_encode($cardInfos));

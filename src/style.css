@@ -361,10 +361,11 @@ img.emote, canvas.emote {
 .card .attacks > div { position: relative; }
 .card .attacks .name { font-size: 1.5em; width: 100%; display: block; }
 .card .attacks .damage { font-size: 1.2em; position: absolute; top: 0; margin: .2em; right: 0; }
-.card .attacks > .selectable { border: #d02020 4px solid; cursor: pointer; }
+.card .attacks > .selectable { border: #d02020 .25em solid; cursor: pointer; }
 .card .attacks > .selectable:hover { background-color: rgba(200,200,200,.5); border-color: #ff0000; }
-.card .rarity { position: absolute; left: 25%; width: 50%; bottom: 1%; font-size: 1.5em; text-shadow: 1px 1px 0 whitesmoke, -1px 1px 0 whitesmoke, -1px -1px 0 whitesmoke, 1px -1px 0 whitesmoke; }
-.card .mana, .card .life, .card .shield, .card .strength { position: absolute; width: 23%; height: 17%; background-size: contain; background-position: center; background-repeat: no-repeat; font-size: 2.5em; line-height: 2.1em; text-shadow: 1px 1px 0 var(--text-color2), -1px 1px 0 var(--text-color2), -1px -1px 0  var(--text-color2), 1px -1px 0 var(--text-color2);  color: var(--text-ocolor2); }
+.card .rarity { position: absolute; left: 25%; width: 50%; bottom: 1%; font-size: 1.5em; text-shadow: .03em .03em 0 whitesmoke, -.03em .03em 0 whitesmoke, -.03em -.03em 0 whitesmoke, .03em -.03em 0 whitesmoke; }
+.card .author { position: absolute; left: 2%; bottom: 1%; font-size: .8em; color: var(--text-color2); }
+.card .mana, .card .life, .card .shield, .card .strength { position: absolute; width: 23%; height: 17%; background-size: contain; background-position: center; background-repeat: no-repeat; font-size: 2.5em; line-height: 2.1em; text-shadow: .03em .03em 0 var(--text-color2), -.03em .03em 0 var(--text-color2), -.03em -.03em 0  var(--text-color2), .03em -.03em 0 var(--text-color2);  color: var(--text-ocolor2); }
 .card .mana { top: 0; left: 0; }
 .card .life { top: 0; right: 0; }
 .card .shield { top: 20%; right: 0; }
