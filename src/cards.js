@@ -13,6 +13,7 @@
 //}
 
 var q = 8;
+var backendUrl = "";
 
 /* Les 2 fonctions toujours utiles d'Ambi ;) */
 function sendRequest(method, url, body=undefined, headers={"Content-Type":"application/x-www-form-urlencoded"}) {
@@ -56,14 +57,12 @@ async function getCardInfos(cardId, edit={}) {
 		if (Object.keys(allcards).includes(cardId+'')) {
 			infos = allcards[cardId];
 		} else {
-			/**/if (sessionStorage && sessionStorage.getItem('card'+cardId)) {
-				infos = JSON.parse(sessionStorage.getItem('card'+cardId));
-				//console.log(cardId+" from sessionStorage");
-			} else /**/{
-				let json = await sendRequest("GET", "api/card/get.php?card="+cardId);
+			if (sessionStorage && sessionStorage.getItem('pokeprof.card.'+cardId)) {
+				infos = JSON.parse(sessionStorage.getItem('pokeprof.card.'+cardId));
+			} else {
+				let json = await sendRequest("GET", backendUrl+"api/card/get.php?card="+cardId);
 				infos = JSON.parse(json);
-				//console.log(cardId+" from request")
-				if (sessionStorage) sessionStorage.setItem('card'+cardId, json);
+				if (sessionStorage) sessionStorage.setItem('pokeprof.card.'+cardId, json);
 			}
 			allcards[cardId] = infos;
 		}
@@ -88,7 +87,7 @@ async function getType(typeId) {
 		if (sessionStorage && sessionStorage.getItem("pokeprof.type."+typeId)) {
 			typeInfos = JSON.parse(sessionStorage.getItem("pokeprof.type."+typeId));
 		} else {
-			let types = JSON.parse(await sendRequest("GET", "api/card/getfighterstypes.php"));
+			let types = JSON.parse(await sendRequest("GET", backendUrl+"api/card/getfighterstypes.php"));
             if (sessionStorage) for (let id in types) {
     			sessionStorage.setItem("pokeprof.type."+id, JSON.stringify(types[id]));
             }
@@ -133,21 +132,21 @@ async function setCardElement(div, infos, fullart=false, shiny=false, holo=false
     div.style.setProperty('--text-color2', textColor2);
     div.style.setProperty('--text-ocolor2', textColor2=="black"?"whitesmoke":"black");
     let inner;
-    div.appendChild(inner = createElement("div", {className:"inner"+(shiny?" shiny":"")+(holo?" holo":""), style:fullart?{backgroundColor:infos.color,backgroundImage:"url('"+(infos.image?infos.image.src:"assets/cards/"+parseInt(infos.id)+".png")+"')"}:{backgroundColor:infos.color}}, [
-        createElement("span", {className:"image", style:fullart?{}:{backgroundImage:"url('"+(infos.image?infos.image.src:"assets/cards/"+parseInt(infos.id)+".png")+"')"}}),
+    div.appendChild(inner = createElement("div", {className:"inner"+(shiny?" shiny":"")+(holo?" holo":""), style:fullart?{backgroundColor:infos.color,backgroundImage:"url('"+(infos.image?infos.image.src:backendUrl+"assets/cards/"+parseInt(infos.id)+".png")+"')"}:{backgroundColor:infos.color}}, [
+        createElement("span", {className:"image", style:fullart?{}:{backgroundImage:"url('"+(infos.image?infos.image.src:backendUrl+"assets/cards/"+parseInt(infos.id)+".png")+"')"}}),
         noText?"":createElement("span", {className:"title"}, infos.name),
         createElement("div", {className:"attacks"}, atks),
         noText?"":createElement("span", {className:"rarity", style:{color:infos.rarity==2?"#ff7f00":infos.rarity==3?"#c000c0":infos.rarity==4?"#40e0d0":"#808080"}}, infos.rarity==1?"commune":infos.rarity==2?"rare":infos.rarity==3?"épique":infos.rarity==4?"légendaire":""),
 		noText?"":createElement("span", {className:"author"}, "Illus. " + infos.author),
-        createElement("div", {className:"mana", style:{backgroundImage:"url('assets/mana"+(lum<0.75?"-white":"")+".svg')"}}, infos.cost)
+        createElement("div", {className:"mana", style:{backgroundImage:"url('"+backendUrl+"assets/mana"+(lum<0.75?"-white":"")+".svg')"}}, infos.cost)
     ]));
     if (infos.type == 'prof') {
-        inner.appendChild(createElement("div", {className:"life", style:{backgroundImage:"url('assets/heart"+(lum<0.75?"-white":"")+".svg')"}}, !infos.hpmax?infos.hp:[
+        inner.appendChild(createElement("div", {className:"life", style:{backgroundImage:"url('"+backendUrl+"assets/heart"+(lum<0.75?"-white":"")+".svg')"}}, !infos.hpmax?infos.hp:[
             createElement("span", {}, infos.hp),
             createElement("span", {className:"max"}, infos.hpmax)
         ]));
-        if (infos.shield) inner.appendChild(createElement("div", {className:"shield", style:{backgroundImage:"url('assets/shield"+(lum<0.75?"-white":"")+".svg')"}}, infos.shield));
-        if (infos.strength) inner.appendChild(createElement("div", {className:"strength", style:{backgroundImage:"url('assets/fist"+(lum<0.75?"-white":"")+".svg')"}}, infos.strength));
+        if (infos.shield) inner.appendChild(createElement("div", {className:"shield", style:{backgroundImage:"url('"+backendUrl+"assets/shield"+(lum<0.75?"-white":"")+".svg')"}}, infos.shield));
+        if (infos.strength) inner.appendChild(createElement("div", {className:"strength", style:{backgroundImage:"url('"+backendUrl+"assets/fist"+(lum<0.75?"-white":"")+".svg')"}}, infos.strength));
         //inner.appendChild(createElement("span", {className:"proftype"}, infos.proftype=='math'?'Maths':infos.proftype=='physik'?'Physique':infos.proftype=='info'?'Informatique':infos.proftype=='lang'?'Langue':infos.proftype=='admin'?'Administration':infos.proftype=='student'?'Élève':infos.proftype=='asso'?'Association':infos.proftype));
         if(!noText) {
             let proftypes = "";
@@ -247,18 +246,18 @@ async function getStrengthURL(color="") {
 /* Création d'un element de booster */
 // boosterId peut être un id numerique, null, "booster" ou "parcel"
 function createBoosterElement(boosterId=null, properties={}, eventListeners={}) {
-	var boosterURL = boosterId == "parcel" ? "assets/parcel.webp"
-		: boosterId ? "assets/boosters/"+boosterId+".png"
-		: "assets/booster.webp";
+	var boosterURL = boosterId == "parcel" ? backendUrl+"assets/parcel.webp"
+		: boosterId ? backendUrl+"assets/boosters/"+boosterId+".png"
+		: backendUrl+"assets/booster.webp";
 	return createElement("div", {...properties, className: "booster " + (properties.className??""), style: {...properties.style, backgroundImage: "url('"+boosterURL+"')"}}, [
-		createElement("img", {src: "assets/booster-overlay.webp"})
+		createElement("img", {src: backendUrl+"assets/booster-overlay.webp"})
 	], eventListeners);
 }
 
 
 /* dessin des cartes sur canvas (déprécié) */
 async function drawCard(cvs, infos) {
-	let imgSrc = "assets/cards/"+infos.id+".png";//infos.image;
+	let imgSrc = backendUrl+"assets/cards/"+infos.id+".png";
 	let name = infos.name;
 	let type = infos.type;
 	let color = infos.color;
@@ -433,7 +432,7 @@ async function drawCard(cvs, infos) {
 }
 function drawCardBack(cvs) {
 	var back = new Image();
-	back.src = 'assets/back.png';
+	back.src = backend+'assets/back.png';
 	back.onload = () => copyCard(back, cvs);
 }
 function copyCard(from, to) {
@@ -671,7 +670,7 @@ function displayTuto(message, data={}) { // message, {button=undefined, show=[],
                 tutorialDiv.parentElement.removeChild(tutorialDiv);
             }
             document.body.appendChild(tutorialDiv = createElement("div", {id:"tutorial", className:"tutorial"+(data.left?" left":"")}, [
-                createElement("img", {src:"assets/tuto-"+(data.speaker||"abo")+".png",className:"speaker"}),
+                createElement("img", {src:backendUrl+"assets/tuto-"+(data.speaker||"abo")+".png",className:"speaker"}),
                 message?createElement("div", {className:"bubble"}, [
                     createElement("span", {className:"message"}, message),
                     data.button?createElement("span", {className:"button"}, data.button, {click:function(){resolve();}}):""
@@ -778,7 +777,7 @@ function updateCardEffects(cardDiv, card) {
 // Chargement à appeler pour afficher un logo de chargement ou le retirer
 function displayLoading(promise=undefined) {
     if (!document.getElementById("loading"))
-        document.body.appendChild(createElement("img", {id:"loading", src:"assets/arel.svg"}));
+        document.body.appendChild(createElement("img", {id:"loading", src:backendUrl+"assets/arel.svg"}));
     if (promise)
         promise.finally(removeLoading).catch(console.error);
     return promise;
