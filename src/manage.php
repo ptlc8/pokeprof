@@ -230,7 +230,7 @@ while (($result = $results->fetch_assoc()) != null) {
 			    }
 			    //Modif Léo: rmplacement de original.types par original.type
 			    if (editing.origin=="undefined") delete editing.origin;
-			    if (official) pushBody +="&official="+official;
+			    if (official!==undefined) pushBody +="&official="+official;
 			    if (editing.name!=original.name) pushBody += "&name="+encodeURIComponent(editing.name);
 			    if (editing.cost!=original.cost) pushBody += "&cost="+editing.cost;
 			    if (editing.color!=original.color) pushBody += "&color="+encodeURIComponent(editing.color);
