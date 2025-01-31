@@ -22,7 +22,7 @@ $color = dechex(random_int(0, 16777215));
 			<fieldset id="infos"><legend>Informations de la carte</legend><form onchange="refresh(this)">
 				<input type="text" name="name" placeholder="Nom" />
 				<br />
-				<input type="color" name="color" value="#<?php echo $color; ?>" /><label for="color">Couleur de la carte</label>
+				<input type="color" name="color" value="#<?= $color; ?>" /><label for="color">Couleur de la carte</label>
 				<br />
 				<!--<input type="text" name="imgSrc" placeholder="URL de l'image" value="" onchange="loadImageFromUrl(this.value, form);" />
 				<br />-->
@@ -83,10 +83,33 @@ $color = dechex(random_int(0, 16777215));
 				var imageBlob = undefined;
 				window.onload = () => {
 					loadImageFromUrl('assets/cards/undefined.png');
-					setCardElement(view, {image:{src:"assets/cards/undefined.png"}, name:"Nom de la carte", type:"prof", color:"#<?php echo $color; ?>", cost:3, hp:"40", types:["Type"], atk1:{name:"Attaque 1", desc:"", dama:"20"}, atk2:{name:"", desc:"", dama:""}});
+					setCardElement(view, {
+						image: {src:"assets/cards/undefined.png"},
+						name: "Nom de la carte",
+						type: "prof",
+						color: "#<?= $color; ?>",
+						cost: 3,
+						hp: "40",
+						types: ["Type"],
+						atk1: {name:"Attaque 1", desc:"", dama:"20"},
+						atk2: {name:"", desc:"", dama:""},
+						author: <?= json_encode($user['name']) ?>
+					});
 				}
 				function refresh(form) {
-					setCardElement(view, {image:image, name:form.name.value, type:form.cardtype.value, color:form.color.value, cost:form.invo.value, hp:form.hp.value, atk1:{name:form.atk1Name.value, desc:form.atk1Desc.value, dama:form.atk1Dama.value}, atk2:{name:form.atk2Name.value, desc:form.atk2Desc.value, dama:form.atk2Dama.value}, rarity:form.rarity.value, types:getMultiSelectValue(document.getElementById("fightertypesmultiselect"))});
+					setCardElement(view, {
+						image: image,
+						name: form.name.value,
+						type: form.cardtype.value,
+						color: form.color.value,
+						cost: form.invo.value,
+						hp: form.hp.value,
+						atk1: {name:form.atk1Name.value, desc:form.atk1Desc.value, dama:form.atk1Dama.value},
+						atk2: {name:form.atk2Name.value, desc:form.atk2Desc.value, dama:form.atk2Dama.value},
+						rarity: form.rarity.value,
+						types: getMultiSelectValue(document.getElementById("fightertypesmultiselect")),
+						author: <?= json_encode($user['name']) ?>
+					});
 				}
 				function save(form) {
 					if (!form.image.files || !form.image.files[0]) {
