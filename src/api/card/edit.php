@@ -81,7 +81,7 @@ foreach ($usersId as $id) {
 }
 
 // envoi d'un message dans le salon Discord #patch-notes
-if (defined('POKEPROF_WEBHOOK_CARD_EDIT') && !empty(POKEPROF_WEBHOOK_CARD_EDIT)) {
+if (get_config('POKEPROF_WEBHOOK_CARD_EDIT')) {
 	if (intval($card['official'])>0 || (isset($_REQUEST['official']) && intval($_REQUEST['official'])>0)) {
 		set_error_handler(function() { /* ignore errors */ });
 		$official = isset($_REQUEST['official']) ? intval($_REQUEST['official']) : 1;
@@ -117,7 +117,7 @@ if (defined('POKEPROF_WEBHOOK_CARD_EDIT') && !empty(POKEPROF_WEBHOOK_CARD_EDIT))
 		        'content' => http_build_query(array('content' => $content))
 		    )
 		));
-		file_get_contents(POKEPROF_WEBHOOK_CARD_EDIT, false, $context);
+		file_get_contents(get_config('POKEPROF_WEBHOOK_CARD_EDIT'), false, $context);
 		restore_error_handler();
 	}
 }

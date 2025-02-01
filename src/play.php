@@ -4,9 +4,9 @@ include('api/init.php');
 $user = login(true);
 // transfert d'erreur s'il y en a une
 if (isset($_REQUEST['error'])) {
-	if (defined('POKEPROF_WEBHOOK_ERROR') && !empty(POKEPROF_WEBHOOK_ERROR)) {
+	if (get_config('POKEPROF_WEBHOOK_ERROR')) {
     	$content = '__Erreur JS (play.php) : **'.$_REQUEST['error'].'**__'."\n".'Ligne : '.(!isset($_REQUEST['line'])||$_REQUEST['line']==''?'???':$_REQUEST['line'])."\n".'Fichier : '.(!isset($_REQUEST['file'])||$_REQUEST['file']==''?'???':$_REQUEST['file'])."\n".'Stack : '.(!isset($_REQUEST['stack'])||$_REQUEST['stack']==''?'???':$_REQUEST['stack']);
-    	sendToDiscord(POKEPROF_WEBHOOK_ERROR, $content);
+    	sendToDiscord(get_config('POKEPROF_WEBHOOK_ERROR'), $content);
 	}
     exit(header('Location: play.php'));
 }

@@ -1,9 +1,17 @@
 <?php
 
-include('credentials.php');
+// si le fichier credentials.php existe, on l'inclut
+@include('credentials.php');
+
+// obtention d'une variable de configuration
+function get_config($name) {
+    if (defined($name) && !empty(constant($name)))
+            return constant($name);
+    return getenv($name) ?? null;
+}
 
 // initialisation BDD
-$mysqli = new mysqli(DB_HOSTNAME, DB_USER, DB_PASSWORD, DB_NAME);
+$mysqli = new mysqli(get_config('DB_HOSTNAME'), get_config('DB_USER'), get_config('DB_PASSWORD'), get_config('DB_NAME'));
 if ($mysqli->connect_errno) {
 	echo 'Erreur de connexion côté serveur, veuillez réessayer plus tard';
 	exit;
@@ -11,13 +19,13 @@ if ($mysqli->connect_errno) {
 
 // fonction de requête BDD
 function sendRequest(...$requestFrags) {
+    global $mysqli;
 	$request = '';
 	$var = false;
 	foreach ($requestFrags as $frag) {
-		$request .= ($var ? str_replace(array('\\', '\''), array('\\\\', '\\\''), $frag) : $frag);
+		$request .= ($var ? $mysqli->real_escape_string($frag) : $frag);
 		$var = !$var;
 	}
-	global $mysqli;
 	if (!$result = $mysqli->query($request)) {
 		echo 'Erreur de requête côté serveur, veuillez réessayer plus tard<br>'.$request;
 		exit;
@@ -59,9 +67,9 @@ function login($redirect_to_login=false) {
 function getUser($token) {
     if (!isset($token)) return null;
     $context = null;
-    if (defined('PORTAL_OVERRIDE_HOST') && !empty(PORTAL_OVERRIDE_HOST))
-        $context = stream_context_create([ 'http' => [ 'header' => 'Host: '.PORTAL_OVERRIDE_HOST ] ]);
-    $response = file_get_contents(PORTAL_USER_URL.$token, false, $context);
+    if (get_config('PORTAL_OVERRIDE_HOST'))
+        $context = stream_context_create([ 'http' => [ 'header' => 'Host: '.get_config('PORTAL_OVERRIDE_HOST') ] ]);
+    $response = file_get_contents(get_config('PORTAL_USER_URL').$token, false, $context);
     if ($response === false) return null;
     return json_decode($response, true);
 }
@@ -80,7 +88,7 @@ function sendToDiscord($url, $content) {
     restore_error_handler();
 }
 
-// 
+// écriture des meta-tags de base
 function echo_head_tags($pageName, $description) { ?>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -2,7 +2,7 @@ services:
   web-server:
     build:
       context: .
-      dockerfile: ./Dockerfile.web-server
+      dockerfile: ./web-server.Dockerfile
     volumes:
       - ${POKEPROF_ASSETS_PATH:-./src/assets}/cards:/usr/local/apache2/htdocs/assets/cards:ro
       - ${POKEPROF_ASSETS_PATH:-./src/assets}/boosters:/usr/local/apache2/htdocs/assets/boosters:ro
@@ -16,7 +16,7 @@ services:
   fast-cgi:
     build:
       context: .
-      dockerfile: ./Dockerfile.fast-cgi
+      dockerfile: ./fast-cgi.Dockerfile
     volumes:
       - ${POKEPROF_ASSETS_PATH:-./src/assets}/cards:/var/www/html/assets/cards:rw
       - ${POKEPROF_ASSETS_PATH:-./src/assets}/boosters:/var/www/html/assets/boosters:rw
@@ -40,12 +40,10 @@ services:
       - database
     restart: always
   database:
-    image: mariadb:${MARIADB_VERSION:-10.11}
+    build: ./database
     expose:
       - 3306
     volumes:
-      - ./mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf:ro
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - database-data:/var/lib/mysql
     environment:
       MARIADB_ROOT_PASSWORD: super_secret

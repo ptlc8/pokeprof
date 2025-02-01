@@ -152,14 +152,14 @@ if ($end) {
         	save($match, $matchId);
         }
     } catch(Throwable $e) {
-		if (defined('POKEPROF_WEBHOOK_ERROR') && !empty(POKEPROF_WEBHOOK_ERROR)) {
+		if (get_config('POKEPROF_WEBHOOK_ERROR')) {
 			$content = '';
 			do {
 				$content .= '__**'.$e->getMessage().'**__ dans '.$e->getFile().' (ligne '.$e->getLine().')'.PHP_EOL.$e->getTraceAsString();
 				if ($e->getPrevious() != null)
 					$content .= PHP_EOL.'Caused by ';
 			} while(($e=$e->getPrevious()) != null);
-			sendToDiscord(POKEPROF_WEBHOOK_ERROR, $content);
+			sendToDiscord(get_config('POKEPROF_WEBHOOK_ERROR'), $content);
 		}
 		
     }

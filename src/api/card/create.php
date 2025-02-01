@@ -55,7 +55,7 @@ if (!in_array("@🧩 Créateur de cartes", $tags)) {
 }
 
 // envoi d'un message dans le salon Discord #cartes-créées
-if (defined('POKEPROF_WEBHOOK_CARD_CREATE') && !empty(POKEPROF_WEBHOOK_CARD_CREATE)) {
+if (get_config('POKEPROF_WEBHOOK_CARD_CREATE')) {
 	set_error_handler(function() { /* ignore errors */ });
 	$context  = stream_context_create(array(
 		'http' => array(
@@ -64,7 +64,7 @@ if (defined('POKEPROF_WEBHOOK_CARD_CREATE') && !empty(POKEPROF_WEBHOOK_CARD_CREA
 		    'content' => http_build_query(array('content' => '**'.$user['name'].'** a créé une carte ***'.$_REQUEST['name'].'*** ('.$_REQUEST['type'].', '.$_REQUEST['cost'].' manas, *'.($_REQUEST['atk1name']??'').'*, *'.($_REQUEST['atk2name']??'').'*)'."\n".implode("\n",array_map(function($line){return '> '.$line;},explode("\n",$_REQUEST['origin'])))))
 		)
 	));
-	file_get_contents(POKEPROF_WEBHOOK_CARD_CREATE, false, $context);
+	file_get_contents(get_config('POKEPROF_WEBHOOK_CARD_CREATE'), false, $context);
 	restore_error_handler();
 }
 
